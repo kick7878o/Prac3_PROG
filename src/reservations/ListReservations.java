@@ -3,10 +3,10 @@
  * This class is made for storing a list of reservations
  * 
  * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
- */
+*/
 package reservations;
 
- /** NOTES TO BE ELIMINATED AFTER:
+/** NOTES TO BE ELIMINATED AFTER:
   * CHECK: places avaliable when making the reservation
   * STORE: reservation code - userName - workshop code
   * MODIFY: decrease the number of places left for that workshop
@@ -21,7 +21,7 @@ package reservations;
   * POSSIBLE ERRORS:
   *   Workshop selected on its full capacity
   *   
-  */
+*/
 public class ListReservations {
    private Reservation[] lisRes; // List of reservations
    private int nElem; // Number of elements from the list
