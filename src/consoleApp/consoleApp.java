@@ -12,41 +12,58 @@
 package consoleApp;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.CacheRequest;
-import java.util.Scanner;
+import java.util.*;
 
 public class consoleApp {
    // Declaration of keyboard readers
    private static Scanner keyboard = new Scanner(System.in); // reads from keyboard
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-   public static void main(String[] args) {
-		do {
-			switch () {
-				case  1: option1();   break;
-				case  2: option2();   break;
-				case  3: option3();   break;
-				case  4: option4();   break;
-				case  5: option5();   break;
-				case  6: option6();   break;
-				case  7: option7();   break;
-				case  8: option8();   break;
-				case  9: option9();   break;
-				case 10: option10();  break;
-				case 11: option11();  break;
-				case 12: option12();  break;
-				case 13: option13();  break;
-				case 14: option14();  break;
-				case 15: option15();  break;
-				default: System.out.println("\n\n\tNumero introducido fuera de rango.\n\n"); break;
+   public static void main(String[] args) throws IOException{
+		boolean exit = false;
+
+			while (!exit) {
+				try {
+					menu();
+					int opt = Integer.parseInt(keyboard.next());
+					switch (opt) {
+						// We use '->' to remove the need of adding a 'break;' after each case
+						case  1 -> Show_DataList();
+						case  2 -> Show_ActivitiesFromEntity();  
+						case  3 -> Show_ActivitiesXDay();  
+						case  4 -> Show_WorkshopListWSpots();  
+						case  5 -> Add_Activity();  
+						case  6 -> Register_UserReservation();  
+						case  7 -> Show_UsersFromWorkshop();  
+						case  8 -> Highest_UserReservation();  
+						case  9 -> Register_PunctuationFromUserAfterworkshop();  
+						case 10 -> Calculate_AverageWorkshop(); 
+						case 11 -> Most_SuccessfulWorkshop(); 
+						case 12 -> Show_VisitListFromEntity(); 
+						case 13 -> Show_TalkData(); 
+						case 14 -> Cancel_Workshop(); 
+						case 15 -> exit = true; 
+						default -> wrongOption(); // If we insert a wrong number, it'll show a msg error
+					}
+				} catch (NumberFormatException e) { // We catch an input other than a number
+					System.out.println("\n\n  ____ You have to write a number ____\n");
+					continue;
+				} catch (NoSuchElementException e) { // We catch the force shut down of the program
+					System.out.println("\n\n¡¡¡ U have forced the end of the program, data might be lost !!!\n\n");
+					exit = true;
+				}
 			}
-		}while();
+			// We close everything we used to free memory
+			keyboard.close();
+			br.close();
+			// ...
    }
 
-	// Method that displays the menu
+	/** Method that displays the menu */
    private static void menu() {
-		System.out.println("\n\n\nMenu options:\n");
+		System.out.println("\n\n\n========== Menu options ==========\n");
 		System.out.println("   1. Show data from a list.");
 		System.out.println("   2. Show the activity list from a specific entity.");
 		System.out.println("   3. Show the activity list from a given day.");
@@ -63,5 +80,25 @@ public class consoleApp {
 		System.out.println("  14. Cancel a workshop.");
 		System.out.println("  15. End Program");
 		System.out.print("\n\tChoose option: ");
+	}
+
+	private static void Show_DataList(){}
+	private static void Show_ActivitiesFromEntity(){}
+	private static void Show_ActivitiesXDay(){}
+	private static void Show_WorkshopListWSpots(){}
+	private static void Add_Activity(){}
+	private static void Register_UserReservation(){}
+	private static void Show_UsersFromWorkshop(){}
+	private static void Highest_UserReservation(){}
+	private static void Register_PunctuationFromUserAfterworkshop(){}
+	private static void Calculate_AverageWorkshop(){}
+	private static void Most_SuccessfulWorkshop(){}
+	private static void Show_VisitListFromEntity(){}
+	private static void Show_TalkData(){}
+	private static void Cancel_Workshop(){}
+	
+	/** Method that indicates that the input number is wrong */
+	private static void wrongOption(){
+		System.out.println("\n\n  ¡¡¡ Incorrect number. Write one between 1 and 15 !!! \n\n");
 	}
 }
