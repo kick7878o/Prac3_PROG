@@ -22,12 +22,12 @@ public class consoleApp {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
    public static void main(String[] args) throws IOException{
-		boolean exit = false;
+		boolean exit = false; // Boolean to handle if the user wants to end the program
 
-			while (!exit) {
+			do {
 				try {
 					menu();
-					int opt = Integer.parseInt(keyboard.next());
+					int opt = Integer.parseInt(keyboard.next()); // user's input
 					switch (opt) {
 						// We use '->' to remove the need of adding a 'break;' after each case
 						case  1 -> Show_DataList();
@@ -54,7 +54,9 @@ public class consoleApp {
 					System.out.println("\n\n¡¡¡ U have forced the end of the program, data might be lost !!!\n\n");
 					exit = true;
 				}
-			}
+			} while (!exit);
+			System.out.println("\n\n\n=============== THE END ===============\n\n\n");
+			
 			// We close everything we used to free memory
 			keyboard.close();
 			br.close();
