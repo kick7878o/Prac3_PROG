@@ -22,14 +22,18 @@ public class consoleApp {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
    public static void main(String[] args) throws IOException{
-		boolean exit = false; // Boolean to handle if the user wants to end the program
+		// Initialization of the data structures
+		// ...
 
+		boolean exit = false; // Boolean to handle if the user wants to end the program
+			// Main loop
 			do {
 				try {
 					menu();
 					int opt = Integer.parseInt(keyboard.next()); // user's input
 					switch (opt) {
 						// We use '->' to remove the need of adding a 'break;' after each case
+						// Important note: can't add more than 1 instruction to each case
 						case  1 -> Show_DataList();
 						case  2 -> Show_ActivitiesFromEntity();  
 						case  3 -> Show_ActivitiesXDay();  
@@ -47,14 +51,18 @@ public class consoleApp {
 						case 15 -> exit = true; 
 						default -> wrongOption(); // If we insert a wrong number, it'll show a msg error
 					}
-				} catch (NumberFormatException e) { // We catch an input other than a number
-					System.out.println("\n\n  ____ You have to write a number ____\n");
-					continue;
+				} catch (NumberFormatException e) { // We catch another input different from a number
+					System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
 				} catch (NoSuchElementException e) { // We catch the force shut down of the program
 					System.out.println("\n\n¡¡¡ U have forced the end of the program, data might be lost !!!\n\n");
 					exit = true;
 				}
 			} while (!exit);
+
+			// Ask if the user wants to save everything that was modified
+			// ...
+
+			// We show a msg to indicate that the program has ended
 			System.out.println("\n\n\n=============== THE END ===============\n\n\n");
 			
 			// We close everything we used to free memory
