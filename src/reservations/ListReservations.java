@@ -11,9 +11,6 @@ public class ListReservations {
    private int nElem; // Number of elements from the list
    private static final short INIT_CAPACITY = 10; // Initial array capacity
 
-   // NOTE2SELF: maybe it's way better to define a size
-   //  and make it bigger if necessary.
-
    /** Constructor to make the list
     * 
    */

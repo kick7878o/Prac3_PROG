@@ -10,22 +10,6 @@ package reservations;
 
 import activities.Workshop;
 
-/** NOTES TO BE ELIMINATED AFTER:
-  * CHECK: places avaliable when making the reservation
-  * STORE: reservation code - userName - workshop code
-  * MODIFY: decrease the number of places left for that workshop
-  *   (modification in reservations or workshop?)
-  * AFTER WORKSHOP: ask satisfaction level [0-10].
-  *   STORE: in Reservation.java
-  *   MODIFY: sum of punctuations for that workshop,
-  *           number of ppl that punctuated (not everyone has to)
-  *
-  * XTRA: make a serialized file
-  *
-  * POSSIBLE ERRORS:
-  *   Workshop selected on its full capacity
-  *
-*/
 public class Reservation {
    private int idRes; // ID reservation
    private int rateLvl; // Satisfaction level between 1-10 (included)
@@ -73,4 +57,21 @@ public class Reservation {
     * @param rateLvl satisfaction level
    */
    public void setRateLvl(int rateLvl) { this.rateLvl = rateLvl; }
+
+   /** Method that duplicates an instance of Reservation
+    * @return duplicate
+    */
+   public Reservation copyResv() {
+      return new Reservation(idRes, null, workshop, rateLvl);
+   }
+
+   /** Method that displays the data of the instance Reservation
+    * @return String with the data
+    */
+   public String toString() {
+      return "Reservation ID: " +idRes+ "\n" +
+             "User: " +user+ "\n" +
+             "Workshop: " +workshop+ "\n" +
+             "Satisfaction level: " +rateLvl+ "\n";
+   }
 }
