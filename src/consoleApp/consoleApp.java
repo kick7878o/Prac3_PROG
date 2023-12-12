@@ -49,7 +49,7 @@ public class consoleApp {
 						case 13 -> Show_TalkData(); 
 						case 14 -> Cancel_Workshop(); 
 						case 15 -> exit = true; 
-						default -> wrongOption(); // If we insert a wrong number, it'll show a msg error
+						default -> wrongOption(); // If we insert a wrong number, it'll show a msg
 					}
 				} catch (NumberFormatException e) { // We catch another input different from a number
 					System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");

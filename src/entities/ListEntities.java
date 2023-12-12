@@ -13,10 +13,6 @@ public class ListEntities {
         return nElem;
     }
 
-    public void setnElem(int nElem) {
-        this.nElem = nElem;
-    }
-
     public String toString() {
         String aux = "Entity List => Elements: " +nElem+ "\n";
   
