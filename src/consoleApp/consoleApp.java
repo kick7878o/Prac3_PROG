@@ -5,7 +5,7 @@
  *  between 10 and 19 of November of 2023.
  * 
  * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
- * @author XXXX (xxxx.xxxx@estudiants.urv.cat)
+ * @author Juan Carlos Medinilla Alonso (juancarlos.medinilla@estudiants.urv.cat)
  * @author YYYY (yyyy.yyyy@estudiants.urv.cat)
  * @author ZZZZ (zzzz.zzzz@estudiants.urv.cat)
  */
