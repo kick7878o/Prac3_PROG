@@ -12,7 +12,7 @@ public class ListReservations {
    private static final short INIT_CAPACITY = 10; // Initial array capacity
 
    /** Constructor to make the list
-    * 
+    * NOTE: we make an initial size then we resize it if necessary
    */
    public ListReservations() {
       listRes = new Reservation[INIT_CAPACITY];

@@ -1,5 +1,5 @@
 package activities;
-public class Visites extends Activitats{
+public class Visites extends Activitats {
 	private boolean audioguia;
 	private boolean adaptat;
 	

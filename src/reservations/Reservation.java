@@ -62,7 +62,7 @@ public class Reservation {
     * @return duplicate
     */
    public Reservation copyResv() {
-      return new Reservation(idRes, null, workshop, rateLvl);
+      return new Reservation(idRes, user, workshop, rateLvl);
    }
 
    /** Method that displays the data of the instance Reservation
