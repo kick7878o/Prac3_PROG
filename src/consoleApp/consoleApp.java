@@ -5,7 +5,7 @@
  *  between 10 and 19 of November of 2023.
  * 
  * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
- * @author XXXX (xxxx.xxxx@estudiants.urv.cat)
+ * @author Juan Carlos Medinilla Alonso (juancarlos.medinilla@estudiants.urv.cat)
  * @author YYYY (yyyy.yyyy@estudiants.urv.cat)
  * @author ZZZZ (zzzz.zzzz@estudiants.urv.cat)
  */
@@ -49,7 +49,7 @@ public class consoleApp {
 						case 13 -> Show_TalkData(); 
 						case 14 -> Cancel_Workshop(); 
 						case 15 -> exit = true; 
-						default -> wrongOption(); // If we insert a wrong number, it'll show a msg error
+						default -> wrongOption(); // If we insert a wrong number, it'll show a msg
 					}
 				} catch (NumberFormatException e) { // We catch another input different from a number
 					System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
