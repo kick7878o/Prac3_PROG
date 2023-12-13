@@ -1,22 +1,21 @@
 package activities;
 public class Visites extends Activitats{
-	private String espai;
 	private boolean audioguia;
 	private boolean adaptat;
 	
 	
-	public Visites (String entitat, String nomActivitat, String lloc, String codiPostal, String dia, boolean audio, boolean adap) {
-		super(entitat, nomActivitat, lloc, codiPostal, dia);
+	public Visites (String nomEntitat, String nomActivitat, String lloc, String codiPostal, String dia, boolean audio, boolean adap) {
+		super(nomEntitat, nomActivitat, lloc, codiPostal, dia);
 		audioguia=audio;
 		adaptat= adap;
 	}
 
-	public String getEspai() {
-		return espai;
+	public String getNomEntitat(){
+		return nomEntitat;
 	}
 
-	public void setEspai(String espai) {
-		this.espai = espai;
+	public void setNomEntitat(String nom){
+		nomEntitat=nom;
 	}
 
 	public boolean getAudioguia(){
@@ -34,6 +33,8 @@ public class Visites extends Activitats{
 	public void setAdaptat(boolean adaptat){
 		this.adaptat=adaptat;
 	}
+
+
 	
 	public Visites copia() {
 		return new Visites(nomEntitat, nomActivitat, lloc, codiPostal, dia, audioguia, adaptat);
