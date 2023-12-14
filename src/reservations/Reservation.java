@@ -56,6 +56,7 @@ public class Reservation {
    public int getRateLvl() { return rateLvl; }
    /** Method to set the satisfaction level
     * @param rateLvl satisfaction level
+    * @throws NegativeNumber if the value is negative 
    */
    public void setRateLvl(int rateLvl) { this.rateLvl = rateLvl; }
 
