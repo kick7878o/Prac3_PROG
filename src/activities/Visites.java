@@ -82,7 +82,12 @@ public class Visites extends Activitats {
 		return new Visites(nomEntitat, nomActivitat, lloc, codiPostal, dia, audioguia, adaptat);
 	}
 	
-	
-	
-	
+	public String toString() {
+          if (adaptat)
+               return super.toString() + "Audioguia: " + audioguia + "\n" +
+                       "Adaptat: Si\n";
+          else
+               return super.toString() + "Audioguia: " + audioguia + "\n" +
+                       "Adaptat: No\n";
+     }
 }

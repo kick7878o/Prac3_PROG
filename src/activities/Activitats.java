@@ -46,4 +46,13 @@ public class Activitats {
 	public Activitats copia() {
 		return new Activitats(nomEntitat, nomActivitat, lloc, codiPostal, dia);
 	}
+
+    public String toString() {
+        return "Codi: " + codiActivitat + "\n" +
+                "Entitat: " + nomEntitat + "\n" +
+                "Activitat: " + nomActivitat + "\n" +
+                "Lloc: " + lloc + "\n" +
+                "Codi postal: " + codiPostal + "\n" +
+                "Dia: " + dia + "\n";
+    }
 }

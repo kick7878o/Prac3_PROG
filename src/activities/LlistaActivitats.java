@@ -84,4 +84,12 @@ public class LlistaActivitats {
             } else
                 i++;
     }
+
+    public String toString() {
+        String str = "";
+        for (int i = 0; i < nElem; i++) 
+            str += llista[i].toString() + "\n";
+        
+        return str;
+    }
 }

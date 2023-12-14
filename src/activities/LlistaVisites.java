@@ -87,7 +87,12 @@ public class LlistaVisites {
             } else
                 i++;
     }
-}
 
-
+    public String toString() {
+        String resultat = "";
+        for (int i = 0; i < nElem; i++) 
+            resultat += llista[i].toString() + "\n";
         
+        return resultat;
+    }
+}
