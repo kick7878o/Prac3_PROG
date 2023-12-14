@@ -18,7 +18,7 @@ public class Activitats {
         this.dia = dia;
 
         // Generar automàticament el codi a partir de les 3 primeres lletres del nom de l'entitat
-        this.codiActivitat = nomEntitat.substring(0, 3).toUpperCase() + (100 + Activitats.numActivitats);
+        this.codiActivitat = nomEntitat.substring(0, 2).toUpperCase() + (100 + Activitats.numActivitats);
     }
 
 	public String getCodiActivitat(){

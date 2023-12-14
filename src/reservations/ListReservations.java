@@ -12,7 +12,7 @@ public class ListReservations {
    private static final short INIT_CAPACITY = 10; // Initial array capacity
 
    /** Constructor to make the list
-    * NOTE: we make an initial size then we resize it if necessary
+    * NOTE: we make an initial size then we resize if necessary
    */
    public ListReservations() {
       listRes = new Reservation[INIT_CAPACITY];
@@ -36,7 +36,10 @@ public class ListReservations {
             listRes = aux;
          }
       }
-      //listRes[nElem] = new Reservation(/*res.get, res.get, res.get, res.get */);
+
+      // add a new reservation to the list
+      listRes[nElem] = new Reservation(resv.getIdRes(), resv.getUser(), 
+                                       resv.getWshop(), resv.getRateLvl());
       nElem++;
    }
    

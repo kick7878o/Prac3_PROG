@@ -9,12 +9,13 @@
 package reservations;
 
 import activities.Workshop;
+import users.Users;
 
 public class Reservation {
    private int idRes; // ID reservation
    private int rateLvl; // Satisfaction level between 1-10 (included)
    private Workshop workshop;
-   private User user;
+   private Users user;
 
    /** Constructor to declare an instance for one reservation
       *
@@ -23,7 +24,7 @@ public class Reservation {
       * @param wshop instance of the workshop
       * @param rateLvl satisfaction level after the workshop
    */
-   public Reservation (int idRes, User user, Workshop wshop, int rateLvl) {
+   public Reservation (int idRes, Users user, Workshop wshop, int rateLvl) {
       this.idRes = idRes;
       wshop = workshop;
       this.user = user;
@@ -42,7 +43,7 @@ public class Reservation {
    /** Method to get the user instance
     * @return user instance
    */
-   public User getUser() { return user; }
+   public Users getUser() { return user; }
 
    /** Method to get the workshop instance
     * @return workshop instance
