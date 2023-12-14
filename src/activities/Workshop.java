@@ -2,13 +2,13 @@ package activities;
 
 import java.time.LocalTime;
 
-/**Class Workshop.java
+/** Class Workshop.java
  * 
  * This class is made for storing workshops
  * 
  * @author Juan Carlos Medinilla Alonso (juancarlos.medinilla@estudiants.urv.cat)
  */
-public class Workshop extends Activities {
+public class Workshop extends Activitats {
     private LocalTime hour;                 //Time of the workshop
     private int duration;                   //Workshop duration
     private int capacity;                   //Workshop capacity

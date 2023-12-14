@@ -14,8 +14,8 @@ import users.Users;
 public class Reservation {
    private int idRes; // ID reservation
    private int rateLvl; // Satisfaction level between 1-10 (included)
-   private Workshop workshop;
-   private Users user;
+   private Workshop workshop; // Instance of the workshop
+   private Users user; // Instance of the user
 
    /** Constructor to declare an instance for one reservation
       *
@@ -24,9 +24,9 @@ public class Reservation {
       * @param wshop instance of the workshop
       * @param rateLvl satisfaction level after the workshop
    */
-   public Reservation (int idRes, Users user, Workshop wshop, int rateLvl) {
+   public Reservation (int idRes, Users user, Workshop workshop, int rateLvl) {
       this.idRes = idRes;
-      wshop = workshop;
+      this.workshop = workshop;
       this.user = user;
       this.rateLvl = rateLvl;
    }
