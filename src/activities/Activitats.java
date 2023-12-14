@@ -1,3 +1,4 @@
+// @author David López
 package activities;
 public class Activitats {
     protected static int numActivitats = 0;

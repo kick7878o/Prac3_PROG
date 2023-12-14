@@ -1,3 +1,5 @@
+// @author David López
+
 package activities;
 /**
  * Represents visits as a type of activity, extending the base class Activities.

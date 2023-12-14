@@ -1,4 +1,6 @@
-    package activities;
+// @author David López
+
+package activities;
     
     /**
  * Represents a list of visits.

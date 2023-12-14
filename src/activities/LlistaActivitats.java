@@ -1,4 +1,5 @@
-    package activities;
+// @author David López
+package activities;
     
 public class LlistaActivitats {
     private Activitats[] llista;
