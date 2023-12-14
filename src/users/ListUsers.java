@@ -1,5 +1,12 @@
 package users;
 
+/**Class ListUsers.java
+ * 
+ * This class is made for storing a list of users
+ * 
+ * @author Aleix Chillida Subirats (aleix.chillida@estudiants.urv.cat)
+ */
+
 public class ListUsers {
     private Users[] listUser;
     private int nElem;
