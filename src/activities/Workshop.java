@@ -22,7 +22,8 @@ public class Workshop extends Activities {
      * @param score
      * @param nScores
      */
-    public Workshop(LocalTime hour, int duration, int capacity, int score, int nScores) {
+    public Workshop(String nameEntity, String nameActivity, String place, String postCode, String day, LocalTime hour, int duration, int capacity, int score, int nScores) {
+        super(nameEntity, nameActivity, place, postCode, day);
         this.hour = hour;
         this.duration = duration;
         this.capacity = capacity;
