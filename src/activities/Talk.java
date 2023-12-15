@@ -49,19 +49,19 @@ package activities;
         /** Setter
          * @param nameSpeaker
          */
-        public void setNameSpeaker(String nameSpeaker){
-            this.nameSpeaker = nameSpeaker;
+            public void setNameSpeaker(String nameSpeaker){
+                this.nameSpeaker = nameSpeaker;
+            }
+
+         /** Method that duplicates an instance of Talk
+         * @return duplicate
+         */
+        public Talk copyTalk(){
+            return new Talk(nomEntitat, nomActivitat, lloc, codiPostal, dia, nameSpeaker);
         }
 
-     /** Method that duplicates an instance of Talk
-     * @return duplicate
-     */
-    public Talk copyTalk(){
-        return new Talk(nomEntitat, nomActivitat, lloc, codiPostal, dia, nameSpeaker);
-    }
-
-    @Override
-    public String toString() {
-        return "Talk [nameSpeaker=" + nameSpeaker + ", hour= " + hour + "]";
-    }     
+        @Override
+        public String toString() {
+            return super.toString() + "\nTalk [nameSpeaker=" + nameSpeaker + ", hour= " + hour + "]";
+        }     
 }

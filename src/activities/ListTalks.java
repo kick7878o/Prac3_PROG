@@ -23,15 +23,6 @@ public class ListTalks {
         return nElem;
     }
 
-
-    /** Setter
-     * @param nElem
-     */
-    public void setnElem(int nElem) {
-        this.nElem = nElem;
-    }
-
-
     /**Getter
      * @return list of talks
      */
@@ -81,9 +72,4 @@ public class ListTalks {
         }
         return aux;
     }
-
-
-
-
-
 }
