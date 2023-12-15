@@ -1,5 +1,7 @@
 package activities;
 
+import java.util.Arrays;
+
 /**Class ListWorkshops.java
  * 
  * This class is made for storing a list of workshops
@@ -44,6 +46,11 @@ public class ListWorkshops {
      */
     public void setnElem(int nElem) {
         this.nElem = nElem;
+    }
+
+    @Override
+    public String toString() {
+        return "ListWorkshops [listWork=" + Arrays.toString(listWork) + ", nElem=" + nElem + "]";
     }
 
     

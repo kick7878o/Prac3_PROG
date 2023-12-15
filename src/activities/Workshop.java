@@ -103,4 +103,15 @@ public class Workshop extends Activitats {
         this.nScores = nScores;
     }
 
+    public Workshop copy() {
+        return new Workshop(nomActivitat, lloc, dia, codiPostal, codiActivitat, hour, duration, capacity, score, nScores);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Workshop [hour=" + hour + ", duration=" + duration + ", capacity=" + capacity + ", score=" + score
+                + ", nScores=" + nScores + "]";
+    }
+
+    
 }

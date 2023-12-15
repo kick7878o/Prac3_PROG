@@ -64,4 +64,13 @@ public class Entity {
         this.email = email;
     }
 
+    public Entity copy(){
+        return new Entity(name, numTel, email);
+    }
+
+    public String toString() {
+        return "Entity [name=" + name + ", numTel=" + numTel + ", email=" + email + "]";
+    }
+
+    
 }
