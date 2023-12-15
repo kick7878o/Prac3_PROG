@@ -72,8 +72,8 @@ public class Reservation {
     */
    public String toString() {
       return "Reservation ID: " +idRes+ "\n" +
-             "User: " +user+ "\n" +
-             "Workshop: " +workshop+ "\n" +
+             "   User: " +user+ "\n" +
+             "   Workshop: " +workshop+ "\n" +
              "Satisfaction level: " +rateLvl+ "\n";
    }
 }
