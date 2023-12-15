@@ -1,5 +1,12 @@
 package users;
 
+/**Class Users.java
+ * 
+ * This class is made for store one user
+ * 
+ * @author Aleix Chillida Subirats (aleix.chillida@estudiants.urv.cat)
+ */
+
 public class Users {
 
     private String name;
