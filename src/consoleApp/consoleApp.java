@@ -21,9 +21,8 @@ public class consoleApp {
    private static Scanner keyboard = new Scanner(System.in); // reads from keyboard
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-   public static void main(String[] args) throws IOException{
-		// Initialization of the data structures
-		// ...
+   public static void main(String[] args) throws IOException {
+		initDataStructures(); // Initialize all data structures
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
@@ -59,8 +58,7 @@ public class consoleApp {
 				}
 			} while (!exit);
 
-			// Ask if the user wants to save everything that was modified
-			// ...
+			storeDataStructures(); // (not)Store all modified data
 
 			// We show a msg to indicate that the program has ended
 			System.out.println("\n\n\n=============== THE END ===============\n\n\n");
@@ -109,6 +107,39 @@ public class consoleApp {
 	
 	/** Method that indicates that the input number is wrong */
 	private static void wrongOption(){
-		System.out.println("\n\n  ¡¡¡ Incorrect number. Write one between 1 and 15 !!! \n\n");
+		System.out.println("\n\n  ¡¡¡ Incorrect number input !!! \n\n");
+	}
+
+	/** Method that initializes all data structures */
+	private static void initDataStructures() {
+		menuInitData();
+		int opt = Integer.parseInt(keyboard.next());
+	}
+	/** Menu to choose the initialization process */
+	private static void menuInitData() {
+		System.out.println("\n\n----- Initializaton phase of data structures -----\n");
+		System.out.println("  Do you want to start from scratch or from last modification?");
+		System.out.println("    1. Start from scratch");
+		System.out.println("    2. Start from last modification");
+		System.out.println("    (IMPORTANT NOTE: starting from scratch will result in all data loss from previous modifications)");
+		System.out.println("\tOption: ");
+	}
+	
+	/** Method that stores all data structures */
+	private static void storeDataStructures() {
+		menuStoreData();
+		int opt = Integer.parseInt(keyboard.next());
+	}
+	/** Menu to choose the initialization process */
+	private static void menuStoreData() {
+		System.out.println("\n\n-----Storage phase of data structures -----\n");
+		System.out.println("  Do you want to store all data modification?");
+		System.out.println("    1. Yes");
+		System.out.println("    2. No");
+		System.out.println("\tOption: ");
+
+		/** NOTE2SELF: do a back system?
+		 * MEANING: go back to last menu used
+		 */
 	}
 }

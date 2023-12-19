@@ -1,0 +1,3 @@
+entityName;activityName;activityPlace;activityPostalCode;activityDay
+
+¿Falta el codigo de la actividad: "activityCode"?

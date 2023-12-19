@@ -1,0 +1,1 @@
+entityName;activityName;activityPlace;activityPostalCode;activityDay;AudioGuide;BlindFriendly
