@@ -1,0 +1,69 @@
+ESQUEMA GENERAL
+main
+	llegir_dades
+	incialitzar_objectes
+	menu
+-----------------------------
+menu 
+	mostrar
+	mostrar una entitat
+	mostrar activitats de dd/mm/aaaa - dd/mm/aaaa
+	mostrar tallers disponibles
+	afegir activitat
+	reserva taller
+	mostra usuaris taller
+	calcula usuari a mes tallers
+	nota taller un cop fet
+	calcular la nota mitja de un taller
+	taller mes exit
+	ofertes per una entitat
+	xerrades de una persona
+	baixa un taller
+	sortir
+		guardar_en_fitxer
+
+-----------------------	
+Atributs
+
+Entitats
+	- Nom (Identificador)
+	- Telefon 
+	- Correu
+Activitats
+	- Codi (Identificador)
+	- nom
+	- Lloc (cunit)
+	- codi postal 
+	- data dd/mm
+	- Nom entitat
+	Visites
+		- Tipus edifici
+		- Serveis que ofereix
+		- Adaptat a cegos
+	Tallers
+		- Durada
+		- Capacitat 
+		// - Llista Reserves 
+		Registre obligatori
+	Xerrades
+		Hora sempre a les 17h
+		-Nom persona dona xerrada
+Usuari 
+	-Àlies(identificador)
+	-Correu
+	-Codi Postal
+	// - Llista tallers
+
+Reserves 
+	-Places
+	-Codi Reserva
+	-Usuari
+	-Codi Taller // - Taller Ha de ser una referencia a taller, un objecte. Aixo ens permetra fer coses com reserva.taller.restarCapacitat()
+	-Satisfaccio (entre 0 i 10) 
+	
+
+NOTAS:
+ - Entidades: no dice nada de añadir entidades osea que no hace falta controlar
+  el tamaño de la lista de entidades, añadiremos como mucho 5 y ya
+		
+	
