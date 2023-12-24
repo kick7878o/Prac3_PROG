@@ -6,7 +6,6 @@ package users;
  * 
  * @author Aleix Chillida Subirats (aleix.chillida@estudiants.urv.cat)
  */
-
 public class ListUsers {
     private Users[] listUser;
     private int nElem;
@@ -58,11 +57,9 @@ public class ListUsers {
     public String toString(){
         String aux = "Users List:\n";
 
-        for(int i = 0; i < nElem; i++){
-            aux+= "\n [" +i+"] " +listUser+ "\n";
+        for(int i = 0; i < nElem; i++) {
+            aux+= "\n[" +(i+1)+ "] " +listUser+ "\n";
         }
         return aux;
-    }
-    
-    
+    }  
 }

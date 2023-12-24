@@ -41,18 +41,8 @@ public class ListWorkshops {
         return nElem;
     }
 
-    /**
-     * @param nElem
-     */
-    public void setnElem(int nElem) {
-        this.nElem = nElem;
-    }
-
     @Override
     public String toString() {
         return "ListWorkshops [listWork=" + Arrays.toString(listWork) + ", nElem=" + nElem + "]";
     }
-
-    
-
 }

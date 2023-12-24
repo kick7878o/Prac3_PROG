@@ -83,7 +83,8 @@ public class Visites extends Activitats {
 	public Visites copia() {
 		return new Visites(nomEntitat, nomActivitat, lloc, codiPostal, dia, audioguia, adaptat);
 	}
-	
+     
+	@Override
 	public String toString() {
           if (adaptat)
                return super.toString() + "Audioguia: " + audioguia + "\n" +

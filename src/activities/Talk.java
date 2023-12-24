@@ -11,7 +11,7 @@ package activities;
         private String hour;
         private String nameSpeaker;
 
-        /**Constructor 
+        /** Constructor 
          * @param nomEntitat
          * @param nomActivitat
          * @param lloc

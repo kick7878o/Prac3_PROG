@@ -29,7 +29,8 @@ public class ListReservations {
     * @param resv an instance of the reservation
     */
    public void addReservation(Reservation resv) {
-      if (nElem >= listRes.length) { // Resize the array if necessary
+      // Resize the array if necessary
+      if (nElem >= listRes.length) { 
          Reservation[] aux = new Reservation[nElem*2]; // Double capacity
          for (int i=0; i < aux.length; i++) {
             aux[i] = listRes[i];
@@ -38,8 +39,7 @@ public class ListReservations {
       }
 
       // add a new reservation to the list
-      listRes[nElem] = new Reservation(resv.getIdRes(), resv.getUser(), 
-                                       resv.getWshop(), resv.getRateLvl());
+      listRes[nElem] = new Reservation(resv.getIdRes(), resv.getUser(), resv.getIdWorkShop());
       nElem++;
    }
    

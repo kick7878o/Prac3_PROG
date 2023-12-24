@@ -10,7 +10,6 @@ public class LlistaActivitats {
      *
      * @param mida The initial size of the activity list.
      */
-
     public LlistaActivitats(int mida) {
         llista=  new Activitats[mida];
         nElem= 0;
@@ -47,21 +46,11 @@ public class LlistaActivitats {
     }
 
     /**
-     * Setter method to set the number of elements in the activity list.
-     *
-     * @param nElem The number of elements to set.
-     */
-
-    public void setnElem(int nElem) {
-        this.nElem = nElem;
-    }
-
-    /**
      * Adds a new activity to the list.
      *
      * @param act The activity to add.
      */
-    public void agefirActivitat(Activitats act){
+    public void agefirActivitat(Activitats act) {
         if(nElem < llista.length) {
             llista[nElem] = act.copia();
             nElem++;
@@ -89,7 +78,7 @@ public class LlistaActivitats {
     public String toString() {
         String str = "";
         for (int i = 0; i < nElem; i++) 
-            str += llista[i].toString() + "\n";
+            str += "\n [" +(i+1)+ "] " +llista[i].toString() + "\n";
         
         return str;
     }

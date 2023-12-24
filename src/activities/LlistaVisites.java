@@ -46,14 +46,6 @@ public class LlistaVisites {
     public int getnElem() {
         return nElem;
     }
-    /**
-     * Setter method to set the number of elements in the visit list.
-     *
-     * @param nElem The number of elements to set.
-     */
-    public void setnElem(int nElem) {
-        this.nElem = nElem;
-    }
 
     /**
      * Adds a new visit activity to the list, maintaining alphabetical order by the first letter of the entity name.
@@ -93,7 +85,7 @@ public class LlistaVisites {
     public String toString() {
         String resultat = "";
         for (int i = 0; i < nElem; i++) 
-            resultat += llista[i].toString() + "\n";
+            resultat += "\n[" +(i+1)+ "] " +llista[i].toString()+ "\n";
         
         return resultat;
     }

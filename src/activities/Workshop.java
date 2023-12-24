@@ -9,13 +9,11 @@ import java.time.LocalTime;
  * @author Juan Carlos Medinilla Alonso (juancarlos.medinilla@estudiants.urv.cat)
  */
 public class Workshop extends Activitats {
-    private LocalTime hour;                 //Time of the workshop
-    private int duration;                   //Workshop duration
-    private int capacity;                   //Workshop capacity
-    private int score;                      //Sum of scores
-    private int nScores;                    //Sum of the people who have voted
+    private LocalTime hour; // Time of the workshop
+    private int duration, capacity;   // Workshop duration & capacity
+    private int score, nScores;      // Total sum of scores & number of people who scored
 
-    /**
+    /** Constructor to build a workshop
      * @param hour
      * @param duration
      * @param capacity
@@ -33,56 +31,56 @@ public class Workshop extends Activitats {
         this.nScores = nScores;
     }
 
-    /**
+    /** Getter of the hour
      * @return
      */
     public LocalTime getHour() {
         return hour;
     }
 
-    /**
+    /** Setter of the hour
      * @param hour
      */
     public void setHour(LocalTime hour) {
         this.hour = hour;
     }
     
-    /**
+    /** getter of the duration
      * @return
      */
     public int getDuration() {
         return duration;
     }
 
-    /**
+    /** setter of the duration
      * @param duration
      */
     public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    /**
+    /** getter of the capacity
      * @return
      */
     public int getCapacity() {
         return capacity;
     }
 
-    /**
+    /** Setter of the capacity
      * @param capacity
      */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
-    /**
+    /** Getter of the score
      * @return
      */
     public int getScore() {
         return score;
     }
 
-    /**
+    /** Setter of the score
      * @param score
      */
     public void setScore(int score) {
