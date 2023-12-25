@@ -36,9 +36,8 @@ public class Activitats {
      *
      * @return The code of the activity.
      */
-	public String getCodiActivitat(){
-		return codiActivitat;
-	}
+	public String getCodiActivitat(){ return codiActivitat; }
+    
     /**
      * Creates a copy of the current activity.
      *
