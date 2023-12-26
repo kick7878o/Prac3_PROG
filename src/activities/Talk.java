@@ -1,42 +1,51 @@
 package activities;
 
-/**Class Talks.java
+/** Class Talks.java
  * 
  * This class is made for storing talks
  * 
  * @author Aleix Chillida Subirats (aleix.chillida@estudiants.urv.cat)
  */
-public class Talk extends Activitats {
-    private String hour; // Hour of the speech
-    private String nameSpeaker; // Name of the speaker
+public class Talk extends Activities {
+    private final String hour = "at 17:00h (5:00 PM)"; // Time that will be taking place the talk
+    private String speakerName; // Name of the speaker
 
-    /** Constructor of the talks
-     * @param nomEntitat
-     * @param nomActivitat
-     * @param lloc
-     * @param codiPostal
-     * @param dia
-     * @param nameSpeaker
-    */
-    public Talk(String nomEntitat, String nomActivitat, String lloc, String codiPostal, String dia, String nameSpeaker){
-        super(nomEntitat, nomActivitat, lloc, codiPostal, dia);
-        this.hour = "17:00 h";
-        this.nameSpeaker = nameSpeaker;
-    }
-
-    public String getHour() { return hour; }
-    public void setHour(String hour) { this.hour = hour; }
-    public String getNameSpeaker() { return nameSpeaker; }
-    public void setNameSpeaker(String nameSpeaker) { this.nameSpeaker = nameSpeaker; }
-
-     /** Method that duplicates an instance of Talk
-     * @return duplicate
+    /** Constructor of the talk instance
+     * 
+     * @param sName name of the speaker
+     * @param activityDay day of the activity
+     * @param activityName name of the activity 
+     * @param activityLocation location of the activity
+     * @param postalCode postal code of the activity
+     * @param activityCode code of the activity
+     * @param entityCreator entity creator
      */
-    public Talk copyTalk(){
-        return new Talk(nomEntitat, nomActivitat, lloc, codiPostal, dia, nameSpeaker);
+    public Talk(String sName, 
+                int activityDay, String activityName, String activityLocation,
+                int postalCode, int activityCode, String entityCreator) {
+        super(ActivityType.TALK, activityDay, activityName, activityLocation, 
+              postalCode, activityCode, entityCreator);
+
+        this.speakerName = sName;
     }
+
+    // Getters & Setters
+    public String getSpeakerName() { return speakerName; }
+    public void setSpeakerName(String sName) { this.speakerName = sName; }
+
     @Override
     public String toString() {
-        return super.toString() + "\nTalk [nameSpeaker=" +nameSpeaker+ ", hour= " +hour+ "]";
-    }     
+       return super.toString()+
+            "Speaker name: " +speakerName+ "\n" +
+            "Hour: " +hour+ "\n\n";
+    }
+
+    /** Method that dupplicates the Talk instance
+     * @return duplicate
+    */
+    public Talk duplicateT() {
+        return new Talk(speakerName, 
+                        activityDay, activityName, activityLocation,
+                        postalCode, activityCode, entityCreator);
+    }
 }

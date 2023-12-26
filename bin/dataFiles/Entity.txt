@@ -1,3 +1,7 @@
-Header: if u want to put more entities change the number below and add the entities
+entityName;entityPhoneNumber;entityEmail NOTE: change number and add entities
 5
-entityName;entityPhoneNumber;entityEmail
+URV SCIENCE;+34123456789;urvscience@urvsc.cat
+URV BOTS;+34987654321;urvbotss@urvb.cat
+URV ENGINEER;+34019283475;urv.engi@urve.cat
+URV BIOLOGY;+34701928765;urv.bio@urvbi.cat
+URV CHEMIK;+34071298673;urv.cmk@urvk.cat

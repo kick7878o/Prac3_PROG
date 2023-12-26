@@ -7,5 +7,5 @@ package activities;
  * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
 public enum ActivityType {
-   TALK, VISITS, WORKSHOP
+   TALK, VISIT, WORKSHOP
 }
