@@ -66,4 +66,4 @@ NOTAS:
  - Entidades: no dice nada de añadir entidades mediante peticion osea que no hace falta controlar
   el tamaño de la lista de entidades, añadiremos como mucho 5 y ya
 		
-	
+ - Actividades: leeremos de un fichero -> lo distribuimos segun la actividad que sea
