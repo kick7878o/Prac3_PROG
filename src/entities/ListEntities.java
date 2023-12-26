@@ -1,7 +1,5 @@
 package entities;
 
-import exceptions.EntityListFull;
-
 /** Class ListEntities.java
  * 
  * This class is made for storing a list of entities
@@ -20,22 +18,20 @@ public class ListEntities {
         nElem = 0;
     }
 
-    /** Getter of the elements ocuppied of the list
-     * @return
-     */
+    // Getters & setters
     public int getnElem() { return nElem; }
-
+    public Entity[] getEntityList() { return listEnt; }
+    public void setEntityList(Entity[] listEnt) {
+        this.listEnt = listEnt;
+        nElem = listEnt.length;
+    }
 
     /** Method that adds an entity into the list
-     * 
      * @param entity new instance to add
-     * @throws EntityListFull exception for the list of entities
      */
-    public void addEntity (Entity entity) throws EntityListFull {
-        if (nElem < listEnt.length) {
-            listEnt[nElem] = entity.copyEntity();
-            nElem++;
-        } else throw new EntityListFull();
+    public void addEntity (Entity entity) {
+        listEnt[nElem] = entity.copyEntity();
+        nElem++;
     }
 
    /** Method that shows the list of entities

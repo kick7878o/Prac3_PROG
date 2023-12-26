@@ -1,74 +1,46 @@
 package users;
 
-/**Class Users.java
+/** Class Users.java
  * 
- * This class is made for store one user
+ * This class is made for storing one user
  * 
  * @author Aleix Chillida Subirats (aleix.chillida@estudiants.urv.cat)
  */
-
 public class Users {
+    private String name; // Name of the user
+    private String email; // Email of the user
+    private String postalCode; // Postal Code of the user
 
-    private String name;
-    private String email;
-    private String postalCode;
-
+    /** Constructor of the user
+     * 
+     * @param name
+     * @param email
+     * @param postalCode
+     */
     public Users(String name, String email, String postalCode){
         this.name = name;
         this.email = email;
         this.postalCode = postalCode;
     }
 
-    /**Getter name
-     * @return name
+    // Getters & Setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPostalCode() { return postalCode; }
+    public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+
+    /** Duplicate of the user
+     * @return new instance of the user
      */
-    public String getName() {
-        return name;
+    public Users copyUser(){ 
+        return new Users(name, email, postalCode); 
     }
 
-    /** Setter name
-     * @param name
+    /** String of the user data
+     * @return user data
      */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /** Getter email
-     * @return email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /** Setter email
-     * @param email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /** Getter postalCode
-     * @return postalCode
-     */
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    /** Setter postalCode
-     * @param postalCode
-     */
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    /** Method that duplicates an instance of Users
-     * @return duplicate
-     */
-    public Users copyUser(){
-        return new Users(name, email, postalCode);
-    }
-
-    @Override
     public String toString() {
         return "Users [name=" + name + ", email=" + email + ", postalCode=" + postalCode + "]";
     }    

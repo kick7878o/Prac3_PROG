@@ -1,48 +1,44 @@
 package activities;
 
-import java.util.Arrays;
-
-/**Class ListWorkshops.java
+/** Class ListWorkshops.java
  * 
  * This class is made for storing a list of workshops
  * 
  * @author Juan Carlos Medinilla Alonso (juancarlos.medinilla@estudiants.urv.cat)
  */
 public class ListWorkshops {
-    private Workshop[] listWork;    //Workshop list
-    private int nElem;              //Number of workshops in the list
+    private Workshop[] listWork;    // Workshop list
+    private int nElem;              // Number of workshops in the list
 
-    /**
+    /** Constructor for the list of workshops
      * @param size
      */
     public ListWorkshops(int size) {
         listWork = new Workshop[size];
         nElem = 0;
     }
+    
+    // Getters & Setters
+    public Workshop[] getListWork() { return listWork; }
+    public void setListWork(Workshop[] listWork) { this.listWork = listWork; }
+    public int getnElem() { return nElem; }
 
-    /**
-     * @return
+    /** Method that adds a workshop to the list
+     * @param workshop
      */
-    public Workshop[] getListWork() {
-        return listWork;
-    }
-
-    /**
-     * @param listWork
-     */
-    public void setListWork(Workshop[] listWork) {
-        this.listWork = listWork;
-    }
-
-    /**
-     * @return
-     */
-    public int getnElem() {
-        return nElem;
+    public void addWorkshop(Workshop workshop) {
+        if(nElem < listWork.length) {
+            listWork[nElem] = workshop.copyWorkShop();
+            nElem++;
+        }
     }
 
     @Override
     public String toString() {
-        return "ListWorkshops [listWork=" + Arrays.toString(listWork) + ", nElem=" + nElem + "]";
+        String str = "List of WorkShops, nElem: " +nElem;
+        for (int i = 0; i < nElem; i++) 
+            str += "\n [" +(i+1)+ "] " +listWork[i].toString()+ "\n";
+        
+        return str;
     }
 }

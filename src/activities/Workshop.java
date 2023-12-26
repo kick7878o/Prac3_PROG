@@ -31,77 +31,22 @@ public class Workshop extends Activitats {
         this.nScores = nScores;
     }
 
-    /** Getter of the hour
-     * @return
-     */
-    public LocalTime getHour() {
-        return hour;
-    }
+    // Getters & Setters
+    public LocalTime getHour() { return hour; }
+    public void setHour(LocalTime hour) { this.hour = hour; }
+    public int getDuration() { return duration; }
+    public void setDuration(int duration) { this.duration = duration; }
+    public int getCapacity() { return capacity; }
+    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public int getScore() { return score; }
+    public void setScore(int score) { this.score = score; }
+    public int getnScores() { return nScores; }
+    public void setnScores(int nScores) { this.nScores = nScores; }
 
-    /** Setter of the hour
-     * @param hour
+    /** Method that duplicates the instance workshop
+     * @return a duplicate
      */
-    public void setHour(LocalTime hour) {
-        this.hour = hour;
-    }
-    
-    /** getter of the duration
-     * @return
-     */
-    public int getDuration() {
-        return duration;
-    }
-
-    /** setter of the duration
-     * @param duration
-     */
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    /** getter of the capacity
-     * @return
-     */
-    public int getCapacity() {
-        return capacity;
-    }
-
-    /** Setter of the capacity
-     * @param capacity
-     */
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    /** Getter of the score
-     * @return
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /** Setter of the score
-     * @param score
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    /**
-     * @return
-     */
-    public int getnScores() {
-        return nScores;
-    }
-
-    /**
-     * @param nScores
-     */
-    public void setnScores(int nScores) {
-        this.nScores = nScores;
-    }
-
-    public Workshop copy() {
+    public Workshop copyWorkShop() {
         return new Workshop(nomActivitat, lloc, dia, codiPostal, codiActivitat, hour, duration, capacity, score, nScores);
     }
 
@@ -110,6 +55,4 @@ public class Workshop extends Activitats {
         return super.toString() + "Workshop [hour=" + hour + ", duration=" + duration + ", capacity=" + capacity + ", score=" + score
                 + ", nScores=" + nScores + "]";
     }
-
-    
 }

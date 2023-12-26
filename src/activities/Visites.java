@@ -19,67 +19,23 @@ public class Visites extends Activitats {
      * @param audioguia    True if the visit has an audio guide, false otherwise.
      * @param adaptat       True if the visit is adapted for special needs, false otherwise.
      */
-	
-	public Visites (String nomEntitat, String nomActivitat, String lloc, String codiPostal, String dia, boolean audio, boolean adap) {
+	public Visites (String nomEntitat, String nomActivitat, String lloc, String codiPostal, 
+                     String dia, boolean audio, boolean adap) {
 		super(nomEntitat, nomActivitat, lloc, codiPostal, dia);
-		audioguia=audio;
-		adaptat= adap;
-	}
-	/**
-     * Getter method to retrieve the name of the entity organizing the visit.
-     *
-     * @return The name of the entity.
-     */
-	public String getNomEntitat(){
-		return nomEntitat;
-	}
-	/**
-     * Setter method to set the name of the entity organizing the visit.
-     *
-     * @param nomEntitat The name of the entity to set.
-     */
-	public void setNomEntitat(String nom){
-		nomEntitat=nom;
-	}
-	/**
-     * Getter method to check if the visit has an audio guide.
-     *
-     * @return True if the visit has an audio guide, false otherwise.
-     */
-	public boolean getAudioguia(){
-		return audioguia;
-	}
-	/**
-     * Setter method to set whether the visit has an audio guide.
-     *
-     * @param audioguia True if the visit has an audio guide, false otherwise.
-     */	
-	public void setAudioguia(boolean audioguia){
-		this.audioguia=audioguia;
-	}
-	/**
-     * Getter method to check if the visit is adapted for special needs.
-     *
-     * @return True if the visit is adapted, false otherwise.
-     */
-	public boolean getAdaptat(){
-		return adaptat;
-	}
-	/**
-     * Setter method to set whether the visit is adapted for special needs.
-     *
-     * @param adaptat True if the visit is adapted, false otherwise.
-     */
-	public void setAdaptat(boolean adaptat){
-		this.adaptat=adaptat;
+		audioguia = audio;
+		adaptat = adap;
 	}
 
-	/**
-     * Creates a copy of the current visit activity.
-     *
-     * @return A new Visits object with the same attributes as the current one.
+	public String getNomEntitat() { return nomEntitat; }
+	public void setNomEntitat(String nom) { nomEntitat = nom; }
+	public boolean getAudioguia() { return audioguia; }	
+	public void setAudioguia(boolean audioguia) { this.audioguia = audioguia; }
+	public boolean getAdaptat() { return adaptat; }
+	public void setAdaptat(boolean adaptat) { this.adaptat = adaptat; }
+
+	/** Creates a copy of the current visit activity.
+      * @return A new Visits object with the same attributes as the current one.
      */
-	
 	public Visites copia() {
 		return new Visites(nomEntitat, nomActivitat, lloc, codiPostal, dia, audioguia, adaptat);
 	}

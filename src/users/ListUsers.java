@@ -1,6 +1,6 @@
 package users;
 
-/**Class ListUsers.java
+/** Class ListUsers.java
  * 
  * This class is made for storing a list of users
  * 
@@ -10,26 +10,22 @@ public class ListUsers {
     private Users[] listUser;
     private int nElem;
 
-
     /** Constructor to make the list of users
-     * @param size
+     * @param size of the array
      */
     public ListUsers(int size){
         listUser = new Users[size];
         nElem = 0;
     }
 
-    /** Getter that returns the number of elements on the list
-     * 
-     * @return number of elements on list
-     */
-    public int getElem(){
-        return nElem;
-    }
+    // Getters & Setters
+    public int getElem() { return nElem; }
+    public Users[] getListUsers() { return listUser; }
+    public void setListUsers(Users[] listUser) { this.listUser = listUser; }
 
-/** Method to add a user to the list
- * @param user instance of Users 
- */
+    /** Method to add a user to the list
+     * @param user instance of Users 
+     */
     public void addUser(Users user){
         if(nElem < listUser.length) {
             listUser[nElem] = user.copyUser();
@@ -37,7 +33,7 @@ public class ListUsers {
         }
     }
     /** Method to delete a user from the list
-    * @param name  
+    * @param name of the user
     */
     public void deleteUser(String name){
         int i = 0;
