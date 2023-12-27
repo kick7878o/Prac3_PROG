@@ -12,7 +12,7 @@ package activities;
  */
 public abstract class Activities {
     protected ActivityType actType; // Activity type: talk - visit - workshop
-    protected int activityCode; // Random number (3 letters entity + number >100)
+    protected String activityCode; // Random number (3 letters entity + number >100)
     protected String activityName; // Activity name
     protected String activityLocation; // Location of the activity
     protected int postalCode; // Postal code of the activity
@@ -29,7 +29,7 @@ public abstract class Activities {
      * @param act_day day that it'll take place
      * @param entityCreator entitiy that created the activity
     */
-    public Activities(ActivityType actType, int act_code, String act_name, String act_location,
+    public Activities(ActivityType actType, String act_code, String act_name, String act_location,
                       int act_postalCode, int act_day, String entityCreator) {
         this.actType = actType;
         this.activityCode = act_code;
@@ -42,8 +42,8 @@ public abstract class Activities {
 
     // Getters & Setters for the attributes
     public ActivityType getActType() { return actType; }
-    public int getActivityCode() { return activityCode; }
-    public void setActivityCode(int activityCode) { this.activityCode = activityCode; }
+    public String getActivityCode() { return activityCode; }
+    public void setActivityCode(String activityCode) { this.activityCode = activityCode; }
     public String getActivityName() { return activityName; }
     public void setActivityName(String activityName) { this.activityName = activityName; }
     public String getActivityLocation() { return activityLocation; }

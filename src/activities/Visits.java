@@ -25,10 +25,10 @@ public class Visits extends Activities{
     */
    public Visits(boolean aGuide, boolean bFriend, 
                  int activityDay, String activityName, String activityLocation, 
-                 int postalCode,int activityCode, String entityCreator) {
+                 int postalCode,String activityCode, String entityCreator) {
 
-      super(ActivityType.VISIT, activityDay, activityName, activityLocation, 
-            postalCode, activityCode, entityCreator);
+      super(ActivityType.VISIT, activityCode, activityName, activityLocation, 
+            postalCode, activityDay, entityCreator);
 
       audioGuided = aGuide;
       blindFriendly = bFriend;
@@ -73,7 +73,7 @@ public class Visits extends Activities{
    public void fromTextFormat(String txt) {
       String[] aux = txt.split(";");
       super.actType = ActivityType.valueOf(aux[0]);
-      super.activityCode = Integer.parseInt(aux[1]);
+      super.activityCode = aux[1];
       super.activityName = aux[2];
       super.activityLocation = aux[3];
       super.postalCode = Integer.parseInt(aux[4]);

@@ -23,9 +23,9 @@ public class Talk extends Activities {
      */
     public Talk(String sName, 
                 int activityDay, String activityName, String activityLocation,
-                int postalCode, int activityCode, String entityCreator) {
-        super(ActivityType.TALK, activityDay, activityName, activityLocation, 
-              postalCode, activityCode, entityCreator);
+                int postalCode, String activityCode, String entityCreator) {
+        super(ActivityType.TALK, activityCode, activityName, activityLocation, 
+              postalCode, activityDay, entityCreator);
 
         this.speakerName = sName;
     }
@@ -66,7 +66,7 @@ public class Talk extends Activities {
     public void fromTextFormat(String txt) {
         String[] aux = txt.split(";");
         super.actType = ActivityType.valueOf(aux[0]);
-        super.activityCode = Integer.parseInt(aux[1]);
+        super.activityCode = aux[1];
         super.activityName = aux[2];
         super.activityLocation = aux[3];
         super.postalCode = Integer.parseInt(aux[4]);

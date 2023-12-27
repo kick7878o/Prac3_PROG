@@ -30,9 +30,9 @@ public class Workshop extends Activities {
      */
     public Workshop(String sartingHour, int duration, int capacity, int sumRates, int nPeople,
                     int activityDay, String activityName, String activityLocation, 
-                    int postalCode, int activityCode, String entityCreator) {
-        super(ActivityType.WORKSHOP, activityDay, activityName, activityLocation, 
-              postalCode, activityCode, entityCreator);
+                    int postalCode, String activityCode, String entityCreator) {
+        super(ActivityType.WORKSHOP, activityCode, activityName, activityLocation, 
+              postalCode, activityDay, entityCreator);
 
         this.sartingHour = sartingHour;
         this.duration = duration;
@@ -93,7 +93,7 @@ public class Workshop extends Activities {
         String[] aux = txt.split(";");
         
         super.actType = ActivityType.valueOf(aux[0]);
-        super.activityCode = Integer.parseInt(aux[1]);
+        super.activityCode = aux[1];
         super.activityName = aux[2];
         super.activityLocation = aux[3];
         super.postalCode = Integer.parseInt(aux[4]);
