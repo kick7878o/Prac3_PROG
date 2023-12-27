@@ -64,6 +64,10 @@ public abstract class Activities {
                "Entity creator: " + entityCreator + "\n";
     }
 
+    // Abstract method to copy an instance
+    public abstract Activities copy();
+
+    // NOTE: This might be more comfortable
     // /** Method that converts into a String format
     //  * @return string with data
     //  */
@@ -74,6 +78,4 @@ public abstract class Activities {
     //  */
     // public abstract void fromTextFormat(String txt);
     
-    // Abstract method to copy an instance
-    public abstract Activities copy();
 }
