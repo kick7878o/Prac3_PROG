@@ -43,7 +43,7 @@ public class Talk extends Activities {
     /** Method that dupplicates the Talk instance
      * @return duplicate
     */
-    public Talk duplicateT() {
+    public Talk copy() {
         return new Talk(speakerName, 
                         activityDay, activityName, activityLocation,
                         postalCode, activityCode, entityCreator);

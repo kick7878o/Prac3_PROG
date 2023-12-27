@@ -49,7 +49,7 @@ public class Visits extends Activities{
    /** Method that dupplicates the visit instance
     * @return duplicate
     */
-   public Visits duplicateV() {
+   public Visits copy() {
       return new Visits(audioGuided, blindFriendly, 
                         activityDay, activityName, activityLocation,
                         postalCode, activityCode, entityCreator);

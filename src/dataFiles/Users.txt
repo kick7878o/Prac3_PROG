@@ -1,1 +1,7 @@
-userName;userEmail;userPostalCode;
+userName;userEmail;userPostalCode; NOTE: change number and add users
+5
+Alpha;alpha01@gmail.com;43850
+Beta;beta01@@gmail.com;12345
+Charlie;charlie01@gmail.com;54321
+Delta;delta01@gmail.com;49012
+Echo;echo01@gmail.com;75832

@@ -69,3 +69,5 @@ NOTAS:
  - Actividades: leeremos de un fichero -> lo distribuimos segun la actividad que sea
  - WorkShop: no olvidarse que el formato de la hora es hh:mm (hora:minuto) y comprobar si es correcto
     o no hh(00-23) y mm(00-59).
+
+ - Usuarios: no dice nada de añadir usuarios osea que puede ser constante

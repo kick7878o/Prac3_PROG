@@ -73,4 +73,7 @@ public abstract class Activities {
     //  * @param txt string with data
     //  */
     // public abstract void fromTextFormat(String txt);
+    
+    // Abstract method to copy an instance
+    public abstract Activities copy();
 }

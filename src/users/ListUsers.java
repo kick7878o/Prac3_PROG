@@ -21,7 +21,6 @@ public class ListUsers {
     // Getters & Setters
     public int getElem() { return nElem; }
     public Users[] getListUsers() { return listUser; }
-    public void setListUsers(Users[] listUser) { this.listUser = listUser; }
 
     /** Method to add a user to the list
      * @param user instance of Users 
@@ -53,9 +52,9 @@ public class ListUsers {
     public String toString(){
         String aux = "Users List:\n";
 
-        for(int i = 0; i < nElem; i++) {
+        for(int i = 0; i < nElem; i++) 
             aux+= "\n[" +(i+1)+ "] " +listUser+ "\n";
-        }
+        
         return aux;
     }  
 }
