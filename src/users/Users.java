@@ -71,5 +71,22 @@ public class Users {
      */
     public String toString() {
         return "Users [name=" + name + ", email=" + email + ", postalCode=" + postalCode + "]";
-    }    
+    }
+    
+    /** Method that converts into a String format
+     * @return string with data
+     */
+    public String toTextFormat() {
+        return name+ ";" +email+ ";" +postalCode;
+    }
+    /** Method that converts from String format
+     * 
+     * @param txt string with data
+     */
+    public void fromTextFormat(String txt) {
+        String[] data = txt.split(";");
+        name = data[0];
+        email = data[1];
+        postalCode = data[2];
+    }
 }

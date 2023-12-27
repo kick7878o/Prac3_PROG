@@ -71,4 +71,38 @@ public class Workshop extends Activities {
                "Sum of rates: " +sumRates+ "\n" +
                "Number of people: " +nPeople+ "\n\n";
     }
+
+    @Override
+    public String toTextFormat() {
+        return super.actType+ ";"
+            +super.activityCode+ ";"
+            +super.activityName+ ";"
+            +super.activityLocation+ ";"
+            +super.postalCode+ ";"
+            +super.activityDay+ ";"
+            +super.entityCreator+ ";"
+            +sartingHour+ ";"
+            +duration+ ";"
+            +capacity+ ";"
+            +sumRates+ ";"
+            +nPeople;
+    }
+
+    @Override
+    public void fromTextFormat(String txt) {
+        String[] aux = txt.split(";");
+        
+        super.actType = ActivityType.valueOf(aux[0]);
+        super.activityCode = Integer.parseInt(aux[1]);
+        super.activityName = aux[2];
+        super.activityLocation = aux[3];
+        super.postalCode = Integer.parseInt(aux[4]);
+        super.activityDay = Integer.parseInt(aux[5]);
+        super.entityCreator = aux[6];
+        sartingHour = aux[7];
+        duration = Integer.parseInt(aux[8]);
+        capacity = Integer.parseInt(aux[9]);
+        sumRates = Integer.parseInt(aux[10]);
+        nPeople = Integer.parseInt(aux[11]);
+    }
 }

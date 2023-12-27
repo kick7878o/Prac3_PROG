@@ -68,15 +68,15 @@ public abstract class Activities {
     // Abstract method to copy an instance
     public abstract Activities copy();
 
-    // NOTE: This might be more comfortable
-    // /** Method that converts into a String format
-    //  * @return string with data
-    //  */
-    // public abstract String toTextFormat();
-    // /** Method that converts from String format
-    //  * 
-    //  * @param txt string with data
-    //  */
-    // public abstract void fromTextFormat(String txt);
+    /** Method that converts into a String format
+     * @return string with data
+     */
+    public abstract String toTextFormat();
+    
+    /** Method that converts from String format
+     * 
+     * @param txt string with data
+     */
+    public abstract void fromTextFormat(String txt);
     
 }

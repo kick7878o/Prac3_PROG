@@ -55,4 +55,31 @@ public class Visits extends Activities{
                         activityDay, activityName, activityLocation,
                         postalCode, activityCode, entityCreator);
    }
+
+   @Override
+   public String toTextFormat() {
+      return super.actType+ ";"
+            +super.activityCode+ ";"
+            +super.activityName+ ";"
+            +super.activityLocation+ ";"
+            +super.postalCode+ ";"
+            +super.activityDay+ ";"
+            +super.entityCreator+ ";"
+            +audioGuided+ ";"
+            +blindFriendly;
+   }
+
+   @Override
+   public void fromTextFormat(String txt) {
+      String[] aux = txt.split(";");
+      super.actType = ActivityType.valueOf(aux[0]);
+      super.activityCode = Integer.parseInt(aux[1]);
+      super.activityName = aux[2];
+      super.activityLocation = aux[3];
+      super.postalCode = Integer.parseInt(aux[4]);
+      super.activityDay = Integer.parseInt(aux[5]);
+      super.entityCreator = aux[6];
+      audioGuided = Boolean.parseBoolean(aux[7]);
+      blindFriendly = Boolean.parseBoolean(aux[8]);
+   }
 }

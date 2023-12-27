@@ -70,5 +70,22 @@ public class Entity {
      */
     public String toString() {
         return "Entity [name=" + name + ", numTel=" + numTel + ", email=" + email + "]";
-    }    
+    }
+
+    /** Method that converts into a String format
+     * @return string with data
+     */
+    public String toTextFormat() {
+        return name+ ";" +numTel+ ";" +email;
+    }
+    /** Method that converts from String format
+     * 
+     * @param txt string with data
+     */
+    public void fromTextFormat(String txt) {
+        String[] data = txt.split(";");
+        name = data[0];
+        numTel = data[1];
+        email = data[2];
+    }
 }
