@@ -73,3 +73,4 @@ NOTAS:
  - Usuarios: no dice nada de añadir usuarios osea que puede ser constante
 
  - Codigo de la Actividad (formato URVXXX): es un string el codigo de la actividad
+   descubrir como guardar este atributo
