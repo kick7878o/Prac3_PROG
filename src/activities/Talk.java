@@ -5,6 +5,7 @@ package activities;
  * This class is made for storing talks
  * 
  * @author Aleix Chillida Subirats (aleix.chillida@estudiants.urv.cat)
+ * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
 public class Talk extends Activities {
     private final String hour = "at 17:00h (5:00 PM)"; // Time that will be taking place the talk

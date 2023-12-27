@@ -1,3 +1,4 @@
-entityName;activityName;activityPlace;activityPostalCode;activityDay
-
-¿Falta el codigo de la actividad: "activityCode"?
+Activity HEADER(aH): actType;activityCode;activityName;activityLocation;postalCode;activityDay;entityCreator
+Talk HEADER: aH;speakerName
+Visit HEADER: aH;audioGuided;blindFriendly
+WorkShop header: aH;sartingHour;duration;capacity;sumRates;nPeople

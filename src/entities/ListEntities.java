@@ -21,10 +21,6 @@ public class ListEntities {
     // Getters & setters
     public int getnElem() { return nElem; }
     public Entity[] getEntityList() { return listEnt; }
-    public void setEntityList(Entity[] listEnt) {
-        this.listEnt = listEnt;
-        nElem = listEnt.length;
-    }
 
     /** Method that adds an entity into the list
      * @param entity new instance to add

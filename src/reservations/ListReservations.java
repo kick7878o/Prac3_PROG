@@ -39,7 +39,7 @@ public class ListReservations {
       }
 
       // add a new reservation to the list
-      listRes[nElem] = new Reservation(resv.getIdRes(), resv.getUser(), resv.getIdWorkShop());
+      listRes[nElem] = resv.copyReservation();
       nElem++;
    }
    

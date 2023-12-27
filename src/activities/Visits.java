@@ -6,6 +6,7 @@ package activities;
  * that'll be done in a given day.
  * 
  * @author David Lopez (david.lopezr@estudiants.urv.cat)
+ * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
 public class Visits extends Activities{
    private boolean audioGuided;

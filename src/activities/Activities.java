@@ -8,15 +8,16 @@ package activities;
  * NOTE: can't repeat activities (can take place once)
  * 
  * @author David Lopez (david.lopezr@estudiants.urv.cat)
+ * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
 public abstract class Activities {
+    protected ActivityType actType; // Activity type: talk - visit - workshop
     protected int activityCode; // Random number (3 letters entity + number >100)
     protected String activityName; // Activity name
     protected String activityLocation; // Location of the activity
     protected int postalCode; // Postal code of the activity
     protected int activityDay; // Day that it will be taking place (10-19)
     protected String entityCreator; // Name of the entity that created the Activity
-    protected ActivityType actType; // Activity type: talk - visit - workshop
 
     /** Contructor of the activities
      * 

@@ -25,35 +25,17 @@ public class ListUsers {
     /** Method to add a user to the list
      * @param user instance of Users 
      */
-    public void addUser(Users user){
-        if(nElem < listUser.length) {
-            listUser[nElem] = user.copyUser();
-            nElem++;
-        }
-    }
-    /** Method to delete a user from the list
-    * @param name of the user
-    */
-    public void deleteUser(String name){
-        int i = 0;
-        while(i < nElem){
-            if(listUser[i].getName().equalsIgnoreCase(name)){
-                for(int j = i; j < nElem; j++){
-                    listUser[j] = listUser[j + 1];                   
-                }
-                nElem--;
-            } else {
-                i++;
-            }
-        }
+    public void addUser(Users user) {
+        listUser[nElem] = user.copyUser();
+        nElem++;
     }
      
     @Override
     public String toString(){
-        String aux = "Users List:\n";
+        String aux = "Users List => Elements: " +nElem+ "\n";
 
         for(int i = 0; i < nElem; i++) 
-            aux+= "\n[" +(i+1)+ "] " +listUser+ "\n";
+            aux+= "\n   [" +(i+1)+ "] " +listUser+ "\n";
         
         return aux;
     }  

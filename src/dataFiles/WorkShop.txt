@@ -1,1 +1,0 @@
-entityName;activityName;activityPlace;activityPostalCode;activityDay;wsHour;wsDuration;wsCapacity;wsScore;wsNScore

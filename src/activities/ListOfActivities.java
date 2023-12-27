@@ -8,6 +8,7 @@ package activities;
  * NOTE: can't repeat activities (can take place once)
  * 
  * @author David Lopez (david.lopezr@estudiants.urv.cat)
+ * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
 public class ListOfActivities {
    private Activities[] listActv; 

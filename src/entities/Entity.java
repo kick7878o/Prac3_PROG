@@ -33,7 +33,9 @@ public class Entity {
     /** Method that copies an entity
      * @return duplicate of the instance of the entity
      */
-    public Entity copyEntity() { return new Entity(name, numTel, email); }
+    public Entity copyEntity() { 
+        return new Entity(name, numTel, email); 
+    }
 
     /** Method that returns the info of the entity
      * @return Text with data of the entity
