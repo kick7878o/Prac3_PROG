@@ -32,7 +32,7 @@ public abstract class Activities {
     public Activities(ActivityType actType, String act_code, String act_name, String act_location,
                       int act_postalCode, int act_day, String entityCreator) {
         this.actType = actType;
-        this.activityCode = act_code;
+        this.activityCode = generateActivityCode();
         this.activityName = act_name;
         this.activityLocation = act_location;
         this.postalCode = act_postalCode;
@@ -54,6 +54,15 @@ public abstract class Activities {
     public void setActivityDay(int activityDay) { this.activityDay = activityDay; }
     public String getEntityCreator() { return entityCreator; }
     public void setEntityCreator(String entityCreator) { this.entityCreator = entityCreator; }
+
+    public String generateActivityCode() {
+        // New substring with their first 3 letters: URVASB -> aux = URV
+        String aux = entityCreator.substring(0,2).toUpperCase();
+        // Generate random number between 100 & 900
+        int num = 100 + (int) (Math.random() * 900);
+
+        return activityCode = aux + num;
+    }
     
     @Override
     public String toString() {
