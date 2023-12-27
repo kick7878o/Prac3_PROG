@@ -39,6 +39,37 @@ public class Reservation {
    public int getSpotsFilled() { return spotsFilled; }
    public void setSpotsFilled(int spotsFilled) { this.spotsFilled = spotsFilled; }
 
+   /** Method that checks if the input name is the same
+    * as the one in the instance
+    *
+    * @param userName name of the user
+    * @return true or false
+    */
+   public boolean isThisName(String userName) {
+      return this.user.equalsIgnoreCase(userName);
+   }
+   /** Method that checks if the input id is the same
+    * as the one in the instance
+    *
+    * @param idRes id of the reservation
+    * @return true or false
+    */
+   public boolean isThisReservationId(int idRes) {
+      return this.idRes == idRes;
+   }
+   /** Method that checks if the input id is the same
+    * as the one in the instance
+    *
+    * @param idWorkShop id of the workshop
+    * @return true or false
+    */
+   public boolean isThisWorkShopID(int idWorkShop) {
+      return this.idWorkShop == idWorkShop;
+   }
+
+   /** Duplicate of the reservation
+    * @return new instance of the reservation
+   */
    public Reservation copyReservation() { 
       return new Reservation(idRes, user, idWorkShop, rateLvl); 
    }

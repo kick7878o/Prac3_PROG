@@ -30,6 +30,34 @@ public class Entity {
     public String getEmail() { return email; }    
     public void setEmail(String email) { this.email = email; }
 
+    /** Method that checks if the input name is the same
+     * as the one in the instance
+     * 
+     * @param userName name of the user
+     * @return true or false
+     */
+    public boolean isThisName(String userName) {
+        return this.name.equalsIgnoreCase(userName);
+    }
+    /** Method that checks if the input email is the same
+     * as the one in the instance
+     * 
+     * @param userEmail email of the user
+     * @return true or false
+     */
+    public boolean isThisEmail(String userEmail) {
+        return this.email.equalsIgnoreCase(userEmail);
+    }
+    /** Method that checks if the input postal code is the same
+     * as the one in the instance
+     * 
+     * @param numTel postal code of the user
+     * @return true or false
+     */
+    public boolean isThisTelephoneNumber(String numTel) {
+        return this.numTel.equalsIgnoreCase(numTel);
+    }
+
     /** Method that copies an entity
      * @return duplicate of the instance of the entity
      */

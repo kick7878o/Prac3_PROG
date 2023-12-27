@@ -31,6 +31,34 @@ public class Users {
     public String getPostalCode() { return postalCode; }
     public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
 
+    /** Method that checks if the input name is the same
+     * as the one in the instance
+     * 
+     * @param userName name of the user
+     * @return true or false
+     */
+    public boolean isThisName(String userName) {
+        return this.name.equalsIgnoreCase(userName);
+    }
+    /** Method that checks if the input email is the same
+     * as the one in the instance
+     * 
+     * @param userEmail email of the user
+     * @return true or false
+     */
+    public boolean isThisEmail(String userEmail) {
+        return this.email.equalsIgnoreCase(userEmail);
+    }
+    /** Method that checks if the input postal code is the same
+     * as the one in the instance
+     * 
+     * @param userPostalCode postal code of the user
+     * @return true or false
+     */
+    public boolean isThisPostalCode(String userPostalCode) {
+        return this.postalCode.equalsIgnoreCase(userPostalCode);
+    }
+
     /** Duplicate of the user
      * @return new instance of the user
      */
