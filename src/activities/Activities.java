@@ -19,7 +19,30 @@ public abstract class Activities {
     protected int activityDay; // Day that it will be taking place (10-19)
     protected String entityCreator; // Name of the entity that created the Activity
 
-    /** Contructor of the activities
+    /** Contructor of the activities used
+     * for when a new activity is created (new code generation)
+     * 
+     * @param actType type of the activity
+     * @param act_code code of the activity
+     * @param act_name name of the activity
+     * @param act_location location of the activity
+     * @param act_postalCode postal code of the activity
+     * @param act_day day that it'll take place
+     * @param entityCreator entitiy that created the activity
+    */
+    public Activities(ActivityType actType, String act_name, String act_location,
+                      int act_postalCode, int act_day, String entityCreator) {
+        this.actType = actType;
+        this.activityCode = generateActivityCode();
+        this.activityName = act_name;
+        this.activityLocation = act_location;
+        this.postalCode = act_postalCode;
+        this.activityDay = act_day;
+        this.entityCreator = entityCreator;
+    }
+
+    /** Contructor of the activities used
+     * for when an activity was already created (without code generation)
      * 
      * @param actType type of the activity
      * @param act_code code of the activity
@@ -32,7 +55,7 @@ public abstract class Activities {
     public Activities(ActivityType actType, String act_code, String act_name, String act_location,
                       int act_postalCode, int act_day, String entityCreator) {
         this.actType = actType;
-        this.activityCode = generateActivityCode();
+        this.activityCode = act_code;
         this.activityName = act_name;
         this.activityLocation = act_location;
         this.postalCode = act_postalCode;
