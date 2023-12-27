@@ -2,3 +2,6 @@ Activity HEADER(aH): actType;activityCode;activityName;activityLocation;postalCo
 Talk HEADER: aH;speakerName
 Visit HEADER: aH;audioGuided;blindFriendly
 WorkShop header: aH;sartingHour;duration;capacity;sumRates;nPeople
+TALK;
+VISIT;
+WORKSHOP;
