@@ -58,6 +58,19 @@ public class ListOfActivities {
       nElem++;
    }
 
+   public ListOfActivities getActivityByDay(Activities[] actv, int day){
+      ListOfActivities aux = new ListOfActivities(nElem);;
+      int j=0;
+      for(int i=0;i<actv.length;i++){
+         if(actv[i].activityDay == day){
+           aux.addActivity(listActv[j]);
+           j++;
+         }
+         i++;
+      }
+      return aux;
+   }
+
    @Override
    public String toString() {
       String aux = "List of Activities [" +(nElem+1)+ "] =>";
