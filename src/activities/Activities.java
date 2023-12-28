@@ -111,4 +111,11 @@ public abstract class Activities {
      */
     public abstract void fromTextFormat(String txt);
     
+    public boolean isAudioGuided() { 
+        Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityDay, activityName, activityLocation, postalCode, activityCode, entityCreator);
+        return a.isAudioGuided(); }
+
+        public boolean isBlindFriendly() { 
+        Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityDay, activityName, activityLocation, postalCode, activityCode, entityCreator);
+        return a.isBlindFriendly(); }
 }

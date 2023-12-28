@@ -1,5 +1,7 @@
 package activities;
 
+import entities.Entity;
+
 /** Class Activities.java
  * 
  * This class is made to store a list of activities
@@ -66,7 +68,6 @@ public class ListOfActivities {
            aux.addActivity(listActv[j]);
            j++;
          }
-         i++;
       }
       return aux;
    }
@@ -93,4 +94,66 @@ public class ListOfActivities {
 
       return aux;
    }
+
+   public void agefirVisita(Visits act){
+      if(nElem<listActv.length){
+              for (int i = 0; i < nElem; i++) {
+                  if(act.getActivityName().charAt(0)<=(listActv[i].getActivityName().charAt(0))){
+                      for(int k=nElem; k>i; k--){
+                          listActv[k]=listActv[k-1];
+                      }
+                      listActv[i]=act;
+                  }
+          } 
+      }
+  }
+
+  /**
+   * Removes a visit activity from the list based on its code.
+   *
+   * @param codi The code of the visit activity to be removed.
+   */
+  public void eliminarUsuari(String codi) {
+      int i = 0;
+      while (i < nElem)
+          if (listActv[i].getActivityCode().equalsIgnoreCase(codi)) {
+              for (int j = i; j < nElem - 1; j++) {
+                  listActv[j] = listActv[j + 1];
+              }
+              nElem--;
+          } else
+              i++;
+  }
+
+  public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean blind){
+      int j=0;
+
+      ListOfActivities aux = new ListOfActivities(nElem);
+      if(audio==true && blind==false){
+         for(int i=0;i<listActv.length;i++){
+            if(listActv[i].entityCreator == entit.getName() && listActv[i].isAudioGuided() == audio){
+               aux.addActivity(listActv[j]);
+               j++;
+            }
+         }
+      }
+      if(blind==true && audio==false){
+         for(int i=0;i<listActv.length;i++){
+            if(listActv[i].entityCreator == entit.getName() && listActv[i].isBlindFriendly() == blind){
+               aux.addActivity(listActv[j]);
+               j++;
+            }
+         }
+      }
+      if(audio==true && blind==true){
+         for(int i=0;i<listActv.length;i++){
+            if(listActv[i].entityCreator == entit.getName() && listActv[i].isAudioGuided() == audio && listActv[i].isBlindFriendly() == blind){
+               aux.addActivity(listActv[j]);
+               j++;
+            }
+         }
+      }
+      return aux;
+      }
 }
+
