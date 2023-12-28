@@ -74,3 +74,5 @@ NOTAS:
 
  - Codigo de la Actividad (formato URVXXX): es un string el codigo de la actividad
    descubrir como guardar este atributo
+
+ - Codigo de reserva y de actividades: comprobador para que no se repitan los codigos

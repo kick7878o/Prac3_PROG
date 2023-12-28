@@ -1,1 +1,1 @@
-reservationID;userName;activityCode
+reservationID;userName;activityCode;rateLvl
