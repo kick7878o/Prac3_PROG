@@ -125,35 +125,44 @@ public class ListOfActivities {
               i++;
   }
 
-  public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean blind){
-      int j=0;
+  private ListOfActivities audioGuideFiltered(Entity entit, boolean audio){
+   int j=0;
 
-      ListOfActivities aux = new ListOfActivities(nElem);
-      if(audio==true && blind==false){
-         for(int i=0;i<listActv.length;i++){
-            if(listActv[i].entityCreator == entit.getName() && listActv[i].isAudioGuided() == audio){
-               aux.addActivity(listActv[j]);
-               j++;
-            }
+   ListOfActivities aux = new ListOfActivities(nElem);
+   if(audio==true){
+      for(int i=0;i<listActv.length;i++){
+         if(listActv[i].entityCreator == entit.getName() && listActv[i].isAudioGuided() == audio){
+            aux.addActivity(listActv[j]);
+            j++;
          }
       }
-      if(blind==true && audio==false){
-         for(int i=0;i<listActv.length;i++){
-            if(listActv[i].entityCreator == entit.getName() && listActv[i].isBlindFriendly() == blind){
-               aux.addActivity(listActv[j]);
-               j++;
-            }
+   }
+   return aux;
+}
+
+private ListOfActivities blindFiltered(Entity entit, boolean blind){
+   int j=0;
+
+   ListOfActivities aux = new ListOfActivities(nElem);
+   if(blind==true){
+      for(int i=0;i<listActv.length;i++){
+         if(listActv[i].entityCreator == entit.getName() && listActv[i].isBlindFriendly() == blind){
+            aux.addActivity(listActv[j]);
+            j++;
          }
       }
-      if(audio==true && blind==true){
-         for(int i=0;i<listActv.length;i++){
-            if(listActv[i].entityCreator == entit.getName() && listActv[i].isAudioGuided() == audio && listActv[i].isBlindFriendly() == blind){
-               aux.addActivity(listActv[j]);
-               j++;
-            }
-         }
-      }
-      return aux;
-      }
+   }
+   return aux;
+}
+
+public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean blind){
+
+   ListOfActivities aux = new ListOfActivities(nElem);
+   
+   aux.audioGuideFiltered(entit, audio);
+   aux.blindFiltered(entit, blind);
+   
+   return aux;
+   }
 }
 
