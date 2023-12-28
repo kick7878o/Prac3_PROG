@@ -4,7 +4,7 @@
  * Represents a list of visits.
  */
 
-public class LlistaVisites {
+public class ListOfVisits {
     private Visits[] llista;   // Array to store visit activities
     private int nElem; // Number of elements in the list
     
@@ -13,7 +13,7 @@ public class LlistaVisites {
      *
      * @param mida The initial size of the visit list.
      */
-    public LlistaVisites(int mida) {
+    public ListOfVisits(int mida) {
             llista=  new Visits[mida]; // Initialize the array with the specified size
             nElem= 0; // Set the initial number of elements to 0
         }
