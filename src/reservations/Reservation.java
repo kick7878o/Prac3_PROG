@@ -12,6 +12,7 @@ public class Reservation {
    private int idRes, idWorkShop; // ID reservation & workShop Identifier
    private byte rateLvl; // Satisfaction level 0-10 (included)
    private String user; // Name of the user
+   // NOTE: attribute for number of people that reserved a spot?
 
    /** Constructor to declare an instance for one reservation
     *
