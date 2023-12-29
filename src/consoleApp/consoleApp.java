@@ -93,10 +93,27 @@ public class consoleApp {
 	private static void Show_ActivitiesXDay(){}
 	private static void Show_WorkshopListWSpots(){}
 	private static void Add_Activity(){}
-	private static void Register_UserReservation(){}
+	private static void Register_UserReservation() {
+		System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
+		System.out.println("  Insert the user's name: ");
+		String userName = keyboard.next();
+		System.out.println("  Insert the workshop's name: ");
+		String wName = keyboard.next();
+		// Create new reservation instance
+		// Add the reservation to the list
+	}
 	private static void Show_UsersFromWorkshop(){}
 	private static void Highest_UserReservation(){}
-	private static void Register_PunctuationFromUserAfterworkshop(){}
+	private static void Register_PunctuationFromUserAfterworkshop() {
+		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
+		System.out.println("  Insert the user's name: ");
+		String userName = keyboard.next();
+		// Show the user's reservation list that has no rate (rateLvl == null | -1)
+		System.out.println("  Insert the satisfaction level [0-10]: ");
+		byte rateLvl = keyboard.nextByte();
+		// Update the rateLvl into that user reservation 
+		// Uptade the sum of the workshop && number of people that have voted
+	}
 	private static void Calculate_AverageWorkshop(){}
 	private static void Most_SuccessfulWorkshop(){}
 	private static void Show_VisitListFromEntity(){}
@@ -104,7 +121,7 @@ public class consoleApp {
 	private static void Cancel_Workshop(){}
 	
 	/** Method that indicates that the input number is wrong */
-	private static void wrongOption(){
+	private static void wrongOption() {
 		System.out.println("\n\n  ¡¡¡ Incorrect number input !!! \n\n");
 	}
 

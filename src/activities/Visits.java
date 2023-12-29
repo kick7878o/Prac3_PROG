@@ -12,35 +12,7 @@ public class Visits extends Activities{
    private boolean audioGuided;
    private boolean blindFriendly; // For people who needs special treatment
 
-   /** Constructor for the visit for when
-     * a new talk has been created (with activity code generation)
-     * 
-     * NOTE:
-     *  -> 1st line of attributes: child class needs to use
-     *  -> rest of lines: retrieved from parent class
-     * 
-     * @param aGuide audio guided
-     * @param bFriend blind friendly
-     * @param activityDay day of the activity
-     * @param activityName name of the activity 
-     * @param activityLocation location of the activity
-     * @param postalCode postal code of the activity
-     * @param activityCode code of the activity
-     * @param entityCreator entity creator
-    */
-   public Visits(boolean aGuide, boolean bFriend, 
-                 int activityDay, String activityName, String activityLocation, 
-                 int postalCode,String activityCode, String entityCreator) {
-
-      super(ActivityType.VISIT, activityName, activityLocation, 
-            postalCode, activityDay, entityCreator);
-
-      audioGuided = aGuide;
-      blindFriendly = bFriend;
-   }
-
-   /** Constructor for the visit for when
-    * a talk has already been created (without activity code generation)
+   /** Constructor for the visit activitiy
     *
     * NOTE:
     *  -> 1st line of attributes: child class needs to use
@@ -59,7 +31,7 @@ public class Visits extends Activities{
                  int activityDay, String act_Code, String activityName, String activityLocation, 
                  int postalCode,String activityCode, String entityCreator) {
 
-      super(ActivityType.VISIT, activityCode, activityLocation, 
+      super(ActivityType.VISIT, act_Code, activityCode, activityLocation, 
             postalCode, postalCode, entityCreator);
 
       audioGuided = aGuide;
@@ -83,9 +55,8 @@ public class Visits extends Activities{
     * @return duplicate
     */
    public Visits copy() {
-      return new Visits(audioGuided, blindFriendly, 
-                        activityDay, activityName, activityLocation,
-                        postalCode, activityCode, entityCreator);
+      return new Visits(audioGuided, blindFriendly, activityDay, activityCode, activityName,
+                        activityLocation, postalCode, activityCode, entityCreator);
    }
 
    @Override
@@ -104,7 +75,7 @@ public class Visits extends Activities{
    @Override
    public void fromTextFormat(String txt) {
       String[] aux = txt.split(";");
-
+      //super.actType = ActivityType.valueOf(aux[0]);
       super.activityCode = aux[1];
       super.activityName = aux[2];
       super.activityLocation = aux[3];

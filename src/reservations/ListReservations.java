@@ -42,7 +42,7 @@ public class ListReservations {
       listRes[nElem] = resv.copyReservation();
       nElem++;
    }
-   
+
    /** Method that shows the list of reservations
     * @return data list
     */

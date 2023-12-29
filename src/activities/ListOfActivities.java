@@ -60,6 +60,16 @@ public class ListOfActivities {
       nElem++;
    }
 
+   @Override
+   public String toString() {
+      String aux = "List of Activities [" +(nElem+1)+ "] =>";
+
+      for (int i=0; i < nElem; i++)
+         aux += "\n   [" +i+ "] " +listActv[i]+ "\n";
+
+      return aux;
+   }
+
    public ListOfActivities getActivityByDay(Activities[] actv, int day){
       ListOfActivities aux = new ListOfActivities(nElem);;
       int j=0;
@@ -69,16 +79,6 @@ public class ListOfActivities {
            j++;
          }
       }
-      return aux;
-   }
-
-   @Override
-   public String toString() {
-      String aux = "List of Activities [" +(nElem+1)+ "] =>";
-
-      for (int i=0; i < nElem; i++)
-         aux += "\n   [" +i+ "] " +listActv[i]+ "\n";
-
       return aux;
    }
 

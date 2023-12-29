@@ -11,30 +11,6 @@ public class Talk extends Activities {
     private final String hour = "at 17:00h (5:00 PM)"; // Time that will be taking place the talk
     private String speakerName; // Name of the speaker
 
-    /** Constructor of the talk instance for when
-     * a new talk has been created (with activity code generation)
-     * 
-     * NOTE:
-     *  -> 1st line of attributes: child class needs to use
-     *  -> rest of lines: retrieved from parent class
-     * 
-     * @param sName name of the speaker
-     * @param activityDay day of the activity
-     * @param activityName name of the activity 
-     * @param activityLocation location of the activity
-     * @param postalCode postal code of the activity
-     * @param activityCode code of the activity
-     * @param entityCreator entity creator
-     */
-    public Talk(String sName, 
-                int activityDay, String activityName, String activityLocation,
-                int postalCode, String activityCode, String entityCreator) {
-        super(ActivityType.TALK, activityName, activityLocation, 
-              postalCode, activityDay, entityCreator);
-
-        this.speakerName = sName;
-    }
-
     /** Constructor of the talk instancefor when
      * a talk has already been created (without activity code generation)
      *
@@ -74,9 +50,8 @@ public class Talk extends Activities {
      * @return duplicate
     */
     public Talk copy() {
-        return new Talk(speakerName, 
-                        activityDay, activityName, activityLocation,
-                        postalCode, activityCode, entityCreator);
+        return new Talk(speakerName, activityDay, hour, activityName, 
+                        activityLocation, postalCode, activityCode, entityCreator);
     }
 
     @Override
@@ -94,7 +69,7 @@ public class Talk extends Activities {
     @Override
     public void fromTextFormat(String txt) {
         String[] aux = txt.split(";");
-
+        //super.actType = ActivityType.valueOf(aux[0]);
         super.activityCode = aux[1];
         super.activityName = aux[2];
         super.activityLocation = aux[3];

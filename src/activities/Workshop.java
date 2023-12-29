@@ -15,38 +15,6 @@ public class Workshop extends Activities {
     private int nPeople=0; // number of pepole who rated the workshop
 
     /** Constructor for the workshop for when
-     * a new workshop has been created (with activity code generation)
-     * 
-     * NOTE:
-     *  -> 1st line of attributes: child class needs to use
-     *  -> rest of lines: retrieved from parent class
-     * 
-     * @param sartingHour hour that it'll start the workshop
-     * @param duration duation of the workshop
-     * @param capacity max capacity of the workshop
-     * @param sumRates total sum of the pepople who rated the workshop
-     * @param nPeople number of people who rated
-     * @param activityDay day of the activity
-     * @param activityName name of the activity 
-     * @param activityLocation location of the activity
-     * @param postalCode postal code of the activity
-     * @param activityCode code of the activity
-     * @param entityCreator entity creator
-     */
-    public Workshop(String sartingHour, int duration, int capacity, int sumRates, int nPeople,
-                    int activityDay, String activityName, String activityLocation, 
-                    int postalCode, String activityCode, String entityCreator) {
-        super(ActivityType.WORKSHOP, activityName, activityLocation, 
-              postalCode, activityDay, entityCreator);
-
-        this.sartingHour = sartingHour;
-        this.duration = duration;
-        this.capacity = capacity;
-        this.sumRates = sumRates;
-        this.nPeople = nPeople;
-    }
-
-    /** Constructor for the workshop for when
      * a workshop has already been created (without activity code generation)
      * 
      * NOTE:
@@ -68,8 +36,8 @@ public class Workshop extends Activities {
     public Workshop(String sartingHour, int duration, int capacity, int sumRates, int nPeople,
                     int activityDay, String act_code, String activityName, String activityLocation, 
                     int postalCode, String activityCode, String entityCreator) {
-        super(ActivityType.WORKSHOP, activityCode, activityLocation, 
-                postalCode, postalCode, entityCreator);
+        super(ActivityType.WORKSHOP, act_code, activityCode, activityLocation, 
+              postalCode, postalCode, entityCreator);
 
         this.sartingHour = sartingHour;
         this.duration = duration;
@@ -95,18 +63,18 @@ public class Workshop extends Activities {
      * @return duplicate
      */
     public Workshop copy() {
-        return new Workshop(sartingHour, duration, capacity, sumRates, nPeople, 
-                            activityDay, activityName, activityLocation, 
-                            postalCode, activityCode, entityCreator);
+        return new Workshop(sartingHour, duration, capacity, sumRates, 
+                            nPeople, activityDay, sartingHour, activityName, 
+                            activityLocation, postalCode, activityCode, entityCreator);
     }
     @Override
     public String toString() {
         return super.toString()+
                "Hour: " +sartingHour+ "h\n" +
-               "Duration: " +duration+ "\n" +
-               "Capacity: " +capacity+ "\n" +
+               "Duration: " +duration+ " minutes\n" +
+               "Capacity: " +capacity+ " people\n" +
                "Sum of rates: " +sumRates+ "\n" +
-               "Number of people: " +nPeople+ "\n\n";
+               "Number of people: " +nPeople+ " have voted\n\n";
     }
 
     @Override
@@ -128,6 +96,7 @@ public class Workshop extends Activities {
     @Override
     public void fromTextFormat(String txt) {
         String[] aux = txt.split(";");
+        //super.actType = ActivityType.valueOf(aux[0]);
         super.activityCode = aux[1];
         super.activityName = aux[2];
         super.activityLocation = aux[3];

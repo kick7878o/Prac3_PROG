@@ -1,7 +1,5 @@
 package reservations;
 
-import java.util.Random;
-
 /** Class Reservation.java
  *
  * This class is made for storing one reservation
@@ -12,28 +10,10 @@ import java.util.Random;
  */
 public class Reservation {
    private int idRes, idWorkShop; // ID reservation & workShop Identifier
-   private int spotsFilled; // Number of spots filled
    private byte rateLvl; // Satisfaction level 0-10 (included)
    private String user; // Name of the user
 
-   /** Constructor to declare an instance for one reservation used
-    * for when a reservation is created (with code generation)
-    *
-    * @param user name of the user
-    * @param idWorkShop code of the workshop
-    * @param rateLvl satisfaction level from the user
-    *
-    * NOTE: need to check if there's space in the WS
-   */
-   public Reservation (String user, int idWorkShop, byte rateLvl) {
-      this.idRes = generateWorkShopID();
-      this.user = user;
-      this.idWorkShop = idWorkShop;
-      this.rateLvl = rateLvl;
-   }
-
-   /** Constructor to declare an instance for one reservation used
-    * for when a reservation was already created (without code generation)
+   /** Constructor to declare an instance for one reservation
     *
     * @param idRes reservation identificator
     * @param user name of the user
@@ -55,13 +35,6 @@ public class Reservation {
    public String getUser() { return user; }
    public int getRateLvl() { return rateLvl; }
    public void setRateLvl(byte rateLvl) { this.rateLvl = rateLvl; }
-   public int getSpotsFilled() { return spotsFilled; }
-   public void setSpotsFilled(int spotsFilled) { this.spotsFilled = spotsFilled; }
-
-   private int generateWorkShopID() {
-      Random rand = new Random();
-      return rand.nextInt(200);
-   }
 
    /** Method that checks if the input name is the same
     * as the one in the instance
