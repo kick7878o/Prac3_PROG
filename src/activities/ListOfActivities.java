@@ -186,7 +186,7 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
    
    return aux;
    }
-}
+
 
    /** Method that reads from file Activity.txt
     * 
@@ -202,5 +202,6 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
     */
    public void saveActivityDataFromList(ListOfActivities listAct) {
    }
+   
 }
 
