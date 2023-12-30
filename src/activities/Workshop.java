@@ -10,7 +10,7 @@ package activities;
 public class Workshop extends Activities {
     private String sartingHour; // Starting hour of the workshop (format hh:mm)
     private int duration; // Duration of the workshop (in minutes)
-    private int capacity; // Max capacity
+    private int capacity, spotsLeft; // Max capacity & spots left to the workshop
     private int sumRates=0; // Total sum of punctuation
     private int nPeople=0; // number of pepole who rated the workshop
 
@@ -33,7 +33,7 @@ public class Workshop extends Activities {
      * @param activityCode code of the activity
      * @param entityCreator entity creator
      */
-    public Workshop(String sartingHour, int duration, int capacity, int sumRates, int nPeople,
+    public Workshop(String sartingHour, int duration, int capacity, int sLeft, int sumRates, int nPeople,
                     int activityDay, String act_code, String activityName, String activityLocation, 
                     int postalCode, String activityCode, String entityCreator) {
         super(ActivityType.WORKSHOP, act_code, activityCode, activityLocation, 
@@ -42,6 +42,7 @@ public class Workshop extends Activities {
         this.sartingHour = sartingHour;
         this.duration = duration;
         this.capacity = capacity;
+        this.spotsLeft = sLeft;
         this.sumRates = sumRates;
         this.nPeople = nPeople;
     }
@@ -53,6 +54,8 @@ public class Workshop extends Activities {
     public void setDuration(int duration) { this.duration = duration; }
     public int getCapacity() { return capacity; }
     public void setCapacity(int capacity) { this.capacity = capacity; }
+    public int getSpotsLeft() { return spotsLeft; }
+    public void setSpotsLeft(int spotsLeft) { this.spotsLeft = spotsLeft; }
     public int getSumRates() { return sumRates; }
     public void setSumRates(int sumRates) { this.sumRates = sumRates; }
     public int getnPeople() { return nPeople; }
@@ -63,9 +66,10 @@ public class Workshop extends Activities {
      * @return duplicate
      */
     public Workshop copy() {
-        return new Workshop(sartingHour, duration, capacity, sumRates, 
-                            nPeople, activityDay, sartingHour, activityName, 
-                            activityLocation, postalCode, activityCode, entityCreator);
+        return new Workshop(sartingHour, duration, capacity, 
+                            spotsLeft, sumRates, nPeople, activityDay, 
+                            sartingHour, activityName, activityLocation, 
+                            postalCode, activityCode, entityCreator);
     }
     @Override
     public String toString() {
@@ -73,13 +77,14 @@ public class Workshop extends Activities {
                "Hour: " +sartingHour+ "h\n" +
                "Duration: " +duration+ " minutes\n" +
                "Capacity: " +capacity+ " people\n" +
+               "Spots Left: " +spotsLeft+ "\n" +
                "Sum of rates: " +sumRates+ "\n" +
                "Number of people: " +nPeople+ " have voted\n\n";
     }
 
     @Override
     public String toTextFormat() {
-        return super.actType+ ";" // Check if when put the instance in the file. Shows WORKSHOP
+        return super.actType+ ";" // Check if when put the instance in the file. Shows WORKSHOP?
             +super.activityCode+ ";"
             +super.activityName+ ";"
             +super.activityLocation+ ";"
@@ -89,6 +94,7 @@ public class Workshop extends Activities {
             +sartingHour+ ";"
             +duration+ ";"
             +capacity+ ";"
+            +spotsLeft+ ";"
             +sumRates+ ";"
             +nPeople;
     }
@@ -106,7 +112,8 @@ public class Workshop extends Activities {
         sartingHour = aux[7];
         duration = Integer.parseInt(aux[8]);
         capacity = Integer.parseInt(aux[9]);
-        sumRates = Integer.parseInt(aux[10]);
-        nPeople = Integer.parseInt(aux[11]);
+        spotsLeft = Integer.parseInt(aux[10]);
+        sumRates = Integer.parseInt(aux[11]);
+        nPeople = Integer.parseInt(aux[12]);
     }
 }

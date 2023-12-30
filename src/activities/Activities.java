@@ -55,12 +55,13 @@ public abstract class Activities {
     
     @Override
     public String toString() {
-        return "Activity code: " + activityCode + "\n" +
-               "Activity name: " + activityName + "\n" +
-               "Activity location: " + activityLocation + "\n" +
-               "Postal code: " + postalCode + "\n" +
-               "Activity day: " + activityDay + "\n" +
-               "Entity creator: " + entityCreator + "\n";
+        return "Activity type: " +actType+ "\n" +
+               "Activity code: " +activityCode+ "\n" +
+               "Activity name: " +activityName+ "\n" +
+               "Activity location: " +activityLocation+ "\n" +
+               "Postal code: " +postalCode+ "\n" +
+               "Activity day: " +activityDay+ "\n" +
+               "Entity creator: " +entityCreator+ "\n";
     }
 
     // Abstract method to copy an instance
@@ -79,9 +80,11 @@ public abstract class Activities {
     
     public boolean isAudioGuided() { 
         Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityDay, activityName, activityLocation, postalCode, activityCode, entityCreator);
-        return a.isAudioGuided(); }
+        return a.isAudioGuided(); 
+    }
 
-        public boolean isBlindFriendly() { 
+    public boolean isBlindFriendly() { 
         Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityDay, activityName, activityLocation, postalCode, activityCode, entityCreator);
-        return a.isBlindFriendly(); }
+        return a.isBlindFriendly(); 
+    }
 }
