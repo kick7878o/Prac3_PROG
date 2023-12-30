@@ -40,31 +40,30 @@ public class consoleApp {
 					switch (opt) {
 						// We use '->' to remove the need of adding a 'break;' after each case
 						// Important note: can't add more than 1 instruction to each case
-						case  1: Show_DataList() ;break;
-						case  2: Show_ActivitiesFromEntity(); break;
-						case  3: Show_ActivitiesXDay(); break;
-						case  4: Show_WorkshopListWSpots(); break;
-						case  5: Add_Activity(); break;
-						case  6: Register_UserReservation(); break;
-						case  7: Show_UsersFromWorkshop(); break;
-						case  8: Highest_UserReservation(); break;
-						case  9: Register_PunctuationFromUserAfterworkshop(); break;
-						case 10: Calculate_AverageWorkshop(); break;
-						case 11: Most_SuccessfulWorkshop(); break;
-						case 12: Show_VisitListFromEntity(); break;
-						case 13: Show_TalkData(); break;
-						case 14: Cancel_Workshop(); break;
-						case 15: exit = true; storeDataStructures(activityList, entityList, 
-																				userList, reservationList); break;
-						default: wrongOption(); break; // If we insert a wrong number, it'll show a msg
+						case  1 -> Show_DataList();
+						case  2 -> Show_ActivitiesFromEntity(); 
+						case  3 -> Show_ActivitiesXDay(); 
+						case  4 -> Show_WorkshopListWSpots(); 
+						case  5 -> Add_Activity(); 
+						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
+						case  7 -> Show_UsersFromWorkshop(); 
+						case  8 -> Highest_UserReservation(); 
+						case  9 -> Register_PunctuationFromUserAfterworkshop(); 
+						case 10 -> Calculate_AverageWorkshop(); 
+						case 11 -> Most_SuccessfulWorkshop(); 
+						case 12 -> Show_VisitListFromEntity(); 
+						case 13 -> Show_TalkData(); 
+						case 14 -> Cancel_Workshop(); 
+						case 15 -> exit = true; 
+						default -> wrongOption();  // If we insert a wrong number, it'll show a msg
 					}
 				} catch (NumberFormatException e) { // We catch another input different from a number
 					System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
-				} catch (NoSuchElementException e) { // We catch the force shut down of the program
-					System.out.println("\n\n¡¡¡ U have forced the end of the program, data might be lost !!!\n\n");
-					exit = true;
 				}
 			} while (!exit);
+
+			// (not)Store data structures
+ 			storeDataStructures(activityList, entityList, userList, reservationList);
 
 			// We show a msg to indicate that the program has ended
 			System.out.println("\n\n\n=============== THE END ===============\n\n\n");
@@ -103,13 +102,14 @@ public class consoleApp {
 	public static void Add_Activity() {}
 
 	/** Method that registers the user's petition to book a workshop's spot */
-	public static void Register_UserReservation() {
+	public static void Register_UserReservation(ListOfActivities lActv, ListReservations lResv, ListUsers lUser) {
 		try {
 			System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
-			System.out.println("  Insert the user's name: ");
-			String userName = keyboard.next();
-			System.out.println("  Insert the workshop's name: ");
-			String wName = keyboard.next();
+			System.out.println("  Select the user that wants to make a reservation: ");
+			System.out.println(lUser.showUserName()+ "\n\tOption: ");
+			byte opc = keyboard.nextByte();
+			System.out.println("  Select the workshop: "  +lActv.filterByWorkShop().showNames());
+			byte opc2 = keyboard.nextByte();
 			// Create new reservation instance
 			// Add the reservation to the list
 		} catch (Exception e) {

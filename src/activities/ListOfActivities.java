@@ -100,6 +100,29 @@ public class ListOfActivities {
       return aux;
    }
 
+   /** Method that filters the list of activities by workshop
+    * 
+    * @return a new list with the workshops
+    */
+   public ListOfActivities filterByWorkShop() {
+      ListOfActivities aux = new ListOfActivities(INIT_SIZE);
+
+      for (Activities actv : listActv)
+         if (actv.actType == ActivityType.WORKSHOP)
+            aux.addActivity(actv);
+
+      return aux;
+   }
+
+   public String showNames() {
+      String aux = "Activity Names: ";
+
+      for (int i = 0; i < listActv.length; i++)
+         aux += "\n   [" +(i+1)+ "] " +listActv[i].getActivityName();
+
+      return aux;
+   }
+
    /** Method that adds a Visit to the list of activities
     * 
     * NOTE: it checks if the name is earlier in the periodic table to put it in order.
@@ -202,6 +225,5 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
     */
    public void saveActivityDataFromList(ListOfActivities listAct) {
    }
-   
 }
 
