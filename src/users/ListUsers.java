@@ -22,13 +22,6 @@ public class ListUsers {
     public int getElem() { return nElem; }
     public Users[] getListUsers() { return listUser; }
 
-    /** Method to add a user to the list
-     * @param user instance of Users 
-     */
-    public void addUser(Users user) {
-        listUser[nElem] = user.copyUser();
-        nElem++;
-    }
      
     @Override
     public String toString(){
@@ -38,5 +31,23 @@ public class ListUsers {
             aux+= "\n   [" +(i+1)+ "] " +listUser+ "\n";
         
         return aux;
-    }  
+    }
+
+
+    /** Method that displays the entities name
+     * 
+     * @return string with names
+     */
+    public String showUserName() {
+        String aux = "Avaliable Users: ";
+
+        for (int i=0; i < listUser.length; i++)
+            aux += "\n" +(i+1)+ ". " +listUser[i].getName()+ "\n";
+
+        return aux;
+    }
+    
+    public ListUsers loadUserDataFromFile() {
+        return null;
+    }
 }

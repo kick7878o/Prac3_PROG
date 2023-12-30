@@ -22,15 +22,8 @@ public class ListEntities {
     public int getnElem() { return nElem; }
     public Entity[] getEntityList() { return listEnt; }
 
-    /** Method that adds an entity into the list
-     * @param entity new instance to add
-     */
-    public void addEntity (Entity entity) {
-        listEnt[nElem] = entity.copyEntity();
-        nElem++;
-    }
 
-   /** Method that shows the list of entities
+    /** Method that shows the list of entities
     * @return data list
     */
     public String toString() {
@@ -40,5 +33,22 @@ public class ListEntities {
            aux += "\n   [" +(i+1)+ "] -> " +listEnt[i]+ "\n";
   
         return aux;
-     }
+    }
+
+    /** Method that displays the entities name
+     * 
+     * @return string with names
+     */
+    public String showEntityName() {
+        String aux = "Avaliable Entities: ";
+
+        for (int i=0; i < listEnt.length; i++)
+            aux += "\n" +(i+1)+ ". " +listEnt[i].getName()+ "\n";
+
+        return aux;
+    }
+
+    public ListEntities loadEntityDataFromFile() {
+        return null;
+    }
 }

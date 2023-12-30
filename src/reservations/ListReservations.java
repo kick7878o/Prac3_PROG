@@ -67,4 +67,21 @@ public class ListReservations {
 
       return aux;
    }
+
+   /** Method that loads serialized data from file to list
+    * 
+    * @return list of reservations
+    */
+   public ListReservations loadReservationDataFromFile() {
+      return null;
+   }
+
+   /** Method that saves the reservation data
+    * to a serialized(binary) file 
+    * 
+    * @param listResv list to be saved from
+    */
+   public void saveReservationDataToFile(ListReservations listResv) {
+
+   }
 }

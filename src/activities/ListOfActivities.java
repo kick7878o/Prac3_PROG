@@ -65,7 +65,7 @@ public class ListOfActivities {
       String aux = "List of Activities [" +(nElem+1)+ "] =>";
 
       for (int i=0; i < nElem; i++)
-         aux += "\n   [" +i+ "] " +listActv[i]+ "\n";
+         aux += "\n   [" +(i+1)+ "] " +listActv[i]+ "\n";
 
       return aux;
    }
@@ -95,74 +95,92 @@ public class ListOfActivities {
       return aux;
    }
 
-   public void agefirVisita(Visits act){
-      if(nElem<listActv.length){
-              for (int i = 0; i < nElem; i++) {
-                  if(act.getActivityName().charAt(0)<=(listActv[i].getActivityName().charAt(0))){
-                      for(int k=nElem; k>i; k--){
-                          listActv[k]=listActv[k-1];
-                      }
-                      listActv[i]=act;
-                  }
-          } 
-      }
-  }
+      public void agefirVisita(Visits act){
+         if (nElem<listActv.length) {
+               for (int i = 0; i < nElem; i++) {
+                     if (act.getActivityName().charAt(0) <= 
+                        (listActv[i].getActivityName().charAt(0))) {
+                        for(int k=nElem; k>i; k--)
+                           listActv[k]=listActv[k-1];
+                        
+                        listActv[i]=act;
+                     }
+               } 
+         }
+   }
 
-  /**
-   * Removes a visit activity from the list based on its code.
-   *
-   * @param codi The code of the visit activity to be removed.
-   */
-  public void eliminarUsuari(String codi) {
-      int i = 0;
-      while (i < nElem)
-          if (listActv[i].getActivityCode().equalsIgnoreCase(codi)) {
-              for (int j = i; j < nElem - 1; j++) {
-                  listActv[j] = listActv[j + 1];
-              }
-              nElem--;
-          } else
-              i++;
-  }
+   /**
+      * Removes a visit activity from the list based on its code.
+      *
+      * @param codi The code of the visit activity to be removed.
+      */
+   public void eliminarUsuari(String codi) {
+         int i = 0;
+         while (i < nElem)
+            if (listActv[i].getActivityCode().equalsIgnoreCase(codi)) {
+               for (int j = i; j < nElem - 1; j++)
+                     listActv[j] = listActv[j + 1];
+               
+               nElem--;
+            } else
+               i++;
+   }
 
-  private ListOfActivities audioGuideFiltered(Entity entit, boolean audio){
-   int j=0;
+   private ListOfActivities audioGuideFiltered(Entity entit, boolean audio){
+      int j=0;
 
-   ListOfActivities aux = new ListOfActivities(nElem);
-   if(audio==true){
-      for(int i=0;i<listActv.length;i++){
-         if(listActv[i].entityCreator == entit.getName() && listActv[i].isAudioGuided() == audio){
-            aux.addActivity(listActv[j]);
-            j++;
+      ListOfActivities aux = new ListOfActivities(nElem);
+      if (audio==true) {
+         for (int i=0; i < listActv.length; i++) {
+            if(listActv[i].entityCreator == entit.getName() && 
+               listActv[i].isAudioGuided() == audio) {
+               aux.addActivity(listActv[j]);
+               j++;
+            }
          }
       }
+      return aux;
    }
-   return aux;
-}
 
-private ListOfActivities blindFiltered(Entity entit, boolean blind){
-   int j=0;
+   private ListOfActivities blindFiltered(Entity entit, boolean blind){
+      int j=0;
+      ListOfActivities aux = new ListOfActivities(nElem);
 
-   ListOfActivities aux = new ListOfActivities(nElem);
-   if(blind==true){
-      for(int i=0;i<listActv.length;i++){
-         if(listActv[i].entityCreator == entit.getName() && listActv[i].isBlindFriendly() == blind){
-            aux.addActivity(listActv[j]);
-            j++;
+      if (blind==true) {
+         for (int i=0; i < listActv.length; i++) {
+            if (listActv[i].entityCreator == entit.getName() && 
+               listActv[i].isBlindFriendly() == blind) {
+               aux.addActivity(listActv[j]);
+               j++;
+            }
          }
       }
+      return aux;
    }
-   return aux;
-}
 
-public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean blind){
+   public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean blind){
 
-   ListOfActivities aux = new ListOfActivities(nElem);
+      ListOfActivities aux = new ListOfActivities(nElem);
    
-   aux.audioGuideFiltered(entit, audio);
-   aux.blindFiltered(entit, blind);
+      aux.audioGuideFiltered(entit, audio);
+      aux.blindFiltered(entit, blind);
    
-   return aux;
+      return aux;
+   }
+
+   /** Method that reads from file Activity.txt
+    * 
+    * @return List of activities
+    */
+   public ListOfActivities loadActivityDataFromFile() {
+      return null;
+   }
+
+   /** Method that saves the activity list to a file
+    * 
+    * @param listAct
+    */
+   public void saveActivityDataFromList(ListOfActivities listAct) {
    }
 }
 
