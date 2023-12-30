@@ -14,13 +14,22 @@ package consoleApp;
 import java.io.*;
 import java.util.*;
 
+import activities.ListOfActivities;
+import entities.ListEntities;
+import reservations.ListReservations;
+import users.ListUsers;
+
 public class consoleApp {
    // Declaration of keyboard readers
    private static Scanner keyboard = new Scanner(System.in); // reads from keyboard
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
    public static void main(String[] args) throws IOException {
-		initDataStructures(); // Initialize all data structures
+		ListEntities entityList = initEntityList(); // Initialize entity list
+		ListUsers userList = initUserList(); // Initialize usersList
+		ListOfActivities activityList = initActivitiesList(); // Initialize Activity Structure
+		ListReservations reservationList = initReservationList(); // Init reservation list
+
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
@@ -31,22 +40,23 @@ public class consoleApp {
 					switch (opt) {
 						// We use '->' to remove the need of adding a 'break;' after each case
 						// Important note: can't add more than 1 instruction to each case
-						case  1 -> Show_DataList();
-						case  2 -> Show_ActivitiesFromEntity();  
-						case  3 -> Show_ActivitiesXDay();  
-						case  4 -> Show_WorkshopListWSpots();  
-						case  5 -> Add_Activity();  
-						case  6 -> Register_UserReservation();  
-						case  7 -> Show_UsersFromWorkshop();  
-						case  8 -> Highest_UserReservation();  
-						case  9 -> Register_PunctuationFromUserAfterworkshop();  
-						case 10 -> Calculate_AverageWorkshop(); 
-						case 11 -> Most_SuccessfulWorkshop(); 
-						case 12 -> Show_VisitListFromEntity(); 
-						case 13 -> Show_TalkData(); 
-						case 14 -> Cancel_Workshop(); 
-						case 15 -> exit = true; 
-						default -> wrongOption(); // If we insert a wrong number, it'll show a msg
+						case  1: Show_DataList() ;break;
+						case  2: Show_ActivitiesFromEntity(); break;
+						case  3: Show_ActivitiesXDay(); break;
+						case  4: Show_WorkshopListWSpots(); break;
+						case  5: Add_Activity(); break;
+						case  6: Register_UserReservation(); break;
+						case  7: Show_UsersFromWorkshop(); break;
+						case  8: Highest_UserReservation(); break;
+						case  9: Register_PunctuationFromUserAfterworkshop(); break;
+						case 10: Calculate_AverageWorkshop(); break;
+						case 11: Most_SuccessfulWorkshop(); break;
+						case 12: Show_VisitListFromEntity(); break;
+						case 13: Show_TalkData(); break;
+						case 14: Cancel_Workshop(); break;
+						case 15: exit = true; storeDataStructures(activityList, entityList, 
+																				userList, reservationList); break;
+						default: wrongOption(); break; // If we insert a wrong number, it'll show a msg
 					}
 				} catch (NumberFormatException e) { // We catch another input different from a number
 					System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
@@ -55,8 +65,6 @@ public class consoleApp {
 					exit = true;
 				}
 			} while (!exit);
-
-			storeDataStructures(); // (not)Store all modified data
 
 			// We show a msg to indicate that the program has ended
 			System.out.println("\n\n\n=============== THE END ===============\n\n\n");
@@ -88,23 +96,31 @@ public class consoleApp {
 		System.out.print("\n\tChoose option: ");
 	}
 
-	private static void Show_DataList(){}
-	private static void Show_ActivitiesFromEntity(){}
-	private static void Show_ActivitiesXDay(){}
-	private static void Show_WorkshopListWSpots(){}
-	private static void Add_Activity(){}
-	private static void Register_UserReservation() {
-		System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
-		System.out.println("  Insert the user's name: ");
-		String userName = keyboard.next();
-		System.out.println("  Insert the workshop's name: ");
-		String wName = keyboard.next();
-		// Create new reservation instance
-		// Add the reservation to the list
+	public static void Show_DataList() {}
+	public static void Show_ActivitiesFromEntity() {}
+	public static void Show_ActivitiesXDay() {}
+	public static void Show_WorkshopListWSpots() {}
+	public static void Add_Activity() {}
+
+	/** Method that registers the user's petition to book a workshop's spot */
+	public static void Register_UserReservation() {
+		try {
+			System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
+			System.out.println("  Insert the user's name: ");
+			String userName = keyboard.next();
+			System.out.println("  Insert the workshop's name: ");
+			String wName = keyboard.next();
+			// Create new reservation instance
+			// Add the reservation to the list
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
-	private static void Show_UsersFromWorkshop(){}
-	private static void Highest_UserReservation(){}
-	private static void Register_PunctuationFromUserAfterworkshop() {
+	public static void Show_UsersFromWorkshop() {}
+	public static void Highest_UserReservation() {}
+
+	/** Method that registers the puntuation from a user after the workshop*/
+	public static void Register_PunctuationFromUserAfterworkshop() {
 		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
 		System.out.println("  Insert the user's name: ");
 		String userName = keyboard.next();
@@ -114,47 +130,58 @@ public class consoleApp {
 		// Update the rateLvl into that user reservation 
 		// Uptade the sum of the workshop && number of people that have voted
 	}
-	private static void Calculate_AverageWorkshop(){}
-	private static void Most_SuccessfulWorkshop(){}
-	private static void Show_VisitListFromEntity(){}
-	private static void Show_TalkData(){}
-	private static void Cancel_Workshop(){}
+	public static void Calculate_AverageWorkshop() {}
+	public static void Most_SuccessfulWorkshop() {}
+	public static void Show_VisitListFromEntity() {}
+	public static void Show_TalkData() {}
+	public static void Cancel_Workshop() {}
 	
 	/** Method that indicates that the input number is wrong */
-	private static void wrongOption() {
-		System.out.println("\n\n  ¡¡¡ Incorrect number input !!! \n\n");
+	private static void wrongOption() { 
+		System.out.println("\n\n  ¡¡¡ Incorrect number input !!! \n\n"); 
 	}
 
-	/** Method that initializes all data structures */
-	private static void initDataStructures() {
-		menuInitData();
-		int opt = Integer.parseInt(keyboard.next());
+	/** Method to initialize the reservation list from 
+	 * serialized file
+	 * 
+	 * @return list of reservations
+	 */
+	private static ListReservations initReservationList() {
+		return null;
 	}
-	/** Menu to choose the initialization process */
-	private static void menuInitData() {
-		System.out.println("\n\n----- Initializaton phase of data structures -----\n");
-		System.out.println("  Do you want to start from scratch or from last modification?");
-		System.out.println("    1. Start from scratch");
-		System.out.println("    2. Start from last modification");
-		System.out.println("    (IMPORTANT NOTE: starting from scratch will result in all data loss from previous modifications)");
-		System.out.println("\tOption: ");
+
+	/** Method to initialize the reservation list from 
+	 * serialized file
+	 * 
+	 * @return list of reservations
+	 */
+
+	private static ListOfActivities initActivitiesList() {
+		return null;
+	}
+
+	/** Method to initialize the reservation list from 
+	 * serialized file
+	 * 
+	 * @return list of reservations
+	 */
+
+	private static ListUsers initUserList() {
+		return null;
+	}
+
+	/** Method to initialize the reservation list from 
+	 * serialized file
+	 * 
+	 * @return list of reservations
+	 */
+	private static ListEntities initEntityList() {
+		return null;
 	}
 	
 	/** Method that stores all data structures */
-	private static void storeDataStructures() {
-		menuStoreData();
-		int opt = Integer.parseInt(keyboard.next());
-	}
-	/** Menu to choose the initialization process */
-	private static void menuStoreData() {
+	private static void storeDataStructures(ListOfActivities lActv, ListEntities lEnt, 
+															ListUsers lUser, ListReservations lResv) {
 		System.out.println("\n\n-----Storage phase of data structures -----\n");
-		System.out.println("  Do you want to store all data modification?");
-		System.out.println("    1. Yes");
-		System.out.println("    2. No");
-		System.out.println("\tOption: ");
-
-		/** NOTE2SELF: do a back system?
-		 * MEANING: go back to last menu used
-		 */
 	}
 }

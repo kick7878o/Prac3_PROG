@@ -78,6 +78,7 @@ public abstract class Activities {
     public String getEntityCreator() { return entityCreator; }
     public void setEntityCreator(String entityCreator) { this.entityCreator = entityCreator; }
 
+    // Este método se pondrá directamente en el main, está aquí para no olvidarme de como es
     public String generateActivityCode() {
         // New substring with their first 3 letters: URVASB -> aux = URV
         String aux = entityCreator.substring(0,2).toUpperCase();

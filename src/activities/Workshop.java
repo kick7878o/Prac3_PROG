@@ -10,7 +10,7 @@ package activities;
 public class Workshop extends Activities {
     private String sartingHour; // Starting hour of the workshop (format hh:mm)
     private int duration; // Duration of the workshop (in minutes)
-    private int capacity, spotsLeft; // Max capacity & spots left to the workshop
+    private int capacity, spotsLeft=capacity; // Max capacity & spots left to the workshop
     private int sumRates=0; // Total sum of punctuation
     private int nPeople=0; // number of pepole who rated the workshop
 
