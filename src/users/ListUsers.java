@@ -28,9 +28,18 @@ public class ListUsers {
         String aux = "Users List => Elements: " +nElem+ "\n";
 
         for(int i = 0; i < nElem; i++) 
-            aux+= "\n   [" +(i+1)+ "] " +listUser+ "\n";
+            aux+= "\n   [" +(i+1)+ "] " +listUser[i]+ "\n";
         
         return aux;
+    }
+
+    /** Method to add a user to the list
+     * NOTE: no need to check if we surpass the list, it's always constant
+     * @param user new user
+     */
+    public void addUser2List(Users user) {
+        listUser[nElem] = user;
+        nElem++;
     }
 
 
@@ -45,9 +54,5 @@ public class ListUsers {
             aux += "\n" +(i+1)+ ". " +listUser[i].getName()+ "\n";
 
         return aux;
-    }
-    
-    public ListUsers loadUserDataFromFile() {
-        return null;
     }
 }

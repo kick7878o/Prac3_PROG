@@ -1,0 +1,1 @@
+reservationID;userName;activityCode;rateLvl

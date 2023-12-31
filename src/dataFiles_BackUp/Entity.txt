@@ -1,4 +1,4 @@
-entityName;entityPhoneNumber;entityEmail // NOTE: change number and add entities
+entityName;entityPhoneNumber;entityEmail NOTE: change number and add entities
 5
 URV SCIENCE;+34123456789;urvscience@urvsc.cat
 URV BOTS;+34987654321;urvbotss@urvb.cat

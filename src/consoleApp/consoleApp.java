@@ -15,9 +15,11 @@ import java.io.*;
 import java.util.*;
 
 import activities.ListOfActivities;
+import entities.Entity;
 import entities.ListEntities;
 import reservations.ListReservations;
 import users.ListUsers;
+import users.Users;
 
 public class consoleApp {
    // Declaration of keyboard readers
@@ -25,8 +27,8 @@ public class consoleApp {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
    public static void main(String[] args) throws IOException {
-		ListEntities entityList = initEntityList(); // Initialize entity list
-		ListUsers userList = initUserList(); // Initialize usersList
+		ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
+		ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
 		ListOfActivities activityList = initActivitiesList(); // Initialize Activity Structure
 		ListReservations reservationList = initReservationList(); // Init reservation list
 
@@ -150,8 +152,8 @@ public class consoleApp {
 		return null;
 	}
 
-	/** Method to initialize the reservation list from 
-	 * serialized file
+	/** Method to initialize the activity list from 
+	 * text file
 	 * 
 	 * @return list of reservations
 	 */
@@ -161,27 +163,84 @@ public class consoleApp {
 	}
 
 	/** Method to initialize the reservation list from 
-	 * serialized file
+	 * text file.
 	 * 
 	 * @return list of reservations
 	 */
+	private static ListUsers initUserList(String pathFile) {
+		try {
+			Scanner f = new Scanner(new File(pathFile));
+			String header = f.nextLine();
+			int nUsers = Integer.parseInt(f.nextLine());
+			System.out.println("There's " +nUsers+ " users.\n  User file format: " +header);
+			ListUsers lUser = new ListUsers(nUsers);
 
-	private static ListUsers initUserList() {
-		return null;
+			for (int i=0; i < nUsers; i++) {
+				String line = f.nextLine(); // Line to line reader
+				String[] attributes = line.split(";"); // We split the data with ";"
+
+				// Line processing username, email & postalCode
+				String userName = attributes[0].trim();
+				String userEmail = attributes[1].trim();
+				int userPostalCode = Integer.parseInt(attributes[2].trim());
+
+				Users user = new Users(userName, userEmail, userPostalCode);
+
+				lUser.addUser2List(user);
+			}
+			f.close();
+			System.out.println(" ------- User's list loaded -------\n\n");
+			return lUser;
+		} catch (FileNotFoundException e) {
+			System.err.println("<<<<< User file NOT FOUND in path: " +pathFile+ " >>>>>");
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	/** Method to initialize the reservation list from 
-	 * serialized file
+	/** Method to initialize the entity list from 
+	 * text file
 	 * 
 	 * @return list of reservations
 	 */
-	private static ListEntities initEntityList() {
-		return null;
+	private static ListEntities initEntityList(String pathFile) {
+		try {
+			Scanner f = new Scanner(new File(pathFile));
+			String header = f.nextLine();
+			int nEntities = Integer.parseInt(f.nextLine());
+			System.out.println("\n\nThere's " +nEntities+ " entities.\n  User file format: " +header);
+			ListEntities lEntity = new ListEntities(nEntities);
+
+			for (int i=0; i < nEntities; i++) {
+				String line = f.nextLine(); // Line to line reader
+				String[] attributes = line.split(";"); // We split the data with ";"
+
+				// Line processing username, email & postalCode
+				String entityName = attributes[0].trim();
+				String entityPhoneNumber = attributes[1].trim();
+				String entityEmail = attributes[2].trim();
+
+				Entity entity = new Entity(entityName, entityPhoneNumber, entityEmail);
+
+				lEntity.addEntity2List(entity);
+			}
+			f.close();
+			System.out.println(" ------- Entity's list loaded -------\n\n");
+			return lEntity;
+		} catch (FileNotFoundException e) {
+			System.err.println("<<<<< User file NOT FOUND in path: " +pathFile+ " >>>>>");
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	/** Method that stores all data structures */
 	private static void storeDataStructures(ListOfActivities lActv, ListEntities lEnt, 
 															ListUsers lUser, ListReservations lResv) {
-		System.out.println("\n\n-----Storage phase of data structures -----\n");
+		System.out.println("\n\n----- Storage phase of data structures -----\n");
 	}
 }

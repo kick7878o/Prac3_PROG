@@ -9,7 +9,7 @@ package users;
 public class Users {
     private String name; // Name of the user
     private String email; // Email of the user
-    private String postalCode; // Postal Code of the user
+    private int postalCode; // Postal Code of the user
 
     /** Constructor of the user
      * 
@@ -17,7 +17,7 @@ public class Users {
      * @param email
      * @param postalCode
      */
-    public Users(String name, String email, String postalCode){
+    public Users(String name, String email, int postalCode){
         this.name = name;
         this.email = email;
         this.postalCode = postalCode;
@@ -28,8 +28,8 @@ public class Users {
     public void setName(String name) { this.name = name; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-    public String getPostalCode() { return postalCode; }
-    public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+    public int getPostalCode() { return postalCode; }
+    public void setPostalCode(int postalCode) { this.postalCode = postalCode; }
 
     /** Method that checks if the input name is the same
      * as the one in the instance
@@ -55,8 +55,8 @@ public class Users {
      * @param userPostalCode postal code of the user
      * @return true or false
      */
-    public boolean isThisPostalCode(String userPostalCode) {
-        return this.postalCode.equalsIgnoreCase(userPostalCode);
+    public boolean isThisPostalCode(int userPostalCode) {
+        return this.postalCode == userPostalCode;
     }
 
     /** Duplicate of the user
@@ -87,6 +87,6 @@ public class Users {
         String[] data = txt.split(";");
         name = data[0];
         email = data[1];
-        postalCode = data[2];
+        postalCode = Integer.parseInt(data[2]);
     }
 }
