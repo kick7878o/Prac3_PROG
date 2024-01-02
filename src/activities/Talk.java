@@ -19,18 +19,19 @@ public class Talk extends Activities {
      *  -> rest of lines: retrieved from parent class
      *
      * @param sName name of the speaker
-     * @param activityDay day of the activity
+     * 
+     * @param activityCode code of the activity
      * @param activityName name of the activity 
      * @param activityLocation location of the activity
      * @param postalCode postal code of the activity
-     * @param activityCode code of the activity
+     * @param activityDay day of the activity
      * @param entityCreator entity creator
      */
     public Talk(String sName, 
-                int activityDay, String act_code, String activityName, String activityLocation,
-                int postalCode, String activityCode, String entityCreator) {
-        super(ActivityType.TALK, act_code, sName, 
-                activityLocation, postalCode, postalCode, entityCreator);
+                String act_code, String activityName, String activityLocation, int postalCode, 
+                int activityDay, String entityCreator) {
+        super(ActivityType.TALK, act_code, activityName, activityLocation, 
+              postalCode, activityDay, entityCreator);
 
         this.speakerName = sName;
     }
@@ -42,16 +43,16 @@ public class Talk extends Activities {
     @Override
     public String toString() {
        return super.toString()+
-            "Speaker name: " +speakerName+ "\n" +
-            "Hour: " +hour+ "\n\n";
+            "\tSpeaker name: " +speakerName+ "\n" +
+            "\tHour: " +hour+ "\n\n";
     }
 
     /** Method that dupplicates the Talk instance
      * @return duplicate
     */
     public Talk copy() {
-        return new Talk(speakerName, activityDay, hour, activityName, 
-                        activityLocation, postalCode, activityCode, entityCreator);
+        return new Talk(speakerName, activityCode, activityName, 
+                        activityLocation, postalCode, activityDay, entityCreator);
     }
 
     @Override
@@ -70,12 +71,12 @@ public class Talk extends Activities {
     public void fromTextFormat(String txt) {
         String[] aux = txt.split(";");
         //super.actType = ActivityType.valueOf(aux[0]);
-        super.activityCode = aux[1];
-        super.activityName = aux[2];
-        super.activityLocation = aux[3];
-        super.postalCode = Integer.parseInt(aux[4]);
-        super.activityDay = Integer.parseInt(aux[5]);
-        super.entityCreator = aux[6];
-        speakerName = aux[7];
+        super.activityCode = aux[0];
+        super.activityName = aux[1];
+        super.activityLocation = aux[2];
+        super.postalCode = Integer.parseInt(aux[3]);
+        super.activityDay = Integer.parseInt(aux[4]);
+        super.entityCreator = aux[5];
+        speakerName = aux[6];
     }
 }

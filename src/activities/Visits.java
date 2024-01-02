@@ -20,19 +20,19 @@ public class Visits extends Activities{
     * 
     * @param aGuide audio guided
     * @param bFriend blind friendly
-    * @param activityDay day of the activity
+    *
+    * @param activityCode code of the activity
     * @param activityName name of the activity 
     * @param activityLocation location of the activity
     * @param postalCode postal code of the activity
-    * @param activityCode code of the activity
+    * @param activityDay day of the activity
     * @param entityCreator entity creator
     */
    public Visits(boolean aGuide, boolean bFriend, 
-                 int activityDay, String act_Code, String activityName, String activityLocation, 
-                 int postalCode,String activityCode, String entityCreator) {
-
-      super(ActivityType.VISIT, act_Code, activityCode, activityLocation, 
-            postalCode, postalCode, entityCreator);
+                  String act_code, String activityName, String activityLocation, int postalCode, 
+                  int activityDay, String entityCreator) {
+         super(ActivityType.VISIT, act_code, activityName, activityLocation, 
+               postalCode, activityDay, entityCreator);
 
       audioGuided = aGuide;
       blindFriendly = bFriend;
@@ -47,16 +47,17 @@ public class Visits extends Activities{
    @Override
    public String toString() {
       return super.toString()+
-            "Audio guided: " +(audioGuided ? "Si" : "No")+ "\n" +
-            "Blind friendly: " +(blindFriendly ? "Si" : "No")+ "\n\n";
+            "\tAudio guided: " +(audioGuided ? "Si" : "No")+ "\n" +
+            "\tBlind friendly: " +(blindFriendly ? "Si" : "No")+ "\n\n";
    }
 
    /** Method that dupplicates the visit instance
     * @return duplicate
     */
    public Visits copy() {
-      return new Visits(audioGuided, blindFriendly, activityDay, activityCode, activityName,
-                        activityLocation, postalCode, activityCode, entityCreator);
+      return new Visits(audioGuided, blindFriendly, 
+                        activityCode, activityName, activityLocation, 
+                        postalCode, activityDay, entityCreator);
    }
 
    @Override
@@ -76,13 +77,13 @@ public class Visits extends Activities{
    public void fromTextFormat(String txt) {
       String[] aux = txt.split(";");
       //super.actType = ActivityType.valueOf(aux[0]);
-      super.activityCode = aux[1];
-      super.activityName = aux[2];
-      super.activityLocation = aux[3];
-      super.postalCode = Integer.parseInt(aux[4]);
-      super.activityDay = Integer.parseInt(aux[5]);
-      super.entityCreator = aux[6];
-      audioGuided = Boolean.parseBoolean(aux[7]);
-      blindFriendly = Boolean.parseBoolean(aux[8]);
+      super.activityCode = aux[0];
+      super.activityName = aux[1];
+      super.activityLocation = aux[2];
+      super.postalCode = Integer.parseInt(aux[3]);
+      super.activityDay = Integer.parseInt(aux[4]);
+      super.entityCreator = aux[5];
+      audioGuided = Boolean.parseBoolean(aux[6]);
+      blindFriendly = Boolean.parseBoolean(aux[7]);
    }
 }

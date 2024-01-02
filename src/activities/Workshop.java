@@ -26,18 +26,20 @@ public class Workshop extends Activities {
      * @param capacity max capacity of the workshop
      * @param sumRates total sum of the pepople who rated the workshop
      * @param nPeople number of people who rated
-     * @param activityDay day of the activity
+     * 
+     * @param activityCode code of the activity
      * @param activityName name of the activity 
      * @param activityLocation location of the activity
      * @param postalCode postal code of the activity
-     * @param activityCode code of the activity
+     * @param activityDay day of the activity
      * @param entityCreator entity creator
      */
-    public Workshop(String sartingHour, int duration, int capacity, int sLeft, int sumRates, int nPeople,
-                    int activityDay, String act_code, String activityName, String activityLocation, 
-                    int postalCode, String activityCode, String entityCreator) {
-        super(ActivityType.WORKSHOP, act_code, activityCode, activityLocation, 
-              postalCode, postalCode, entityCreator);
+    public Workshop(String sartingHour, int duration, int capacity, 
+                    int sLeft, int sumRates, int nPeople,
+                    String act_code, String activityName, String activityLocation, int postalCode, 
+                    int activityDay, String entityCreator) {
+        super(ActivityType.WORKSHOP, act_code, activityName, activityLocation, 
+            postalCode, activityDay, entityCreator);
 
         this.sartingHour = sartingHour;
         this.duration = duration;
@@ -66,20 +68,19 @@ public class Workshop extends Activities {
      * @return duplicate
      */
     public Workshop copy() {
-        return new Workshop(sartingHour, duration, capacity, 
-                            spotsLeft, sumRates, nPeople, activityDay, 
-                            sartingHour, activityName, activityLocation, 
-                            postalCode, activityCode, entityCreator);
+        return new Workshop(sartingHour, duration, capacity, spotsLeft, sumRates, nPeople, 
+                            activityCode, activityName, activityLocation, 
+                            postalCode, activityDay, entityCreator);
     }
     @Override
     public String toString() {
         return super.toString()+
-               "Hour: " +sartingHour+ "h\n" +
-               "Duration: " +duration+ " minutes\n" +
-               "Capacity: " +capacity+ " people\n" +
-               "Spots Left: " +spotsLeft+ "\n" +
-               "Sum of rates: " +sumRates+ "\n" +
-               "Number of people: " +nPeople+ " have voted\n\n";
+               "\tHour: " +sartingHour+ "h\n" +
+               "\tDuration: " +duration+ " minutes\n" +
+               "\tCapacity: " +capacity+ " people\n" +
+               "\tSpots Left: " +spotsLeft+ "\n" +
+               "\tSum of rates: " +sumRates+ "\n" +
+               "\tNumber of people: " +nPeople+ " have voted\n\n";
     }
 
     @Override
@@ -103,17 +104,17 @@ public class Workshop extends Activities {
     public void fromTextFormat(String txt) {
         String[] aux = txt.split(";");
         //super.actType = ActivityType.valueOf(aux[0]);
-        super.activityCode = aux[1];
-        super.activityName = aux[2];
-        super.activityLocation = aux[3];
-        super.postalCode = Integer.parseInt(aux[4]);
-        super.activityDay = Integer.parseInt(aux[5]);
-        super.entityCreator = aux[6];
-        sartingHour = aux[7];
-        duration = Integer.parseInt(aux[8]);
-        capacity = Integer.parseInt(aux[9]);
-        spotsLeft = Integer.parseInt(aux[10]);
-        sumRates = Integer.parseInt(aux[11]);
-        nPeople = Integer.parseInt(aux[12]);
+        super.activityCode = aux[0];
+        super.activityName = aux[1];
+        super.activityLocation = aux[2];
+        super.postalCode = Integer.parseInt(aux[3]);
+        super.activityDay = Byte.parseByte(aux[4]);
+        super.entityCreator = aux[5];
+        sartingHour = aux[6];
+        duration = Integer.parseInt(aux[7]);
+        capacity = Integer.parseInt(aux[8]);
+        spotsLeft = Integer.parseInt(aux[9]);
+        sumRates = Integer.parseInt(aux[10]);
+        nPeople = Integer.parseInt(aux[11]);
     }
 }

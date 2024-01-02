@@ -14,7 +14,12 @@ package consoleApp;
 import java.io.*;
 import java.util.*;
 
+import activities.Activities;
+import activities.ActivityType;
 import activities.ListOfActivities;
+import activities.Talk;
+import activities.Visits;
+import activities.Workshop;
 import entities.Entity;
 import entities.ListEntities;
 import reservations.ListReservations;
@@ -25,13 +30,15 @@ public class consoleApp {
    // Declaration of keyboard readers
    private static Scanner keyboard = new Scanner(System.in); // reads from keyboard
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	// Global variables to catch the headers of each file 
+	private static String ActivityListHeader, TalkListHeader, VisitListHeader, WorkShopListHeader;
 
    public static void main(String[] args) throws IOException {
+		// Data initialization phase
 		ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
 		ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
-		ListOfActivities activityList = initActivitiesList(); // Initialize Activity Structure
+		ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activity.txt"); // Initialize Activity Structure
 		ListReservations reservationList = initReservationList(); // Init reservation list
-
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
@@ -105,18 +112,7 @@ public class consoleApp {
 
 	/** Method that registers the user's petition to book a workshop's spot */
 	public static void Register_UserReservation(ListOfActivities lActv, ListReservations lResv, ListUsers lUser) {
-		try {
-			System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
-			System.out.println("  Select the user that wants to make a reservation: ");
-			System.out.println(lUser.showUserName()+ "\n\tOption: ");
-			byte opc = keyboard.nextByte();
-			System.out.println("  Select the workshop: "  +lActv.filterByWorkShop().showNames());
-			byte opc2 = keyboard.nextByte();
-			// Create new reservation instance
-			// Add the reservation to the list
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
 	}
 	public static void Show_UsersFromWorkshop() {}
 	public static void Highest_UserReservation() {}
@@ -124,13 +120,6 @@ public class consoleApp {
 	/** Method that registers the puntuation from a user after the workshop*/
 	public static void Register_PunctuationFromUserAfterworkshop() {
 		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
-		System.out.println("  Insert the user's name: ");
-		String userName = keyboard.next();
-		// Show the user's reservation list that has no rate (rateLvl == null | -1)
-		System.out.println("  Insert the satisfaction level [0-10]: ");
-		byte rateLvl = keyboard.nextByte();
-		// Update the rateLvl into that user reservation 
-		// Uptade the sum of the workshop && number of people that have voted
 	}
 	public static void Calculate_AverageWorkshop() {}
 	public static void Most_SuccessfulWorkshop() {}
@@ -157,9 +146,50 @@ public class consoleApp {
 	 * 
 	 * @return list of reservations
 	 */
+	private static ListOfActivities initActivitiesList(String pathFile) {
+		Scanner f = null;
+		try {
+			f = new Scanner(new File(pathFile)); // File reader
+			ActivityListHeader = f.nextLine(); // Activity header
+			TalkListHeader = f.nextLine(); // Talk header
+			VisitListHeader = f.nextLine(); // Visit header
+			WorkShopListHeader = f.nextLine(); // Workshop header
+			int nActivities = Integer.parseInt(f.nextLine()); // Number of activities
+			System.out.println("There's " +nActivities+ " activities.\n\n"  
+									 +" Activity file format: \n  " +ActivityListHeader+ "\n"
+									 +" Talk format: \n  " +TalkListHeader+ "\n"
+									 +" Visit format: \n  " +VisitListHeader+ "\n"
+									 +" WorkShop format: \n  " +WorkShopListHeader+ "\n"); // Show data
 
-	private static ListOfActivities initActivitiesList() {
-		return null;
+			ListOfActivities lActiv = new ListOfActivities(nActivities); // New list of activities
+
+			// Iteration over the list to get all data
+			for (int i=0; i < nActivities; i++) {
+				String line = f.nextLine(); // Get the next line
+				int firstData = line.indexOf(';'); // Get the activity type in number format
+				String[] attrib = line.split(";"); // Data split
+				ActivityType actType = ActivityType.valueOf(attrib[0]); // Activity Type
+
+				// We create a new default activity depending on the type
+				Activities activity = switch(actType) {
+					case TALK -> new Talk("","","","",0,0,"");
+					case VISIT -> new Visits(false,false,"","","",0,0,"");
+					case WORKSHOP -> new Workshop("",0,0,0,0,0,"","","",0,0,"");
+				};
+				activity.fromTextFormat(line.substring(firstData + 1)); // Process activity data
+				lActiv.addActivity(activity); // add to the list
+			}
+			System.out.println(" ------- Activity list loaded -------\n\n");
+			return lActiv;
+									 
+		} catch (FileNotFoundException e) {
+			System.err.println("<<<<< Activity.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace(); return null;
+		} finally {
+			f.close();
+		}
 	}
 
 	/** Method to initialize the reservation list from 
@@ -168,13 +198,15 @@ public class consoleApp {
 	 * @return list of reservations
 	 */
 	private static ListUsers initUserList(String pathFile) {
+		Scanner f = null;
 		try {
-			Scanner f = new Scanner(new File(pathFile));
-			String header = f.nextLine();
-			int nUsers = Integer.parseInt(f.nextLine());
+			f = new Scanner(new File(pathFile)); // File reader
+			String header = f.nextLine(); // Header of the user text file
+			int nUsers = Integer.parseInt(f.nextLine()); // Number of users in the file
 			System.out.println("There's " +nUsers+ " users.\n  User file format: " +header);
-			ListUsers lUser = new ListUsers(nUsers);
+			ListUsers lUser = new ListUsers(nUsers); // Setting a new list
 
+			// Iterate over the lines of the text file
 			for (int i=0; i < nUsers; i++) {
 				String line = f.nextLine(); // Line to line reader
 				String[] attributes = line.split(";"); // We split the data with ";"
@@ -184,30 +216,31 @@ public class consoleApp {
 				String userEmail = attributes[1].trim();
 				int userPostalCode = Integer.parseInt(attributes[2].trim());
 
-				Users user = new Users(userName, userEmail, userPostalCode);
+				Users user = new Users(userName, userEmail, userPostalCode); // New user instance
 
-				lUser.addUser2List(user);
+				lUser.addUser2List(user); // Add to the users list
 			}
-			f.close();
 			System.out.println(" ------- User's list loaded -------\n\n");
 			return lUser;
 		} catch (FileNotFoundException e) {
-			System.err.println("<<<<< User file NOT FOUND in path: " +pathFile+ " >>>>>");
+			System.err.println("<<<<< Users.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
 			return null;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			e.printStackTrace(); return null;
+		} finally {
+			f.close();
 		}
 	}
 
 	/** Method to initialize the entity list from 
-	 * text file
+	 * text file.
 	 * 
 	 * @return list of reservations
 	 */
 	private static ListEntities initEntityList(String pathFile) {
+		Scanner f = null;
 		try {
-			Scanner f = new Scanner(new File(pathFile));
+			f = new Scanner(new File(pathFile));
 			String header = f.nextLine();
 			int nEntities = Integer.parseInt(f.nextLine());
 			System.out.println("\n\nThere's " +nEntities+ " entities.\n  User file format: " +header);
@@ -226,15 +259,15 @@ public class consoleApp {
 
 				lEntity.addEntity2List(entity);
 			}
-			f.close();
 			System.out.println(" ------- Entity's list loaded -------\n\n");
 			return lEntity;
 		} catch (FileNotFoundException e) {
-			System.err.println("<<<<< User file NOT FOUND in path: " +pathFile+ " >>>>>");
+			System.err.println("<<<<< Entity.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
 			return null;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			e.printStackTrace(); return null;
+		} finally {
+			f.close();
 		}
 	}
 	

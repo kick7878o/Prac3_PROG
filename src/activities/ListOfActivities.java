@@ -82,7 +82,7 @@ public class ListOfActivities {
       String aux = "List of Activities [" +(nElem+1)+ "] =>";
 
       for (int i=0; i < nElem; i++)
-         aux += "\n   [" +i+ "] " +listActv[i]+ "\n";
+         aux += "\n   [" +(i+1)+ "] " +listActv[i]+ "\n";
 
       return aux;
    }
