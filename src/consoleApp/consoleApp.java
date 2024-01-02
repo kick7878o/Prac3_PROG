@@ -14,17 +14,10 @@ package consoleApp;
 import java.io.*;
 import java.util.*;
 
-import activities.Activities;
-import activities.ActivityType;
-import activities.ListOfActivities;
-import activities.Talk;
-import activities.Visits;
-import activities.Workshop;
-import entities.Entity;
-import entities.ListEntities;
-import reservations.ListReservations;
-import users.ListUsers;
-import users.Users;
+import activities.*;
+import entities.*;
+import reservations.*;
+import users.*;
 
 public class consoleApp {
    // Declaration of keyboard readers
@@ -57,7 +50,7 @@ public class consoleApp {
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
 						case  8 -> Highest_UserReservation(); 
-						case  9 -> Register_PunctuationFromUserAfterworkshop(); 
+						case  9 -> Register_PunctuationFromUserAfterworkshop(userList); 
 						case 10 -> Calculate_AverageWorkshop(); 
 						case 11 -> Most_SuccessfulWorkshop(); 
 						case 12 -> Show_VisitListFromEntity(); 
@@ -121,8 +114,23 @@ public class consoleApp {
 	}
 
 	/** Method that registers the user's petition to book a workshop's spot */
-	public static void Register_UserReservation(ListOfActivities lActv, ListReservations lResv, ListUsers lUser) {
-		System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
+	public static void Register_UserReservation(ListOfActivities lActv, ListReservations lResv, 
+															  ListUsers lUser) {
+		String userName;
+		try {
+			System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
+			do {
+				System.out.println("Who wants to Book a spot to a workshop?\n  " +lUser.showUserName());
+				System.out.print("  Write its name: ");
+				userName = br.readLine();
+			} while (!lUser.isThisUserName(userName)); // Loop to check if the user is valid or not
+
+			Users user = lUser.getUserDataByName(userName); // Getting al the data from this user
+
+			// ...
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public static void Show_UsersFromWorkshop() {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
@@ -132,9 +140,24 @@ public class consoleApp {
 	}
 
 	/** Method that registers the puntuation from a user after the workshop*/
-	public static void Register_PunctuationFromUserAfterworkshop() {
-		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
+	public static void Register_PunctuationFromUserAfterworkshop(ListUsers lUser) {
+		String userName;
+		try {
+			System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
+			do {
+				System.out.println("Who wants to Book a spot to a workshop?\n  " +lUser.showUserName());
+				System.out.print("  Write its name: "); 
+				userName = br.readLine();
+			} while (!lUser.isThisUserName(userName)); // Loop to check if the user is valid or not
+
+			Users user = lUser.getUserDataByName(userName); // Getting al the data from this user
+
+			// ...
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
+	
 	public static void Calculate_AverageWorkshop() {
 		System.out.println("\n\n----- Calculate the average that a workshop has recieved -----\n");
 	}
@@ -156,14 +179,6 @@ public class consoleApp {
 		System.out.println("\n\n  ¡¡¡ Incorrect number input !!! \n\n"); 
 	}
 
-	/** Method to initialize the reservation list from 
-	 * serialized file
-	 * 
-	 * @return list of reservations
-	 */
-	private static ListReservations initReservationList() {
-		return null;
-	}
 
 	/** Method to initialize the activity list from 
 	 * text file
@@ -297,8 +312,21 @@ public class consoleApp {
 			f.close();
 		}
 	}
-	
-	/** Method that stores all data structures */
+
+	/** Method to initialize the reservation list from 
+	 * serialized file
+	 * 
+	 * @return list of reservations
+	 */
+	private static ListReservations initReservationList() {
+		return null;
+	}
+
+	/** Method that stores in files the data structures
+	 * 
+	 * @param lActv list of activities to store
+	 * @param lResv list of reservations to store
+	 */
 	private static void storeDataStructures(ListOfActivities lActv, ListReservations lResv) {
 		boolean exit = false;
 		do {

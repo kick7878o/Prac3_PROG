@@ -76,3 +76,7 @@ NOTAS:
    descubrir como guardar este atributo
 
  - Codigo de reserva y de actividades: comprobador para que no se repitan los codigos
+
+
+NI CASO A ESTO: david frent: registrar peticion de reserva a taller 
+									registrar nota que un usuario le da a un taller al que ha asistido

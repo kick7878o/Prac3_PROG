@@ -51,8 +51,33 @@ public class ListUsers {
         String aux = "Avaliable Users: ";
 
         for (int i=0; i < listUser.length; i++)
-            aux += "\n" +(i+1)+ ". " +listUser[i].getName()+ "\n";
+            aux += "\n\t" +(i+1)+ ". " +listUser[i].getName();
 
         return aux;
+    }
+
+    /** Method to check if the userName exists in the list
+     * 
+     * @param uName user name given
+     * @return true exists, false otherwise
+     */
+    public boolean isThisUserName(String uName) {
+        for (int i=0; i < listUser.length; i++)
+            if (isThisUserName(uName))
+                return true;
+        return false;
+    }
+
+    /** Method that returns the data of the user
+     * 
+     * @param name user name
+     * @return the user data
+     */
+    public Users getUserDataByName(String name) {
+        for (int i=0; i < nElem; i++) {
+            if (isThisUserName(name))
+                return listUser[i];
+        }
+        return null;
     }
 }
