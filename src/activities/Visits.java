@@ -62,8 +62,7 @@ public class Visits extends Activities{
 
    @Override
    public String toTextFormat() {
-      return super.actType+ ";" // Check if when put the instance in the file. Shows VISIT
-            +super.activityCode+ ";"
+      return super.activityCode+ ";"
             +super.activityName+ ";"
             +super.activityLocation+ ";"
             +super.postalCode+ ";"
@@ -76,7 +75,6 @@ public class Visits extends Activities{
    @Override
    public void fromTextFormat(String txt) {
       String[] aux = txt.split(";");
-      //super.actType = ActivityType.valueOf(aux[0]);
       super.activityCode = aux[0];
       super.activityName = aux[1];
       super.activityLocation = aux[2];

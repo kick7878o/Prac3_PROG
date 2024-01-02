@@ -72,7 +72,7 @@ public class consoleApp {
 			} while (!exit);
 
 			// (not)Store data structures
- 			storeDataStructures(activityList, entityList, userList, reservationList);
+ 			storeDataStructures(activityList, reservationList);
 
 			// We show a msg to indicate that the program has ended
 			System.out.println("\n\n\n=============== THE END ===============\n\n\n");
@@ -104,28 +104,52 @@ public class consoleApp {
 		System.out.print("\n\tChoose option: ");
 	}
 
-	public static void Show_DataList() {}
-	public static void Show_ActivitiesFromEntity() {}
-	public static void Show_ActivitiesXDay() {}
-	public static void Show_WorkshopListWSpots() {}
-	public static void Add_Activity() {}
+	public static void Show_DataList() {
+		System.out.println("\n\n----- Show Data List -----\n");
+	}
+	public static void Show_ActivitiesFromEntity() {
+		System.out.println("\n\n----- Show the activity list from a specific entity -----\n");
+	}
+	public static void Show_ActivitiesXDay() {
+		System.out.println("\n\n----- Show the activity list from a given day -----\n");
+	}
+	public static void Show_WorkshopListWSpots() {
+		System.out.println("\n\n----- Show the workshop list with available spots -----\n");
+	}
+	public static void Add_Activity() {
+		System.out.println("\n\n----- Add new activity -----\n");
+	}
 
 	/** Method that registers the user's petition to book a workshop's spot */
 	public static void Register_UserReservation(ListOfActivities lActv, ListReservations lResv, ListUsers lUser) {
 		System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
 	}
-	public static void Show_UsersFromWorkshop() {}
-	public static void Highest_UserReservation() {}
+	public static void Show_UsersFromWorkshop() {
+		System.out.println("\n\n----- Show user's list from a workshop -----\n");
+	}
+	public static void Highest_UserReservation() {
+		System.out.println("\n\n----- Show which user booked more workshops -----\n");
+	}
 
 	/** Method that registers the puntuation from a user after the workshop*/
 	public static void Register_PunctuationFromUserAfterworkshop() {
 		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
 	}
-	public static void Calculate_AverageWorkshop() {}
-	public static void Most_SuccessfulWorkshop() {}
-	public static void Show_VisitListFromEntity() {}
-	public static void Show_TalkData() {}
-	public static void Cancel_Workshop() {}
+	public static void Calculate_AverageWorkshop() {
+		System.out.println("\n\n----- Calculate the average that a workshop has recieved -----\n");
+	}
+	public static void Most_SuccessfulWorkshop() {
+		System.out.println("\n\n----- Get the most successful workshop -----\n");
+	}
+	public static void Show_VisitListFromEntity() {
+		System.out.println("\n\n----- Show visit's list offered by an entity -----\n");
+	}
+	public static void Show_TalkData() {
+		System.out.println("\n\n----- Show the talk data that the person will do -----\n");
+	}
+	public static void Cancel_Workshop() {
+		System.out.println("\n\n----- Cancel a workshop -----\n");
+	}
 	
 	/** Method that indicates that the input number is wrong */
 	private static void wrongOption() { 
@@ -144,6 +168,7 @@ public class consoleApp {
 	/** Method to initialize the activity list from 
 	 * text file
 	 * 
+	 * @param pathFile ubication of the file to load
 	 * @return list of reservations
 	 */
 	private static ListOfActivities initActivitiesList(String pathFile) {
@@ -195,6 +220,7 @@ public class consoleApp {
 	/** Method to initialize the reservation list from 
 	 * text file.
 	 * 
+	 * @param pathFile ubication of the file to load
 	 * @return list of reservations
 	 */
 	private static ListUsers initUserList(String pathFile) {
@@ -235,6 +261,7 @@ public class consoleApp {
 	/** Method to initialize the entity list from 
 	 * text file.
 	 * 
+	 * @param pathFile ubication of the file to load
 	 * @return list of reservations
 	 */
 	private static ListEntities initEntityList(String pathFile) {
@@ -272,8 +299,71 @@ public class consoleApp {
 	}
 	
 	/** Method that stores all data structures */
-	private static void storeDataStructures(ListOfActivities lActv, ListEntities lEnt, 
-															ListUsers lUser, ListReservations lResv) {
-		System.out.println("\n\n----- Storage phase of data structures -----\n");
+	private static void storeDataStructures(ListOfActivities lActv, ListReservations lResv) {
+		boolean exit = false;
+		do {
+			System.out.println("\n\n----- Storage phase of data structures -----\n");
+			System.out.println(" Do you want to store everything you've done?");
+			System.out.println("   1. Yes");
+			System.out.println("   2. No (Will loose al modification data)");
+			System.out.print("\tOption:");
+			try {
+				byte opt = Byte.parseByte(keyboard.next());
+				switch (opt) {
+					case 1: storeActivities(lActv); storeReservations(lResv); exit=true;
+						break;
+					case 2: System.out.println("\n\n\t ······ All modifications lost ······\n\n");
+						exit=true;
+						break;
+					default: wrongOption(); 
+						break;
+				}			
+			} catch (NumberFormatException e) {
+				System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
+			}
+		} while (!exit);
+
 	}
+
+	/** Method that stores into a text file the list of Activities
+	 * 
+	 * @param lActv list of activities
+	 */
+	private static void storeActivities(ListOfActivities lActv) {
+		Writer f = null;
+		try {
+			f = new BufferedWriter(new FileWriter("Activities.txt"));
+			var array = lActv.getListActv(); // We get the activity list
+			f.write(ActivityListHeader+ "\n");
+			f.write(TalkListHeader+ "\n");
+			f.write(VisitListHeader+ "\n");
+			f.write(WorkShopListHeader+ "\n"); // Write headers of the activity list
+			f.write(Integer.toString(lActv.getnElem())+ "\n"); // Write nElements of the list
+
+			// Iterate over the elements of the list and write it into the file
+			for (int i = 0; i < lActv.getnElem(); i++) {
+				// Activity Type, to know which type of activity it is
+				f.write(array[i].getActType().name());
+				f.write(";");
+
+				// Now the activity data
+				f.write(array[i].toTextFormat());
+				f.write("\n");
+			}
+			System.out.println(" ------- Activity list stored -------\n\n");
+		} catch (IOException e) {
+			System.err.println("\t<<<<< Error writing the file >>>>>");
+		} finally {
+			try {
+				f.close();
+			} catch (IOException e) {
+				System.err.println("\t<<<<< Error closing the file >>>>>");
+			}
+		}
+	}
+
+	private static void storeReservations(ListReservations lResv) {
+
+	}
+	
 }

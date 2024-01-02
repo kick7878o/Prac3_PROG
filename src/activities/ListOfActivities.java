@@ -77,6 +77,20 @@ public class ListOfActivities {
       return aux;
    }
 
+   /** Method to obtain an Activity instance
+    * with the unique code
+    * 
+    * @param id code of the activity
+    * @return the instance of the activity
+    */
+   public Activities getActivityByID(String id) {
+      for (int i=0; i < nElem; i++) {
+         if (listActv[i].getActivityCode() == id)
+            return listActv[i];
+      }
+      return null;
+   }
+
    @Override
    public String toString() {
       String aux = "List of Activities [" +(nElem+1)+ "] =>";
