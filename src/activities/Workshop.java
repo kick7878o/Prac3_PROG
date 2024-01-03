@@ -63,6 +63,11 @@ public class Workshop extends Activities {
     public int getnPeople() { return nPeople; }
     public void setnPeople(int nPeople) { this.nPeople = nPeople; }
 
+    public double getScores() {
+        if (nPeople == 0) return 0;
+        return (double) sumRates / nPeople;
+    }
+
     /** Method that duplicates the workshop
      * instance.
      * @return duplicate

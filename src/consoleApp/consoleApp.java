@@ -221,6 +221,7 @@ public class consoleApp {
 	
 	public static void Calculate_AverageWorkshop() {
 		System.out.println("\n\n----- Calculate the average that a workshop has recieved -----\n");
+		
 	}
 	public static void Most_SuccessfulWorkshop() {
 		System.out.println("\n\n----- Get the most successful workshop -----\n");
