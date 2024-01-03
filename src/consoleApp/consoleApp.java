@@ -49,7 +49,7 @@ public class consoleApp {
 						case  5 -> Add_Activity(); 
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
-						case  8 -> Highest_UserReservation(); 
+						case  8 -> Highest_UserReservation(reservationList, userList); 
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList); 
 						case 10 -> Calculate_AverageWorkshop(); 
 						case 11 -> Most_SuccessfulWorkshop(); 
@@ -159,8 +159,44 @@ public class consoleApp {
 	public static void Show_UsersFromWorkshop() {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 	}
-	public static void Highest_UserReservation(ListReservations lResv) {
+	public static void Highest_UserReservation(ListReservations lResv, ListUsers lUser) {
 		System.out.println("\n\n----- Show which user booked more workshops -----\n");
+		
+		String maxUser = null;
+		int maxReservations = 0;
+
+		try {
+			ListReservations lResvCopy = lResv.copyListReserv();
+			for(int i = 0; i < lResv.getElem(); i++){
+				Reservation reservation = lResvCopy.getListRes()[i];
+				String nameUser = reservation.getUser();
+        		int count = 0;
+
+        		for (int j = 0; j < lResv.getElem(); j++) {
+					Reservation reservation2 = lResvCopy.getListRes()[j];
+					String nameUser2 = reservation2.getUser();
+            		if (nameUser2.equals(nameUser)) {
+                		count++;
+            		}
+        		}
+
+        		if (count > maxReservations) {
+        	    	maxUser = nameUser;
+        	    	maxReservations = count;
+        		}
+			}
+
+			Users usr = lUser.getUserDataByName(maxUser);
+			if (maxUser != null) {
+				System.out.println("User with most workshop bookings: " + usr + ", Bookings: " + maxReservations);
+			} else {
+				System.out.println("No bookings found.");
+			}
+		} catch (NullPointerException e) {
+			System.out.println("No bookings found.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
