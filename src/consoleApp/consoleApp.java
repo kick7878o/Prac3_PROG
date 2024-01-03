@@ -43,19 +43,19 @@ public class consoleApp {
 						// We use '->' to remove the need of adding a 'break;' after each case
 						// Important note: can't add more than 1 instruction to each case
 						case  1 -> Show_DataList(userList, /*reservationList,*/ activityList, entityList);
-					/* 	case  2 -> Show_ActivitiesFromEntity(); 
+					 	case  2 -> Show_ActivitiesFromEntity(); 
 						case  3 -> Show_ActivitiesXDay(); 
 						case  4 -> Show_WorkshopListWSpots(activityList); 
 						case  5 -> Add_Activity(); 
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
-						case  8 -> Highest_UserReservation(); 
+						//case  8 -> Highest_UserReservation(); 
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList); 
 						case 10 -> Calculate_AverageWorkshop(); 
 						case 11 -> Most_SuccessfulWorkshop(); 
 						case 12 -> Show_VisitListFromEntity(); 
 						case 13 -> Show_TalkData(); 
-						case 14 -> Cancel_Workshop(); */
+						case 14 -> Cancel_Workshop(); 
 						case 15 -> exit = true; 
 						default -> wrongOption();  // If we insert a wrong number, it'll show a msg
 					}
@@ -102,19 +102,15 @@ public class consoleApp {
 		System.out.println("\n\n----- Show Data List -----\n");
 
 		//Users List
-		System.out.println("Users List => Elements:" +lUser.getElem());
 		System.out.println(lUser.toString());
 
 		//Reservations List
-		//System.out.println("Reservation List => Elements:" +lResv.getElem());
 		//System.out.println(lResv.toString());
 
 		//Activities List
-		System.out.println("Activities List => Elements:" +lActiv.getnElem());
 		System.out.println(lActiv.toString());
 
 		//Entities List
-		System.out.println("Entities List => Elements:" +lEntity.getnElem());
 		System.out.println(lEntity.toString());
 
 	}
