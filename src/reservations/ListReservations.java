@@ -6,6 +6,8 @@
 */
 package reservations;
 
+import activities.Activities;
+
 public class ListReservations {
    private Reservation[] listRes; // List of reservations
    private int nElem; // Number of elements from the list
@@ -23,6 +25,8 @@ public class ListReservations {
     * @return a number
     */
    public int getElem() { return nElem; }
+   public Reservation[] getListRes() { return listRes; }
+   
 
    /** Method to add a reservation to the list
     * 

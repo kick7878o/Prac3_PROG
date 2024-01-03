@@ -49,10 +49,10 @@ public class consoleApp {
 						case  5 -> Add_Activity(); 
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
-						case  8 -> Highest_UserReservation(); 
+						case  8 -> Highest_UserReservation(reservationList, userList); 
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList); 
 						case 10 -> Calculate_AverageWorkshop(); 
-						case 11 -> Most_SuccessfulWorkshop(); 
+						case 11 -> Most_SuccessfulWorkshop(activityList); 
 						case 12 -> Show_VisitListFromEntity(); 
 						case 13 -> Show_TalkData(); 
 						case 14 -> Cancel_Workshop(); 
@@ -172,9 +172,46 @@ public class consoleApp {
 	}
 	public static void Show_UsersFromWorkshop() {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
+		
 	}
-	public static void Highest_UserReservation(ListReservations lResv) {
+	public static void Highest_UserReservation(ListReservations lResv, ListUsers lUser) {
 		System.out.println("\n\n----- Show which user booked more workshops -----\n");
+		
+		String maxUser = null;
+		int maxReservations = 0;
+
+		try {
+			ListReservations lResvCopy = lResv.copyListReserv();
+			for(int i = 0; i < lResv.getElem(); i++){
+				Reservation reservation = lResvCopy.getListRes()[i];
+				String nameUser = reservation.getUser();
+        		int count = 0;
+
+        		for (int j = 0; j < lResv.getElem(); j++) {
+					Reservation reservation2 = lResvCopy.getListRes()[j];
+					String nameUser2 = reservation2.getUser();
+            		if (nameUser2.equals(nameUser)) {
+                		count++;
+            		}
+        		}
+
+        		if (count > maxReservations) {
+        	    	maxUser = nameUser;
+        	    	maxReservations = count;
+        		}
+			}
+
+			Users usr = lUser.getUserDataByName(maxUser);
+			if (maxUser != null) {
+				System.out.println("User with most workshop bookings: " + usr + ", Bookings: " + maxReservations);
+			} else {
+				System.out.println("No bookings found.");
+			}
+		} catch (NullPointerException e) {
+			System.out.println("No bookings found.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -199,10 +236,34 @@ public class consoleApp {
 	
 	public static void Calculate_AverageWorkshop() {
 		System.out.println("\n\n----- Calculate the average that a workshop has recieved -----\n");
+		
 	}
-	public static void Most_SuccessfulWorkshop() {
+	public static void Most_SuccessfulWorkshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Get the most successful workshop -----\n");
-	}
+		double maxSuccessRate = -1;
+		Workshop mostSuccessfulWorkshop = null;
+
+		Activities[] activities = lActiv.getListActv();
+		for(int i = 0; i < lActiv.getnElem(); i++){
+			Activities activity = activities[i];
+
+			if(activity instanceof Workshop){
+				Workshop workshop = (Workshop) activity;
+				double successRate =((workshop.getCapacity() - workshop.getSpotsLeft()) / workshop.getCapacity());
+
+				if(successRate > maxSuccessRate){
+					maxSuccessRate = successRate;
+					mostSuccessfulWorkshop = workshop;
+				}
+			} 
+		}
+			if(mostSuccessfulWorkshop != null){
+				System.out.println("Most succeful workshop => "+mostSuccessfulWorkshop);
+			}
+			else{
+				System.out.println("No workshops found");
+			}
+		}
 	public static void Show_VisitListFromEntity() {
 		System.out.println("\n\n----- Show visit's list offered by an entity -----\n");
 	}
