@@ -45,7 +45,7 @@ public class consoleApp {
 						case  1 -> Show_DataList();
 						case  2 -> Show_ActivitiesFromEntity(); 
 						case  3 -> Show_ActivitiesXDay(); 
-						case  4 -> Show_WorkshopListWSpots(); 
+						case  4 -> Show_WorkshopListWSpots(activityList); 
 						case  5 -> Add_Activity(); 
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
@@ -106,8 +106,30 @@ public class consoleApp {
 	public static void Show_ActivitiesXDay() {
 		System.out.println("\n\n----- Show the activity list from a given day -----\n");
 	}
-	public static void Show_WorkshopListWSpots() {
+	public static void Show_WorkshopListWSpots(ListOfActivities lActv) {
 		System.out.println("\n\n----- Show the workshop list with available spots -----\n");
+
+		ListOfActivities lWorkshop = lActv.filterByWorkShop();
+
+		ListOfActivities lWorkshopWSpots = new ListOfActivities();
+
+		for(int i = 0; i < lWorkshop.getnElem(); i++){
+			
+			Activities activity = lWorkshop.getListActv()[i];
+			Workshop workshop = (Workshop) activity;
+
+			int capacity = workshop.getCapacity();
+			if(capacity > 0){
+				lWorkshopWSpots.addActivity(workshop);
+			}
+		}
+
+		for(int i = 0; i < lWorkshopWSpots.getnElem(); i++){
+			Activities activity = lWorkshopWSpots.getListActv()[i];
+			Workshop workshop = (Workshop) activity;
+			System.out.println(workshop.toString());
+
+		}
 	}
 	public static void Add_Activity() {
 		System.out.println("\n\n----- Add new activity -----\n");
