@@ -8,7 +8,7 @@ package activities;
  * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
 public class Workshop extends Activities {
-    private String sartingHour; // Starting hour of the workshop (format hh:mm)
+    private String startingHour; // Starting hour of the workshop (format hh:mm)
     private int duration; // Duration of the workshop (in minutes)
     private int capacity, spotsLeft=capacity; // Max capacity & spots left to the workshop
     private int sumRates=0; // Total sum of punctuation
@@ -21,7 +21,7 @@ public class Workshop extends Activities {
      *  -> 1st line of attributes: child class needs to use
      *  -> rest of lines: retrieved from parent class
      * 
-     * @param sartingHour hour that it'll start the workshop
+     * @param startingHour hour that it'll start the workshop
      * @param duration duation of the workshop
      * @param capacity max capacity of the workshop
      * @param sumRates total sum of the pepople who rated the workshop
@@ -34,14 +34,14 @@ public class Workshop extends Activities {
      * @param activityDay day of the activity
      * @param entityCreator entity creator
      */
-    public Workshop(String sartingHour, int duration, int capacity, 
+    public Workshop(String startingHour, int duration, int capacity, 
                     int sLeft, int sumRates, int nPeople,
                     String act_code, String activityName, String activityLocation, int postalCode, 
                     int activityDay, String entityCreator) {
         super(ActivityType.WORKSHOP, act_code, activityName, activityLocation, 
             postalCode, activityDay, entityCreator);
 
-        this.sartingHour = sartingHour;
+        this.startingHour = startingHour;
         this.duration = duration;
         this.capacity = capacity;
         this.spotsLeft = sLeft;
@@ -50,8 +50,8 @@ public class Workshop extends Activities {
     }
     
     // Getters & Setters
-    public String getSartingHour() { return sartingHour; }
-    public void setSartingHour(String sHour) { this.sartingHour = sHour; }
+    public String getStartingHour() { return startingHour; }
+    public void setStartingHour(String sHour) { this.startingHour = sHour; }
     public int getDuration() { return duration; }
     public void setDuration(int duration) { this.duration = duration; }
     public int getCapacity() { return capacity; }
@@ -68,14 +68,14 @@ public class Workshop extends Activities {
      * @return duplicate
      */
     public Workshop copy() {
-        return new Workshop(sartingHour, duration, capacity, spotsLeft, sumRates, nPeople, 
+        return new Workshop(startingHour, duration, capacity, spotsLeft, sumRates, nPeople, 
                             activityCode, activityName, activityLocation, 
                             postalCode, activityDay, entityCreator);
     }
     @Override
     public String toString() {
         return super.toString()+
-               "\tHour: " +sartingHour+ "h\n" +
+               "\tHour: " +startingHour+ "h\n" +
                "\tDuration: " +duration+ " minutes\n" +
                "\tCapacity: " +capacity+ " people\n" +
                "\tSpots Left: " +spotsLeft+ "\n" +
@@ -91,7 +91,7 @@ public class Workshop extends Activities {
             +super.postalCode+ ";"
             +super.activityDay+ ";"
             +super.entityCreator+ ";"
-            +sartingHour+ ";"
+            +startingHour+ ";"
             +duration+ ";"
             +capacity+ ";"
             +spotsLeft+ ";"
@@ -108,7 +108,7 @@ public class Workshop extends Activities {
         super.postalCode = Integer.parseInt(aux[3]);
         super.activityDay = Byte.parseByte(aux[4]);
         super.entityCreator = aux[5];
-        sartingHour = aux[6];
+        startingHour = aux[6];
         duration = Integer.parseInt(aux[7]);
         capacity = Integer.parseInt(aux[8]);
         spotsLeft = Integer.parseInt(aux[9]);

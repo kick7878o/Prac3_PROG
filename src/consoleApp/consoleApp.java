@@ -106,6 +106,7 @@ public class consoleApp {
 	public static void Show_ActivitiesXDay() {
 		System.out.println("\n\n----- Show the activity list from a given day -----\n");
 	}
+	
 	public static void Show_WorkshopListWSpots(ListOfActivities lActv) {
 		System.out.println("\n\n----- Show the workshop list with available spots -----\n");
 
@@ -131,6 +132,7 @@ public class consoleApp {
 
 		}
 	}
+	
 	public static void Add_Activity() {
 		System.out.println("\n\n----- Add new activity -----\n");
 	}
@@ -157,8 +159,9 @@ public class consoleApp {
 	public static void Show_UsersFromWorkshop() {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 	}
-	public static void Highest_UserReservation() {
+	public static void Highest_UserReservation(ListReservations lResv) {
 		System.out.println("\n\n----- Show which user booked more workshops -----\n");
+		
 	}
 
 	/** Method that registers the puntuation from a user after the workshop*/
