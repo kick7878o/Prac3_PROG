@@ -49,7 +49,7 @@ public class consoleApp {
 						case  5 -> Add_Activity(); 
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
-						//case  8 -> Highest_UserReservation(); 
+						case  8 -> Highest_UserReservation(); 
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList); 
 						case 10 -> Calculate_AverageWorkshop(); 
 						case 11 -> Most_SuccessfulWorkshop(); 
