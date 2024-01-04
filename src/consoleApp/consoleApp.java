@@ -54,7 +54,7 @@ public class consoleApp {
 						case 10 -> Calculate_AverageWorkshop(); 
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
 						case 12 -> Show_VisitListFromEntity(); 
-						case 13 -> Show_TalkData(); 
+						case 13 -> Show_TalkData(activityList); 
 						case 14 -> Cancel_Workshop(); 
 						case 15 -> exit = true; 
 						default -> wrongOption();  // If we insert a wrong number, it'll show a msg
@@ -267,8 +267,20 @@ public class consoleApp {
 	public static void Show_VisitListFromEntity() {
 		System.out.println("\n\n----- Show visit's list offered by an entity -----\n");
 	}
-	public static void Show_TalkData() {
+	public static void Show_TalkData(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Show the talk data that the person will do -----\n");
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter the speaker name");
+		String speakerName = scanner.nextLine();
+
+		for(int i = 0; i < lActiv.getnElem(); i++){
+			Activities currentActivity = lActiv.getActivity(i);
+
+			if (currentActivity instanceof Talk && ((Talk) currentActivity).getSpeakerName().equals(speakerName)) {
+				System.out.println(currentActivity.toString());
+			}
+		}	
 	}
 	public static void Cancel_Workshop() {
 		System.out.println("\n\n----- Cancel a workshop -----\n");

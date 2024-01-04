@@ -239,5 +239,20 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
     */
    public void saveActivityDataFromList(ListOfActivities listAct) {
    }
+
+   public Activities getActivity(int i) {
+      try{
+         if(i >= 0 && i < nElem){
+            return listActv[i];
+      }
+
+      else{
+            throw new ArrayIndexOutOfBoundsException("Index out of bounds");
+          } 
+      } catch (ArrayIndexOutOfBoundsException e){
+         System.out.println("Error" +e.getMessage());
+         return null;
+      }
+   }
 }
 
