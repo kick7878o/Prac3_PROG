@@ -6,9 +6,9 @@
 */
 package reservations;
 
-import activities.Activities;
+import java.io.Serializable;
 
-public class ListReservations {
+public class ListReservations implements Serializable {
    private Reservation[] listRes; // List of reservations
    private int nElem; // Number of elements from the list
    private static final short INIT_CAPACITY = 10; // Initial array capacity
@@ -20,6 +20,14 @@ public class ListReservations {
       listRes = new Reservation[INIT_CAPACITY];
       nElem = 0; // initialization of the elements
    }
+
+    /** Constructor to make the list of reservations
+     * @param size of the array
+     */
+    public ListReservations(int size){
+        listRes = new Reservation[size];
+        nElem = 0;
+    }
 
    /** Getter that returns the occupied size of the list
     * @return a number
@@ -72,20 +80,45 @@ public class ListReservations {
       return aux;
    }
 
-   /** Method that loads serialized data from file to list
+   /** Method that checks if the reservation code given already exists
+    * in the list
     * 
-    * @return list of reservations
+    * @param code
+    * @return exists or not
     */
-   public ListReservations loadReservationDataFromFile() {
-      return null;
+   public boolean checkReservationCode(int code) {
+      for (Reservation reservation : listRes)
+         if (reservation.getIdRes() == code) return true;
+
+      return false;
    }
 
-   /** Method that saves the reservation data
-    * to a serialized(binary) file 
+   /** Method to count the number of reservations from a user
     * 
-    * @param listResv list to be saved from
+    * @param name
+    * @return
     */
-   public void saveReservationDataToFile(ListReservations listResv) {
+   public int userNumberCounter(String name) {
+      int count=0;
 
+      for (int i = 0; i < nElem; i++) {
+         if (listRes[i].getUser().equalsIgnoreCase(name))
+            count++;
+      }
+      return count;
+   }
+
+   /** Method to filter the list of reservations by user
+    * 
+    * @param name
+    * @return
+    */
+   public ListReservations filterByUser(String name) {
+      ListReservations aux = new ListReservations(userNumberCounter(name));
+      for (Reservation reservation : listRes) {
+         if (reservation.getUser() == name)
+            aux.addReservation(reservation);
+      }
+      return aux;
    }
 }

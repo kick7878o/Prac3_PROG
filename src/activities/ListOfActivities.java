@@ -39,7 +39,67 @@ public class ListOfActivities {
    public Activities[] getListActv() { return listActv; }
    public int getnElem() { return nElem; }
 
+   @Override
+   public String toString() {
+      String aux = "List of Activities [" +(nElem+1)+ "] =>";
 
+      for (int i=0; i < nElem; i++)
+         aux += "\n   [" +(i+1)+ "] " +listActv[i]+ "\n";
+
+      return aux;
+   }
+
+   /** Method that duplicates the list of activities
+    * 
+    * @return duplicate of the list
+    */
+   public ListOfActivities copy() {
+      ListOfActivities aux = new ListOfActivities(nElem);
+
+      for (int i=0; i < nElem; i++) 
+         aux.addActivity(listActv[i]);
+
+      return aux;
+   }
+
+   /** Method that get the number of talks of the list
+    * 
+    * @return array size
+    */
+   public int getNumberTalks() {
+      int nTalks = 0;
+      for (int i=0; i < nElem; i++) {
+         if (listActv[i].actType == ActivityType.TALK)
+            nTalks++;
+      }
+      return nTalks;
+   }
+
+   /** Method that get the number of visits of the list
+    * 
+    * @return array size
+    */
+   public int getNumberVisits() {
+      int nVisits = 0;
+      for (int i=0; i < nElem; i++) {
+         if (listActv[i].actType == ActivityType.VISIT)
+            nVisits++;
+      }
+      return nVisits;
+   }
+
+   /** Method that get the number of workshops of the list
+    * 
+    * @return array size
+    */
+   public int getNumberWorkShops() {
+      int nWorkShops = 0;
+      for (int i=0; i < nElem; i++) {
+         if (listActv[i].actType == ActivityType.WORKSHOP)
+            nWorkShops++;
+      }
+      return nWorkShops;
+   }
    /** Method that adds an activity to the list of activities
     * 
     * NOTE: resizes if the list is full
@@ -59,6 +119,50 @@ public class ListOfActivities {
       listActv[nElem] = actv.copy();
       nElem++;
    }
+
+   /** Method that filters the list of activities by workshop
+    * 
+    * @return a new list with the workshops
+    */
+   public ListOfActivities filterByWorkShop() {
+      ListOfActivities aux = new ListOfActivities(getNumberWorkShops());
+
+      for (Activities actv : listActv)
+         if (actv.actType == ActivityType.WORKSHOP)
+            aux.addActivity(actv);
+
+      return aux;
+   }
+
+   /** Method that filters the list of activities by talks
+    * 
+    * @return a new list with the workshops
+    */
+   public ListOfActivities filterByTalk() {
+      ListOfActivities aux = new ListOfActivities(getNumberTalks());
+
+      for (Activities activities : listActv) {
+         if (activities.actType == ActivityType.TALK) 
+            aux.addActivity(activities);
+      }
+
+      return aux;
+   }
+
+   /** Method that filters the list of activities by visits
+    * 
+    * @return a new list with the workshops
+    */
+   public ListOfActivities filterByVisits() {
+      ListOfActivities aux = new ListOfActivities(getNumberVisits());
+
+      for (Activities activities : listActv) {
+         if (activities.actType == ActivityType.VISIT)
+            aux.addActivity(activities);
+      }
+      return aux;
+   }
+
    /** Method that gets activities stored in an specific day
     * 
     * NOTE: it checks all the array to get the activities of this day
@@ -91,50 +195,53 @@ public class ListOfActivities {
       return null;
    }
 
-   @Override
-   public String toString() {
-      String aux = "List of Activities [" +(nElem+1)+ "] =>";
 
-      for (int i=0; i < nElem; i++)
-         aux += "\n   [" +(i+1)+ "] " +listActv[i]+ "\n";
 
-      return aux;
-   }
-
-   /** Method that duplicates the list of activities
+   /** Method that shows the names of the workshops
     * 
-    * @return duplicate of the list
+    * @return string with names
     */
-   public ListOfActivities copy() {
-      ListOfActivities aux = new ListOfActivities(nElem);
+   public String showNamesSpotsLeftAndCode() {
+      String aux = "";
 
-      for (int i=0; i < nElem; i++) 
-         aux.addActivity(listActv[i]);
-
+      for (Activities activities : listActv) {
+         if (activities.actType == ActivityType.WORKSHOP) {
+            Workshop wshop = (Workshop)activities;
+            if (wshop.getSpotsLeft() != 0)
+               aux += "Code: " +wshop.getActivityCode()+ " // Name: " 
+               +wshop.getActivityName()+ " (" +wshop.getSpotsLeft()+ " spots left)\n  ";
+         }
+      }
       return aux;
    }
 
-   /** Method that filters the list of activities by workshop
+   /** Method to check if the activity name exists or not
     * 
-    * @return a new list with the workshops
+    * @param name name of the activity
+    * @return
     */
-   public ListOfActivities filterByWorkShop() {
-      ListOfActivities aux = new ListOfActivities(INIT_SIZE);
-
-      for (Activities actv : listActv)
-         if (actv.actType == ActivityType.WORKSHOP)
-            aux.addActivity(actv);
-
-      return aux;
+   public boolean checkActivCode(String code) {
+      for (Activities activities : listActv) {
+         if (activities.getActivityCode().equalsIgnoreCase(code))
+            return true;
+      }
+      return false;
    }
 
-   public String showNames() {
-      String aux = "Activity Names: ";
-
-      for (int i = 0; i < listActv.length; i++)
-         aux += "\n   [" +(i+1)+ "] " +listActv[i].getActivityName();
-
-      return aux;
+   /** Method to get an instance of the workshop by name
+    * 
+    * @param name
+    * @return instance
+    */
+   public Workshop getWorkShopByName(String name) {
+      for (Activities activities : listActv) {
+         if (activities.actType == ActivityType.WORKSHOP) {
+            Workshop wshop = (Workshop)activities;
+            if (wshop.getActivityName().equalsIgnoreCase(name))
+               return wshop;
+         }      
+      }
+      return null;
    }
 
    /** Method that adds a Visit to the list of activities
@@ -222,22 +329,6 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
    aux.blindFiltered(entit, blind);
    
    return aux;
-   }
-
-
-   /** Method that reads from file Activity.txt
-    * 
-    * @return List of activities
-    */
-   public ListOfActivities loadActivityDataFromFile() {
-      return null;
-   }
-
-   /** Method that saves the activity list to a file
-    * 
-    * @param listAct
-    */
-   public void saveActivityDataFromList(ListOfActivities listAct) {
    }
 
    public Activities getActivity(int i) {

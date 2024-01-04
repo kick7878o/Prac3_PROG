@@ -31,7 +31,7 @@ public class consoleApp {
 		ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
 		ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
 		ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activity.txt"); // Initialize Activity Structure
-		ListReservations reservationList = initReservationList(); // Init reservation list
+		ListReservations reservationList = initReservationList("Reservations.ser"); // Init reservation list
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
@@ -121,11 +121,14 @@ public class consoleApp {
 		System.out.println("\n\n----- Show the activity list from a given day -----\n");
 	}
 	
+	/** Method that shows a list of workshops with available spots
+	 * 
+	 * @param lActv list of activities
+	 */
 	public static void Show_WorkshopListWSpots(ListOfActivities lActv) {
 		System.out.println("\n\n----- Show the workshop list with available spots -----\n");
 
 		ListOfActivities lWorkshop = lActv.filterByWorkShop();
-
 		ListOfActivities lWorkshopWSpots = new ListOfActivities();
 
 		for(int i = 0; i < lWorkshop.getnElem(); i++){
@@ -151,25 +154,58 @@ public class consoleApp {
 		System.out.println("\n\n----- Add new activity -----\n");
 	}
 
-	/** Method that registers the user's petition to book a workshop's spot */
+	/** Method to register a user reservation
+	 * 
+	 * @param lActv list activities
+	 * @param lResv list reservations
+	 * @param lUser list users
+	 * 
+	 * NOTE: can't book twice or more the same workshop
+	 */
 	public static void Register_UserReservation(ListOfActivities lActv, ListReservations lResv, 
 															  ListUsers lUser) {
-		String userName;
+		System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
+		String userName, wkCode;
+		int code;
 		try {
-			System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
-			do {
-				System.out.println("Who wants to Book a spot to a workshop?\n  " +lUser.showUserName());
+			do { // Loop to select the user 
+				System.out.println("Who wants to book a spot to a workshop?\n  " +lUser.showUserName());
 				System.out.print("  Write its name: ");
 				userName = br.readLine();
-			} while (!lUser.isThisUserName(userName)); // Loop to check if the user is valid or not
+			} while (lUser.isThisUserName(userName) == false); // Loop to check if the user is valid or not
 
-			Users user = lUser.getUserDataByName(userName); // Getting al the data from this user
+			System.out.println("\n\nWhich workshop does the user want to book?\n  " 
+																					+lActv.showNamesSpotsLeftAndCode());			
+			System.out.print("  Write its code: ");
+			wkCode = br.readLine();
+			do { // Loop to select the workshop
+			} while (lActv.checkActivCode(wkCode) == false);
 
-			// ...
+			Workshop wshop = lActv.getWorkShopByName(wkCode);
+
+			do { // Loop to generate random code
+				code = randomReservationCode();
+			} while (lResv.checkReservationCode(code) == true);
+
+			// Creation of new reservation instance
+			Reservation resv = new Reservation(code, userName, wshop.getActivityCode(), -1);
+			wshop.setSpotsLeft(wshop.getSpotsLeft()-1); // Update spots left
+
+			lResv.addReservation(resv); // Add it to the list
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
+	/** Method to generate a random reservation code
+	 * 
+	 * @return random number
+	 */
+	private static int randomReservationCode() {
+		Random r = new Random();
+		return r.nextInt(200);
+	}
+
 	public static void Show_UsersFromWorkshop() {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 		
@@ -270,9 +306,8 @@ public class consoleApp {
 	public static void Show_TalkData(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Show the talk data that the person will do -----\n");
 
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter the speaker name");
-		String speakerName = scanner.nextLine();
+		String speakerName = keyboard.nextLine();
 
 		for(int i = 0; i < lActiv.getnElem(); i++){
 			Activities currentActivity = lActiv.getActivity(i);
@@ -425,15 +460,6 @@ public class consoleApp {
 		}
 	}
 
-	/** Method to initialize the reservation list from 
-	 * serialized file
-	 * 
-	 * @return list of reservations
-	 */
-	private static ListReservations initReservationList() {
-		return null;
-	}
-
 	/** Method that stores in files the data structures
 	 * 
 	 * @param lActv list of activities to store
@@ -502,8 +528,57 @@ public class consoleApp {
 		}
 	}
 
-	private static void storeReservations(ListReservations lResv) {
+	/** Method to initialize the reservation list from 
+	 * serialized file
+	 * 
+	 * @return list of reservations
+	 */
+	private static ListReservations initReservationList(String pathFile) {
+		try {
+			var iFile = new ObjectInputStream(new FileInputStream(pathFile)); 
 
+			var length = iFile.readInt(); // Length of the list
+			ListReservations lResv = new ListReservations(length); // New reserv list
+
+			// Iteration over the list to get all data deserializing it
+			for (int i = 0; i < length; i++)
+				lResv.addReservation((Reservation)iFile.readObject());
+
+			iFile.close();
+			return lResv;
+	  	} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+	  	} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+	  	} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+	  	}
+	}
+
+	/** Method to store the reservation list into a serialized file
+	 * 
+	 * @param lResv list of reservations
+	 */
+	private static void storeReservations(ListReservations lResv) {
+		try {
+			var oFile = new ObjectOutputStream(new FileOutputStream("Reservation.ser"));
+			var resvArray = lResv.getListRes();
+			oFile.writeInt(resvArray.length);
+
+			for (Reservation resv : resvArray)
+				oFile.writeObject(resv);
+
+			oFile.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("<<<<< Reservation.ser file NOT FOUND in path >>>>>");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

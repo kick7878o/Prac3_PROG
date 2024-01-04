@@ -1,5 +1,9 @@
 package reservations;
 
+import java.io.Serializable;
+
+import exceptions.WrongRateNumber;
+
 /** Class Reservation.java
  *
  * This class is made for storing one reservation
@@ -8,10 +12,10 @@ package reservations;
  *
  * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
-public class Reservation {
-   private int idRes, idWorkShop; // ID reservation & workShop Identifier
-   private byte rateLvl; // Satisfaction level 0-10 (included)
-   private String user; // Name of the user
+public class Reservation implements Serializable {
+   private int idRes; // ID reservation
+   private int rateLvl=-1; // Satisfaction level 0-10 (included)
+   private String user, idWorkShop; // Name of the user & workShop Identifier
 
    /** Constructor to declare an instance for one reservation
     *
@@ -21,7 +25,7 @@ public class Reservation {
     * @param rateLvl satisfaction level from the user
     *
    */
-   public Reservation (int idRes, String user, int idWorkShop, byte rateLvl) {
+   public Reservation (int idRes, String user, String idWorkShop, int rateLvl) {
       this.idRes = idRes;
       this.user = user;
       this.idWorkShop = idWorkShop;
@@ -30,10 +34,14 @@ public class Reservation {
 
    // Getter & Setters
    public int getIdRes() { return idRes; }
-   public int getIdWorkShop() { return idWorkShop; }
+   public String getIdWorkShop() { return idWorkShop; }
    public String getUser() { return user; }
    public int getRateLvl() { return rateLvl; }
-   public void setRateLvl(byte rateLvl) { this.rateLvl = rateLvl; }
+   public void setRateLvl(int rateLvl) throws WrongRateNumber {
+      if (0 <= rateLvl && rateLvl <= 10) 
+         this.rateLvl = rateLvl;
+      else throw new WrongRateNumber(); 
+   }
 
    /** Duplicate of the reservation
     * @return new instance of the reservation

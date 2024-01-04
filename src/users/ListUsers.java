@@ -62,9 +62,10 @@ public class ListUsers {
      * @return true exists, false otherwise
      */
     public boolean isThisUserName(String uName) {
-        for (int i=0; i < listUser.length; i++)
-            if (isThisUserName(uName))
+        for (int i=0; i < nElem; i++) {
+            if (listUser[i].getName().equalsIgnoreCase(uName))
                 return true;
+        }
         return false;
     }
 

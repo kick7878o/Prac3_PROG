@@ -58,8 +58,4 @@ public class ListEntities {
 
         return aux;
     }
-
-    public ListEntities loadEntityDataFromFile() {
-        return null;
-    }
 }
