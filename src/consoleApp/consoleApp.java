@@ -249,7 +249,7 @@ public class consoleApp {
 
 			if(activity instanceof Workshop){
 				Workshop workshop = (Workshop) activity;
-				double successRate =((workshop.getCapacity() - workshop.getSpotsLeft()) / workshop.getCapacity());
+				double successRate = ((double) (workshop.getCapacity() - workshop.getSpotsLeft()) / workshop.getCapacity());
 
 				if(successRate > maxSuccessRate){
 					maxSuccessRate = successRate;
