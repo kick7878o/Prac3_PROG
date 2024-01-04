@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class ListReservations implements Serializable {
    private Reservation[] listRes; // List of reservations
    private int nElem; // Number of elements from the list
-   private static final short INIT_CAPACITY = 10; // Initial array capacity
+   private static final short INIT_CAPACITY = 5; // Initial array capacity
 
    /** Constructor to make the list
     * NOTE: we make an initial size then we resize if necessary
@@ -87,9 +87,9 @@ public class ListReservations implements Serializable {
     * @return exists or not
     */
    public boolean checkReservationCode(int code) {
-      for (Reservation reservation : listRes)
-         if (reservation.getIdRes() == code) return true;
-
+      for (int i=0; i < nElem; i++) {
+         if (listRes[i].getIdRes() == code) return true;
+      }
       return false;
    }
 

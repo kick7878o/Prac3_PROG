@@ -233,11 +233,11 @@ public class ListOfActivities {
     * @param name
     * @return instance
     */
-   public Workshop getWorkShopByName(String name) {
+   public Workshop getWorkShopByCode(String code) {
       for (Activities activities : listActv) {
          if (activities.actType == ActivityType.WORKSHOP) {
             Workshop wshop = (Workshop)activities;
-            if (wshop.getActivityName().equalsIgnoreCase(name))
+            if (wshop.getActivityCode().equalsIgnoreCase(code))
                return wshop;
          }      
       }

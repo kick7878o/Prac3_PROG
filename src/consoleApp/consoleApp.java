@@ -31,7 +31,9 @@ public class consoleApp {
 		ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
 		ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
 		ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activity.txt"); // Initialize Activity Structure
-		ListReservations reservationList = initReservationList("Reservations.ser"); // Init reservation list
+		ListReservations reservationList = initReservationList("Reservation.ser"); // Init reservation list
+
+		if (reservationList==null) reservationList = new ListReservations();
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
@@ -181,7 +183,7 @@ public class consoleApp {
 			do { // Loop to select the workshop
 			} while (lActv.checkActivCode(wkCode) == false);
 
-			Workshop wshop = lActv.getWorkShopByName(wkCode);
+			Workshop wshop = lActv.getWorkShopByCode(wkCode);
 
 			do { // Loop to generate random code
 				code = randomReservationCode();
@@ -194,6 +196,8 @@ public class consoleApp {
 			lResv.addReservation(resv); // Add it to the list
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -202,8 +206,8 @@ public class consoleApp {
 	 * @return random number
 	 */
 	private static int randomReservationCode() {
-		Random r = new Random();
-		return r.nextInt(200);
+		Random rand = new Random();
+		return rand.nextInt(200);
 	}
 
 	public static void Show_UsersFromWorkshop() {
@@ -535,7 +539,7 @@ public class consoleApp {
 	 */
 	private static ListReservations initReservationList(String pathFile) {
 		try {
-			var iFile = new ObjectInputStream(new FileInputStream(pathFile)); 
+			var iFile = new ObjectInputStream(new FileInputStream(pathFile));
 
 			var length = iFile.readInt(); // Length of the list
 			ListReservations lResv = new ListReservations(length); // New reserv list
