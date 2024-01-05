@@ -54,7 +54,7 @@ public class consoleApp {
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
 						case  8 -> Highest_UserReservation(reservationList, userList); 
-						case  9 -> Register_PunctuationFromUserAfterworkshop(userList,activityList,reservationList); 
+						case  9 -> Register_PunctuationFromUserAfterworkshop(); 
 						case 10 -> Calculate_AverageWorkshop(activityList); 
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
 						case 12 -> Show_VisitListFromEntity(); 
@@ -63,7 +63,7 @@ public class consoleApp {
 						case 15 -> exit = true; 
 						default -> wrongOption();  // If we insert a wrong number, it'll show a msg
 					}
-				} catch (NumberFormatException | UserReservationListEmpty e) { // We catch another input different from a number
+				} catch (NumberFormatException e) { // We catch another input different from a number
 					System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
 				}
 			} while (!exit);
@@ -274,79 +274,8 @@ public class consoleApp {
 		
 	}
 
-	/** Method to register the punctuation from a user that went to a booked workshop
-	 * 
-	 * @param lUser list of users
-	 * @param lActv list of activities
-	 * @param lResv list of reservations
-	 * @throws UserReservationListEmpty user reservation' list is empty
-	 * 
-	*/
-	public static void Register_PunctuationFromUserAfterworkshop(ListUsers lUser, 
-			ListOfActivities lActv, ListReservations lResv) throws UserReservationListEmpty {
-		String userName;
-		try {
-			System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
-			do { // Loop to check if the user is valid or not
-				System.out.println("Who wants to rate a workshop?\n  " +lUser.showUserName());
-				System.out.print("  Write its name: "); 
-				userName = br.readLine();
-			} while (lUser.isThisUserName(userName) == false);
-
-			// We filter the list of reservation by the name and if he rated
-			ListReservations resvUser = lResv.filterByIfUserRated(userName);
-			ListOfActivities activUser = lActv.filterByWorkShop();
-			ListOfActivities userWSReserved = new ListOfActivities(activUser.getNumberWorkShops());
-
-			// Iteration over the two lists to compare if the code in the reservation list
-			// is the same as the activity list
-			// With this we filter the activities the user already booked in
-			for (int i=0; i < resvUser.getnElem(); i++) {
-				for (int j = 0; j < activUser.getnElem(); j++) {
-					if (resvUser.getListRes()[i].getIdWorkShop() == activUser.getListActv()[j].getActivityCode()) {
-						userWSReserved.addActivity(activUser.getListActv()[j]);
-					}
-				}
-			}
-
-			String wkCode;
-			if (resvUser.getnElem() == 0)
-				throw new UserReservationListEmpty(userName);
-			else {
-				do { // Loop to insert valid code
-					System.out.println("  Which workshop do you want to rate?\n  " 
-																+userWSReserved.showActivityNamesANDCode());
-					System.out.print("  Write its code: ");
-					wkCode = br.readLine();
-				} while (userWSReserved.checkActivCode(wkCode) == false);
-			}
-
-			byte rate;
-			do {
-				System.out.println("  Rate the workshop: ");
-				rate = keyboard.nextByte();
-				if (0 > rate && rate > 10) 
-				System.out.println("\n\n\t<<<<<< Rate between 0 and 10 >>>>>>\n\n");
-			} while (0 > rate && rate > 10);
-			
-			// We obtain the workshop and reservation instance
-			Workshop wkshop = userWSReserved.getWorkShopByCode(wkCode);
-			Reservation resv = resvUser.getReservationByCode(wkCode);
-
-			// We update the rate to the reservation
-			resv.setRateLvl(rate);
-			// We update the score to the workshop
-			wkshop.setSumRates(rate);
-			wkshop.setnPeople(wkshop.getnPeople()+1);
-
-			
-			System.out.println("\n\n\t------ Your rating has been registered ------");
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (WrongRateNumber e) {
-			e.printStackTrace();
-		}	
+	public static void Register_PunctuationFromUserAfterworkshop() {
+		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
 	}
 	
 	public static void Calculate_AverageWorkshop(ListOfActivities lActiv) {

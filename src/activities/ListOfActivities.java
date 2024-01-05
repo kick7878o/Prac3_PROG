@@ -181,22 +181,6 @@ public class ListOfActivities {
       return aux;
    }
 
-   /** Method to obtain an Activity instance
-    * with the unique code
-    * 
-    * @param id code of the activity
-    * @return the instance of the activity
-    */
-   public Activities getActivityByID(String id) {
-      for (int i=0; i < nElem; i++) {
-         if (listActv[i].getActivityCode() == id)
-            return listActv[i];
-      }
-      return null;
-   }
-
-
-
    /** Method that shows the names of the workshops
     * 
     * @return string with names
@@ -213,36 +197,6 @@ public class ListOfActivities {
          }
       }
       return aux;
-   }
-
-   /** Method that shows the name of the activity 
-    * from a given code
-    * 
-    * @param id activity code
-    * @return names
-    */
-   public String showNameOfActivityByCode(String id) {
-      String aux="";
-
-      for (Activities activities : listActv) {
-         if (activities.getActivityCode() == id)
-            aux += "\n  " +activities.getActivityName();
-      }
-      return aux;
-   }
-
-   /** Method that shows the names and codes of the activities
-    * 
-    * @return string with names
-    */
-   public String showActivityNamesANDCode() {
-      String aux = "";
-
-      for (Activities activities : listActv) {
-         aux += "Code: " +activities.getActivityCode()+ " // Name: " 
-         +activities.getActivityName()+ "\n  ";
-      }
-      return aux;   
    }
 
    /** Method to check if the activity name exists or not

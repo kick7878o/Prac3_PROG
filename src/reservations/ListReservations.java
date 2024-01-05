@@ -122,23 +122,7 @@ public class ListReservations implements Serializable {
       return aux;
    }
 
-   /** Method to filter the reservations made from a user
-    * without any rate provided
-    * 
-    * @param name name of User
-    * @return 
-    */
-   public ListReservations filterByIfUserRated(String name) {
-      ListReservations aux = new ListReservations(userNumberCounter(name));
 
-      for (Reservation reservation : listRes) {
-         if ((reservation.getUser() == name) && (reservation.getRateLvl() == -1)) {
-            aux.addReservation(reservation);
-         }
-      }
-
-      return null;
-   }
 
    /** Method to filter the reservations made from a user
     * with the workshop code
