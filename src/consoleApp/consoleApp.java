@@ -57,7 +57,7 @@ public class consoleApp {
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
 						case 12 -> Show_VisitListFromEntity(); 
 						case 13 -> Show_TalkData(activityList); 
-						case 14 -> Cancel_Workshop(); 
+						case 14 -> Cancel_Workshop(activityList); 
 						case 15 -> exit = true; 
 						default -> wrongOption();  // If we insert a wrong number, it'll show a msg
 					}
@@ -297,13 +297,13 @@ public class consoleApp {
 				double average = workshop.getScores();
 				System.out.println("Average score of the workshop => "+average);
 			}else if(i == lWorkshop.getnElem()-1){
-				System.out.println("No workshops found");
+				System.out.println("No workshop found with the given name.");
 			}
 
 		}
 
 	}
-	
+
 	public static void Most_SuccessfulWorkshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Get the most successful workshop -----\n");
 		double maxSuccessRate = -1;
@@ -347,8 +347,19 @@ public class consoleApp {
 			}
 		}	
 	}
-	public static void Cancel_Workshop() {
+	public static void Cancel_Workshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Cancel a workshop -----\n");
+
+		System.out.println("Enter the workshop name");
+		String workshopName = keyboard.nextLine();
+		workshopName = keyboard.nextLine();
+
+		while(!workshopName.matches("[a-zA-Z ]+")) {
+    		System.out.println("Enter a valid name");
+    		workshopName = keyboard.nextLine();
+		}
+
+		
 	}
 	
 	/** Method that indicates that the input number is wrong */
