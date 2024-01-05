@@ -139,4 +139,18 @@ public class ListReservations implements Serializable {
 
       return null;
    }
+
+   /** Method to filter the reservations made from a user
+    * with the workshop code
+    * 
+    * @param name name of User
+    * @return 
+    */
+   public Reservation getReservationByCode(String wkCode) {
+      for (Reservation reservation : listRes) {
+         if(reservation.getIdWorkShop() == wkCode)
+            return reservation;
+      }
+      return null;
+   }
 }
