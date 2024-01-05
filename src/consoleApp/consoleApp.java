@@ -16,6 +16,7 @@ import java.util.*;
 
 import activities.*;
 import entities.*;
+import exceptions.*;
 import reservations.*;
 import users.*;
 
@@ -25,8 +26,9 @@ public class consoleApp {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	// Global variables to catch the headers of each file 
 	private static String ActivityListHeader, TalkListHeader, VisitListHeader, WorkShopListHeader;
+	private static File fileCheck; // To chekc if the file exists
 
-   public static void main(String[] args) throws IOException {
+   public static void main(String[] args) throws IOException, ActivityListEmpty {
 		// Data initialization phase
 		ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
 		ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
@@ -52,7 +54,7 @@ public class consoleApp {
 						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
 						case  7 -> Show_UsersFromWorkshop(); 
 						case  8 -> Highest_UserReservation(reservationList, userList); 
-						case  9 -> Register_PunctuationFromUserAfterworkshop(userList); 
+						case  9 -> Register_PunctuationFromUserAfterworkshop(userList,activityList,reservationList); 
 						case 10 -> Calculate_AverageWorkshop(activityList); 
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
 						case 12 -> Show_VisitListFromEntity(); 
@@ -61,7 +63,7 @@ public class consoleApp {
 						case 15 -> exit = true; 
 						default -> wrongOption();  // If we insert a wrong number, it'll show a msg
 					}
-				} catch (NumberFormatException e) { // We catch another input different from a number
+				} catch (NumberFormatException | UserReservationListEmpty e) { // We catch another input different from a number
 					System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
 				}
 			} while (!exit);
@@ -222,12 +224,12 @@ public class consoleApp {
 
 		try {
 			ListReservations lResvCopy = lResv.copyListReserv();
-			for(int i = 0; i < lResv.getElem(); i++){
+			for(int i = 0; i < lResv.getnElem(); i++){
 				Reservation reservation = lResvCopy.getListRes()[i];
 				String nameUser = reservation.getUser();
         		int count = 0;
 
-        		for (int j = 0; j < lResv.getElem(); j++) {
+        		for (int j = 0; j < lResv.getnElem(); j++) {
 					Reservation reservation2 = lResvCopy.getListRes()[j];
 					String nameUser2 = reservation2.getUser();
             		if (nameUser2.equals(nameUser)) {
@@ -255,18 +257,36 @@ public class consoleApp {
 		
 	}
 
-	/** Method that registers the puntuation from a user after the workshop*/
-	public static void Register_PunctuationFromUserAfterworkshop(ListUsers lUser) {
+	/** Method to register the punctuation from a user that went to a booked workshop
+	 * 
+	 * @param lUser list of users
+	 * @param lActv list of activities
+	 * @param lResv list of reservations
+	 * @throws UserReservationListEmpty user reservation' list is empty
+	 * 
+	*/
+	public static void Register_PunctuationFromUserAfterworkshop(ListUsers lUser, 
+			ListOfActivities lActv, ListReservations lResv) throws UserReservationListEmpty {
 		String userName;
 		try {
 			System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
 			do {
-				System.out.println("Who wants to Book a spot to a workshop?\n  " +lUser.showUserName());
+				System.out.println("Who wants to rate a workshop?\n  " +lUser.showUserName());
 				System.out.print("  Write its name: "); 
 				userName = br.readLine();
 			} while (!lUser.isThisUserName(userName)); // Loop to check if the user is valid or not
 
-			Users user = lUser.getUserDataByName(userName); // Getting al the data from this user
+			// We filter the list of reservation by the name and if he rated
+			ListReservations resvUser = lResv.filterByIfUserRated(userName);
+
+			ListOfActivities activUser = lActv.filterByWorkShop();
+
+			if (resvUser.getnElem() == 0) {
+				throw new UserReservationListEmpty(userName);
+			} else {
+				System.out.println("  Which workshop do you want to rate? ");
+			}
+			
 
 			// ...
 		} catch (IOException e) {
@@ -377,39 +397,46 @@ public class consoleApp {
 	private static ListOfActivities initActivitiesList(String pathFile) {
 		Scanner f = null;
 		try {
-			f = new Scanner(new File(pathFile)); // File reader
-			ActivityListHeader = f.nextLine(); // Activity header
-			TalkListHeader = f.nextLine(); // Talk header
-			VisitListHeader = f.nextLine(); // Visit header
-			WorkShopListHeader = f.nextLine(); // Workshop header
-			int nActivities = Integer.parseInt(f.nextLine()); // Number of activities
-			System.out.println("There's " +nActivities+ " activities.\n\n"  
-									 +" Activity file format: \n  " +ActivityListHeader+ "\n"
-									 +" Talk format: \n  " +TalkListHeader+ "\n"
-									 +" Visit format: \n  " +VisitListHeader+ "\n"
-									 +" WorkShop format: \n  " +WorkShopListHeader+ "\n"); // Show data
+			fileCheck = new File(pathFile); // Check if the file exists
 
-			ListOfActivities lActiv = new ListOfActivities(nActivities); // New list of activities
-
-			// Iteration over the list to get all data
-			for (int i=0; i < nActivities; i++) {
-				String line = f.nextLine(); // Get the next line
-				int firstData = line.indexOf(';'); // Get the activity type in number format
-				String[] attrib = line.split(";"); // Data split
-				ActivityType actType = ActivityType.valueOf(attrib[0]); // Activity Type
-
-				// We create a new default activity depending on the type
-				Activities activity = switch(actType) {
-					case TALK -> new Talk("","","","",0,0,"");
-					case VISIT -> new Visits(false,false,"","","",0,0,"");
-					case WORKSHOP -> new Workshop("",0,0,0,0,0,"","","",0,0,"");
-				};
-				activity.fromTextFormat(line.substring(firstData + 1)); // Process activity data
-				lActiv.addActivity(activity); // add to the list
-			}
-			System.out.println(" ------- Activity list loaded -------\n\n");
-			return lActiv;
-									 
+			if (fileCheck.exists()) {
+				f = new Scanner(new File(pathFile)); // File reader
+				ActivityListHeader = f.nextLine(); // Activity header
+				TalkListHeader = f.nextLine(); // Talk header
+				VisitListHeader = f.nextLine(); // Visit header
+				WorkShopListHeader = f.nextLine(); // Workshop header
+				int nActivities = Integer.parseInt(f.nextLine()); // Number of activities
+				System.out.println("There's " +nActivities+ " activities.\n\n"  
+										 +" Activity file format: \n  " +ActivityListHeader+ "\n"
+										 +" Talk format: \n  " +TalkListHeader+ "\n"
+										 +" Visit format: \n  " +VisitListHeader+ "\n"
+										 +" WorkShop format: \n  " +WorkShopListHeader+ "\n"); // Show data
+	
+				ListOfActivities lActiv = new ListOfActivities(nActivities); // New list of activities
+	
+				// Iteration over the list to get all data
+				for (int i=0; i < nActivities; i++) {
+					String line = f.nextLine(); // Get the next line
+					int firstData = line.indexOf(';'); // Get the activity type in number format
+					String[] attrib = line.split(";"); // Data split
+					ActivityType actType = ActivityType.valueOf(attrib[0]); // Activity Type
+	
+					// We create a new default activity depending on the type
+					Activities activity = switch(actType) {
+						case TALK -> new Talk("","","","",0,0,"");
+						case VISIT -> new Visits(false,false,"","","",0,0,"");
+						case WORKSHOP -> new Workshop("",0,0,0,0,0,"","","",0,0,"");
+					};
+					activity.fromTextFormat(line.substring(firstData + 1)); // Process activity data
+					lActiv.addActivity(activity); // add to the list
+				}
+				System.out.println(" ------- Activity list loaded -------\n\n");
+				return lActiv;
+			} else {
+				ListOfActivities lActiv = new ListOfActivities();
+				System.out.println(" ------- Activity list loaded -------\n\n");
+				return lActiv;
+			}								 
 		} catch (FileNotFoundException e) {
 			System.err.println("<<<<< Activity.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
 			return null;
@@ -505,8 +532,9 @@ public class consoleApp {
 	 * 
 	 * @param lActv list of activities to store
 	 * @param lResv list of reservations to store
+	 * @throws ActivityListEmpty
 	 */
-	private static void storeDataStructures(ListOfActivities lActv, ListReservations lResv) {
+	private static void storeDataStructures(ListOfActivities lActv, ListReservations lResv) throws ActivityListEmpty {
 		boolean exit = false;
 		do {
 			System.out.println("\n\n----- Storage phase of data structures -----\n");
@@ -535,29 +563,34 @@ public class consoleApp {
 	/** Method that stores into a text file the list of Activities
 	 * 
 	 * @param lActv list of activities
+	 * @throws ActivityListEmpty
 	 */
-	private static void storeActivities(ListOfActivities lActv) {
+	private static void storeActivities(ListOfActivities lActv) throws ActivityListEmpty {
 		Writer f = null;
 		try {
-			f = new BufferedWriter(new FileWriter("Activities.txt"));
-			var array = lActv.getListActv(); // We get the activity list
-			f.write(ActivityListHeader+ "\n");
-			f.write(TalkListHeader+ "\n");
-			f.write(VisitListHeader+ "\n");
-			f.write(WorkShopListHeader+ "\n"); // Write headers of the activity list
-			f.write(Integer.toString(lActv.getnElem())+ "\n"); // Write nElements of the list
-
-			// Iterate over the elements of the list and write it into the file
-			for (int i = 0; i < lActv.getnElem(); i++) {
-				// Activity Type, to know which type of activity it is
-				f.write(array[i].getActType().name());
-				f.write(";");
-
-				// Now the activity data
-				f.write(array[i].toTextFormat());
-				f.write("\n");
+			if (lActv.getnElem() != 0) {
+				f = new BufferedWriter(new FileWriter("Activities.txt"));
+				var array = lActv.getListActv(); // We get the activity list
+				f.write(ActivityListHeader+ "\n");
+				f.write(TalkListHeader+ "\n");
+				f.write(VisitListHeader+ "\n");
+				f.write(WorkShopListHeader+ "\n"); // Write headers of the activity list
+				f.write(Integer.toString(lActv.getnElem())+ "\n"); // Write nElements of the list
+	
+				// Iterate over the elements of the list and write it into the file
+				for (int i = 0; i < lActv.getnElem(); i++) {
+					// Activity Type, to know which type of activity it is
+					f.write(array[i].getActType().name());
+					f.write(";");
+	
+					// Now the activity data
+					f.write(array[i].toTextFormat());
+					f.write("\n");
+				}
+				System.out.println(" ------- Activity list stored -------\n\n");
+			} else {
+				throw new ActivityListEmpty();
 			}
-			System.out.println(" ------- Activity list stored -------\n\n");
 		} catch (IOException e) {
 			System.err.println("\t<<<<< Error writing the file >>>>>");
 		} finally {
@@ -576,20 +609,25 @@ public class consoleApp {
 	 */
 	private static ListReservations initReservationList(String pathFile) {
 		try {
-			var iFile = new ObjectInputStream(new FileInputStream(pathFile));
+			File check = new File(pathFile);
 
-			var length = iFile.readInt(); // Length of the list
-			ListReservations lResv = new ListReservations(length); // New reserv list
-
-			// Iteration over the list to get all data deserializing it
-			for (int i = 0; i < length; i++)
-				lResv.addReservation((Reservation)iFile.readObject());
-
-			iFile.close();
-			return lResv;
-	  	} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
+			if (check.exists()) { // If the file in that path exists
+				var iFile = new ObjectInputStream(new FileInputStream(pathFile));
+				
+				var length = iFile.readInt(); // Length of the list
+				ListReservations lResvData = new ListReservations(length); // New reserv list
+	
+				// Iteration over the list to get all data deserializing it
+				for (int i = 0; i < length; i++)
+					lResvData.addReservation((Reservation)iFile.readObject());
+	
+				iFile.close();
+				System.out.println(" ------- Reservation list loaded -------\n\n");
+				return lResvData;
+			} else { // If not we create an empty list
+				ListReservations lResvEmpty = new ListReservations();
+				return lResvEmpty;
+			}
 	  	} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -605,16 +643,17 @@ public class consoleApp {
 	 */
 	private static void storeReservations(ListReservations lResv) {
 		try {
-			var oFile = new ObjectOutputStream(new FileOutputStream("Reservation.ser"));
-			var resvArray = lResv.getListRes();
-			oFile.writeInt(resvArray.length);
+			if (lResv.getnElem() != 0) { // If there's something in the list, we store it
+				var oFile = new ObjectOutputStream(new FileOutputStream("ListReservations.ser"));
+				var resvArray = lResv.getListRes();
+				oFile.writeInt(resvArray.length);
+	
+				for (Reservation resv : resvArray)
+					oFile.writeObject(resv);
 
-			for (Reservation resv : resvArray)
-				oFile.writeObject(resv);
-
-			oFile.close();
-		} catch (FileNotFoundException e) {
-			System.err.println("<<<<< Reservation.ser file NOT FOUND in path >>>>>");
+				System.out.println(" ------- Reservation list stored -------\n\n");
+				oFile.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

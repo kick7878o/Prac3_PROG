@@ -215,6 +215,22 @@ public class ListOfActivities {
       return aux;
    }
 
+   /** Method that shows the name of the activity 
+    * from a given code
+    * 
+    * @param id activity code
+    * @return names
+    */
+   public String showNameOfActivityByCode(String id) {
+      String aux="";
+
+      for (Activities activities : listActv) {
+         if (activities.getActivityCode() == id)
+            aux += "\n  " +activities.getActivityName();
+      }
+      return aux;
+   }
+
    /** Method to check if the activity name exists or not
     * 
     * @param name name of the activity

@@ -14,7 +14,7 @@ import exceptions.WrongRateNumber;
  */
 public class Reservation implements Serializable {
    private int idRes; // ID reservation
-   private int rateLvl=-1; // Satisfaction level 0-10 (included)
+   private int rateLvl; // Satisfaction level 0-10 (included)
    private String user, idWorkShop; // Name of the user & workShop Identifier
 
    /** Constructor to declare an instance for one reservation

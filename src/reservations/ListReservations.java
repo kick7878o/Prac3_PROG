@@ -32,7 +32,7 @@ public class ListReservations implements Serializable {
    /** Getter that returns the occupied size of the list
     * @return a number
     */
-   public int getElem() { return nElem; }
+   public int getnElem() { return nElem; }
    public Reservation[] getListRes() { return listRes; }
    
 
@@ -120,5 +120,23 @@ public class ListReservations implements Serializable {
             aux.addReservation(reservation);
       }
       return aux;
+   }
+
+   /** Method to filter the reservations made from a user
+    * without any rate provided
+    * 
+    * @param name name of User
+    * @return 
+    */
+   public ListReservations filterByIfUserRated(String name) {
+      ListReservations aux = new ListReservations(userNumberCounter(name));
+
+      for (Reservation reservation : listRes) {
+         if ((reservation.getUser() == name) && (reservation.getRateLvl() == -1)) {
+            aux.addReservation(reservation);
+         }
+      }
+
+      return null;
    }
 }
