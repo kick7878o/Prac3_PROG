@@ -2,7 +2,7 @@
 - Talk HEADER: Activ_HEADER;speakerName
 - Visit HEADER: Activ_HEADER;audioGuided;blindFriendly
 - WorkShop header: Activ_HEADER;sartingHour;duration;capacity;spotsLeft;sumRates;nPeopleVoted
-8
+7
 TALK;URV100;Medic NanoBots;ETSE;43802;10;URV BIOG;Santo Paco
 TALK;URV101;Revolution of the IA;ETSE;43802;10;URV 3NG1NE;Miguel Castro
 TALK;URV102;Robots;ETSE;43802;11;URV 3NG1NE;Miguel Castro
