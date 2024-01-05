@@ -53,7 +53,7 @@ public class consoleApp {
 						case  7 -> Show_UsersFromWorkshop(); 
 						case  8 -> Highest_UserReservation(reservationList, userList); 
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList); 
-						case 10 -> Calculate_AverageWorkshop(); 
+						case 10 -> Calculate_AverageWorkshop(activityList); 
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
 						case 12 -> Show_VisitListFromEntity(); 
 						case 13 -> Show_TalkData(activityList); 
@@ -274,10 +274,36 @@ public class consoleApp {
 		}	
 	}
 	
-	public static void Calculate_AverageWorkshop() {
+	public static void Calculate_AverageWorkshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Calculate the average that a workshop has recieved -----\n");
 		
+		System.out.println("Enter the workshop name");
+		String workshopName = keyboard.nextLine();
+		workshopName = keyboard.nextLine();
+
+		while(!workshopName.matches("[a-zA-Z ]+")) {
+    		System.out.println("Enter a valid name");
+    		workshopName = keyboard.nextLine();
+		}
+
+		ListOfActivities lWorkshop = lActiv.filterByWorkShop();
+		Activities[] workshops = lWorkshop.getListActv();
+    	
+		for(int i = 0; i < lWorkshop.getnElem(); i++){
+			Activities activity = workshops[i];
+			Workshop workshop = (Workshop) activity;
+
+			if(workshop.getActivityName().equals(workshopName)){
+				double average = workshop.getScores();
+				System.out.println("Average score of the workshop => "+average);
+			}else if(i == lWorkshop.getnElem()-1){
+				System.out.println("No workshops found");
+			}
+
+		}
+
 	}
+	
 	public static void Most_SuccessfulWorkshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Get the most successful workshop -----\n");
 		double maxSuccessRate = -1;
