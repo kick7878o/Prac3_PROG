@@ -172,7 +172,7 @@ public class ListOfActivities {
       // create an auxiliar to save the specified
       ListOfActivities aux = new ListOfActivities(nElem);;
       int j=0;
-      for(int i=0;i<listActv.length;i++){
+      for(int i=0;i<nElem;i++){
          if(listActv[i].activityDay == day){
            aux.addActivity(listActv[j]);
            j++;
@@ -206,7 +206,7 @@ public class ListOfActivities {
    public String showNamesAndCode() {
       String aux = "";
 
-      for (int i=0; i < listActv.length-1; i++) {
+      for (int i=0; i < nElem; i++) {
          if (listActv[i].getActType() == ActivityType.WORKSHOP) {
             Workshop wshop = (Workshop) listActv[i];
             if (wshop.getSpotsLeft() != 0) {
@@ -290,7 +290,7 @@ public class ListOfActivities {
 
    ListOfActivities aux = new ListOfActivities(nElem);
    if(audio==true){
-      for(int i=0;i<listActv.length;i++){
+      for(int i=0;i<nElem;i++){
          // Checks if the entitiy creator is the same as the name of the entity and if its audioguided
          if(listActv[i].entityCreator == entit.getName() && listActv[i].isAudioGuided() == audio){
             aux.addActivity(listActv[j]);
@@ -310,7 +310,7 @@ private ListOfActivities blindFiltered(Entity entit, boolean blind){
 
    ListOfActivities aux = new ListOfActivities(nElem);
    if(blind==true){
-      for(int i=0;i<listActv.length;i++){
+      for(int i=0;i<nElem;i++){
          // Checks if the entitiy creator is the same as the name of the entity and if its blind guided
          if(listActv[i].entityCreator == entit.getName() && listActv[i].isBlindFriendly() == blind){
             aux.addActivity(listActv[j]);

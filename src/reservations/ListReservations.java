@@ -93,37 +93,6 @@ public class ListReservations implements Serializable {
       return false;
    }
 
-   /** Method to count the number of reservations from a user
-    * 
-    * @param name
-    * @return
-    */
-   public int userNumberCounter(String name) {
-      int count=0;
-
-      for (int i = 0; i < nElem; i++) {
-         if (listRes[i].getUser().equalsIgnoreCase(name))
-            count++;
-      }
-      return count;
-   }
-
-   /** Method to filter the list of reservations by user
-    * 
-    * @param name
-    * @return
-    */
-   public ListReservations filterByUserName(String name) {
-      ListReservations aux = new ListReservations(userNumberCounter(name));
-      for (Reservation reservation : listRes) {
-         if (reservation.getUser().equalsIgnoreCase(name))
-            aux.addReservation(reservation);
-      }
-      return aux;
-   }
-
-
-
    /** Method to filter the reservations made from a user
     * with the workshop code
     * 
