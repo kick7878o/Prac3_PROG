@@ -188,9 +188,9 @@ public class ListOfActivities {
    public String showNamesSpotsLeftAndCode() {
       String aux = "";
 
-      for (Activities activities : listActv) {
-         if (activities.actType == ActivityType.WORKSHOP) {
-            Workshop wshop = (Workshop)activities;
+      for (int i=0; i < nElem; i++) {
+         if (listActv[i].actType == ActivityType.WORKSHOP) {
+            Workshop wshop = (Workshop) listActv[i];
             if (wshop.getSpotsLeft() > 0)
                aux += "Code: " +wshop.getActivityCode()+ " // Name: " 
                +wshop.getActivityName()+ " (" +wshop.getSpotsLeft()+ " spots left)\n  ";
@@ -218,7 +218,7 @@ public class ListOfActivities {
       return aux;
    }
 
-   /** Method to check if the activity name exists or not
+   /** Method to check if the activity code exists or not
     * 
     * @param name name of the activity
     * @return

@@ -183,15 +183,15 @@ public class consoleApp {
 			// List with activities without the user being already subscribed to
 			ListOfActivities userWSNotReserved = new ListOfActivities(activUser.getnElem());
 
-			// Iteration over the two lists to compare if the code in the reservation list
-			// is (not) the same as the activity list
-			// With this we filter the activities the user already booked in (we don't consider which activity is)
-			for (int i=0; i < resvUser.getnElem(); i++) {
-				for (int j = 0; j < activUser.getnElem(); j++) {
-					if (resvUser.getListRes()[i].getIdWorkShop() != activUser.getListActv()[j].getActivityCode()) {
-						userWSNotReserved.addActivity(activUser.getListActv()[j]);
-					}
+			// If the reservation list is not empty, there's some reservation made
+			if (resvUser.getnElem() > 0) {
+				// Explicar esto
+				for (int i=0; i < resvUser.getnElem(); i++) {
+					if(activUser.checkActivCode(resvUser.getListRes()[i].getIdWorkShop()) == false)
+						userWSNotReserved.addActivity(lActv.getWorkShopByCode(resvUser.getListRes()[i].getIdWorkShop()));
 				}
+			} else {
+				userWSNotReserved = lActv.filterByWorkShop();
 			}
 
 			do { // Loop to check if the workshop code is valid or not
