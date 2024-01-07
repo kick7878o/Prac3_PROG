@@ -44,7 +44,7 @@ public class consoleApp {
 					switch (opt) {
 						// We use '->' to remove the need of adding a 'break;' after each case
 						// Important note: can't add more than 1 instruction to each case
-						case  1 -> Show_DataList(userList, /*reservationList,*/ activityList, entityList);
+						case  1 -> Show_DataList(userList, reservationList, activityList, entityList);
 					 	case  2 -> Show_ActivitiesFromEntity(); 
 						case  3 -> Show_ActivitiesXDay(); 
 						case  4 -> Show_WorkshopListWSpots(activityList); 
@@ -99,7 +99,7 @@ public class consoleApp {
 		System.out.print("\n\tChoose option: ");
 	}
 
-	public static void Show_DataList(ListUsers lUser, //ListReservations lResv,
+	public static void Show_DataList(ListUsers lUser, ListReservations lResv,
 	 										ListOfActivities lActiv, ListEntities lEntity) {
 		System.out.println("\n\n----- Show Data List -----\n");
 
@@ -107,7 +107,7 @@ public class consoleApp {
 		System.out.println(lUser.toString());
 
 		//Reservations List
-		//System.out.println(lResv.toString());
+		System.out.println(lResv.toString());
 
 		//Activities List
 		System.out.println(lActiv.toString());
@@ -395,6 +395,7 @@ public class consoleApp {
 
 		System.out.println("Enter the speaker name");
 		String speakerName = keyboard.nextLine();
+		speakerName = keyboard.nextLine();
 
 		for(int i = 0; i < lActiv.getnElem(); i++){
 			Activities currentActivity = lActiv.getActivity(i);

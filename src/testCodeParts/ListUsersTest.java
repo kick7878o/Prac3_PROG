@@ -1,5 +1,7 @@
 package testCodeParts;
 
+import users .*;
+
 /** Class UsersAndListUsersTest.java
  *
  * This class is made for testing the users and 
