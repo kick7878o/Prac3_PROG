@@ -617,7 +617,7 @@ public class consoleApp {
 		Writer f = null;
 		try {
 			if (lActv.getnElem() != 0) {
-				f = new BufferedWriter(new FileWriter("Activities.txt"));
+				f = new BufferedWriter(new FileWriter("src\\dataFiles\\Activities.txt"));
 				var array = lActv.getListActv(); // We get the activity list
 				f.write(ActivityListHeader+ "\n");
 				f.write(TalkListHeader+ "\n");
@@ -693,7 +693,7 @@ public class consoleApp {
 	private static void storeReservations(ListReservations lResv) {
 		try {
 			if (lResv.getnElem() != 0) { // If there's something in the list, we store it
-				var oFile = new ObjectOutputStream(new FileOutputStream("ListReservations.ser"));
+				var oFile = new ObjectOutputStream(new FileOutputStream("src\\dataFiles\\ListReservations.ser"));
 				var resvArray = lResv.getListRes();
 				oFile.writeInt(resvArray.length);
 	
