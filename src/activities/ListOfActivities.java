@@ -109,10 +109,10 @@ public class ListOfActivities {
       // Resize the array if necessary
       if (nElem >= listActv.length) { 
          Activities[] aux = new Activities[nElem*2]; // Double capacity
-         for (int i=0; i < aux.length; i++) {
+         for (int i=0; i < aux.length; i++)
             aux[i] = listActv[i];
-            listActv = aux;
-         }
+            
+         listActv = aux;
       }
 
       // add a new reservation to the list
@@ -194,6 +194,24 @@ public class ListOfActivities {
             if (wshop.getSpotsLeft() != 0)
                aux += "Code: " +wshop.getActivityCode()+ " // Name: " 
                +wshop.getActivityName()+ " (" +wshop.getSpotsLeft()+ " spots left)\n  ";
+         }
+      }
+      return aux;
+   }
+
+   /** Method that shows the names of the workshops
+    * 
+    * @return string with names
+    */
+   public String showNamesAndCode() {
+      String aux = "";
+
+      for (Activities activities : listActv) {
+         if (activities.actType == ActivityType.WORKSHOP) {
+            Workshop wshop = (Workshop)activities;
+            if (wshop.getSpotsLeft() != 0)
+               aux += "Code: " +wshop.getActivityCode()+ " // Name: " 
+               +wshop.getActivityName()+ "\n";
          }
       }
       return aux;
@@ -327,6 +345,12 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
       } catch (ArrayIndexOutOfBoundsException e){
          System.out.println("Error" +e.getMessage());
          return null;
+      }
+   }
+
+   public void registerPunctuationInWorkShop(String wkCode, byte rate) {
+      for (Activities activ : listActv) {
+         if ()
       }
    }
 }

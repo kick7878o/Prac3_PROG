@@ -63,7 +63,7 @@ public class ListUsers {
      */
     public boolean isThisUserName(String uName) {
         for (int i=0; i < nElem; i++) {
-            if (listUser[i].getName().equalsIgnoreCase(uName))
+            if (listUser[i].isThisName(uName))
                 return true;
         }
         return false;
@@ -74,9 +74,9 @@ public class ListUsers {
      * @param name user name
      * @return the user data
      */
-    public Users getUserDataByName(String name) {
+    public Users getUserDataByName(String uName) {
         for (int i=0; i < nElem; i++) {
-            if (isThisUserName(name))
+            if (listUser[i].isThisName(uName))
                 return listUser[i];
         }
         return null;

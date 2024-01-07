@@ -1,7 +1,0 @@
-entityName;entityPhoneNumber;entityEmail NOTE: change number and add entities
-5
-URV SCIENCE;+34123456789;urvscience@urvsc.cat
-URV BOTS;+34987654321;urvbotss@urvb.cat
-URV 3NG1NE;+34019283475;urv.3ngi@urve.cat
-URV BIOG;+34701928765;urv.bio@urvbg.cat
-URV CHEMIK;+34071298673;urv.cmk@urvk.cat

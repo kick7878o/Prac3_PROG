@@ -44,10 +44,10 @@ public class ListReservations implements Serializable {
       // Resize the array if necessary
       if (nElem >= listRes.length) { 
          Reservation[] aux = new Reservation[nElem*2]; // Double capacity
-         for (int i=0; i < aux.length; i++) {
-            aux[i] = listRes[i];
-            listRes = aux;
-         }
+         for (int i=0; i < nElem; i++)
+            aux[i] = listRes[i]; // Copy elements to the aux array
+            
+         listRes = aux; // aux array to list
       }
 
       // add a new reservation to the list
@@ -113,7 +113,7 @@ public class ListReservations implements Serializable {
     * @param name
     * @return
     */
-   public ListReservations filterByUser(String name) {
+   public ListReservations filterByUserName(String name) {
       ListReservations aux = new ListReservations(userNumberCounter(name));
       for (Reservation reservation : listRes) {
          if (reservation.getUser() == name)
@@ -136,5 +136,17 @@ public class ListReservations implements Serializable {
             return reservation;
       }
       return null;
+   }
+
+   /** Method that registers the rate from a user
+    * 
+    * @param wkCode
+    * @param rate
+    */
+   public void registerPunctuation(String wkCode, byte rate) {
+      for (Reservation resv : listRes) {
+         if (resv.getIdWorkShop().equals(wkCode))
+            resv.setRateLvl(rate);
+      }
    }
 }

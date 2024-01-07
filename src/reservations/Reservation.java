@@ -2,7 +2,6 @@ package reservations;
 
 import java.io.Serializable;
 
-import exceptions.WrongRateNumber;
 
 /** Class Reservation.java
  *
@@ -37,11 +36,7 @@ public class Reservation implements Serializable {
    public String getIdWorkShop() { return idWorkShop; }
    public String getUser() { return user; }
    public int getRateLvl() { return rateLvl; }
-   public void setRateLvl(int rateLvl) throws WrongRateNumber {
-      if (0 <= rateLvl && rateLvl <= 10) 
-         this.rateLvl = rateLvl;
-      else throw new WrongRateNumber(); 
-   }
+   public void setRateLvl(int rateLvl) { this.rateLvl = rateLvl; }
 
    /** Duplicate of the reservation
     * @return new instance of the reservation
@@ -51,6 +46,7 @@ public class Reservation implements Serializable {
    }
 
    public String toString() {
-      return "Reservation: " +idRes+ "; User: " +user+ "; Workshop: " +idWorkShop;
+      return "Reservation Code: " +idRes+ "; User: " +user+ "; Workshop: " +idWorkShop+
+             "; Rate Number: " +rateLvl;
    }
 }

@@ -33,9 +33,7 @@ public class consoleApp {
 		ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
 		ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
 		ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activity.txt"); // Initialize Activity Structure
-		ListReservations reservationList = initReservationList("Reservation.ser"); // Init reservation list
-
-		if (reservationList==null) reservationList = new ListReservations();
+		ListReservations reservationList = initReservationList("src\\dataFiles\\Reservation.ser"); // Init reservation list
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
@@ -51,10 +49,10 @@ public class consoleApp {
 						case  3 -> Show_ActivitiesXDay(); 
 						case  4 -> Show_WorkshopListWSpots(activityList); 
 						case  5 -> Add_Activity(); 
-						case  6 -> Register_UserReservation(activityList, reservationList, userList); 
+						case  6 -> Register_UserReservation(userList, activityList, reservationList); 
 						case  7 -> Show_UsersFromWorkshop(); 
 						case  8 -> Highest_UserReservation(reservationList, userList); 
-						case  9 -> Register_PunctuationFromUserAfterworkshop(); 
+						case  9 -> Register_PunctuationFromUserAfterworkshop(userList, reservationList, activityList); 
 						case 10 -> Calculate_AverageWorkshop(activityList); 
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
 						case 12 -> Show_VisitListFromEntity(); 
@@ -160,32 +158,30 @@ public class consoleApp {
 
 	/** Method to register a user reservation
 	 * 
+	 * @param lUser list users
 	 * @param lActv list activities
 	 * @param lResv list reservations
-	 * @param lUser list users
-	 * 
-	 * NOTE: can't book twice or more the same workshop
 	 */
-	public static void Register_UserReservation(ListOfActivities lActv, ListReservations lResv, 
-															  ListUsers lUser) {
+	public static void Register_UserReservation(ListUsers lUser, ListOfActivities lActv,
+																ListReservations lResv) {
 		System.out.println("\n\n----- Register user's petition to book a workshop's spot -----\n");
 		String userName, wkCode;
 		int code;
 		try {
-			do { // Loop to select the user 
+			do { // Loop to check if the user is valid or not
 				System.out.println("Who wants to book a spot to a workshop?\n  " +lUser.showUserName());
 				System.out.print("  Write its name: ");
 				userName = br.readLine();
-			} while (lUser.isThisUserName(userName) == false); // Loop to check if the user is valid or not
+			} while (lUser.isThisUserName(userName) == false); 
 
 			// Filter reservation list by user / activities list by workshop
-			ListReservations resvUser = lResv.filterByUser(userName);
+			ListReservations resvUser = lResv.filterByUserName(userName);
 			ListOfActivities activUser = lActv.filterByWorkShop();
 			// List with activities without the user being already subscribed to
 			ListOfActivities userWSNotReserved = new ListOfActivities(activUser.getnElem());
 
 			// Iteration over the two lists to compare if the code in the reservation list
-			// is not the same as the activity list
+			// is (not) the same as the activity list
 			// With this we filter the activities the user already booked in
 			for (int i=0; i < resvUser.getnElem(); i++) {
 				for (int j = 0; j < activUser.getnElem(); j++) {
@@ -195,7 +191,7 @@ public class consoleApp {
 				}
 			}
 
-			do { // Loop to select the workshop
+			do { // Loop to check if the workshop code is valid or not
 				System.out.println("\n\nWhich workshop does the user want to book?\n  " 
 																+userWSNotReserved.showNamesSpotsLeftAndCode());			
 				System.out.print("  Write its code: ");
@@ -216,18 +212,14 @@ public class consoleApp {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-			e.printStackTrace();
+			// No need to show anything because the list is empty
 		}
 	}
 
 	/** Method to generate a random reservation code
-	 * 
 	 * @return random number
 	 */
-	private static int randomReservationCode() {
-		Random rand = new Random();
-		return rand.nextInt(200);
-	}
+	private static int randomReservationCode() { return new Random().nextInt(200); }
 
 	public static void Show_UsersFromWorkshop() {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
@@ -274,8 +266,57 @@ public class consoleApp {
 		
 	}
 
-	public static void Register_PunctuationFromUserAfterworkshop() {
+	public static void Register_PunctuationFromUserAfterworkshop(ListUsers lUser, 
+													ListReservations lResv, ListOfActivities lActiv) {
 		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
+      try {
+			String uName;
+			do { // Loop to check if the user is valid or not
+				System.out.println("Who wants to rate a workshop?\n  " +lUser.showUserName());
+				System.out.print("\n  Write its name: ");
+				uName = br.readLine();
+			} while (lUser.isThisUserName(uName) == false);
+
+			// Filter the list of reservations by the user name
+			ListReservations resvUser = lResv.filterByUserName(uName);
+			// Filter the list of activities by the workshop
+			ListOfActivities wshopUser = lActiv.filterByWorkShop();
+			// Auxiliar list for filtering a workshop that has been booked and has not been rated yet
+			ListOfActivities wkBookedNoVotation = new ListOfActivities(wshopUser.getnElem());
+
+			// We iterate from each reservation instance over the activity instance
+			// We check if the reservation workshop id is the same as the activity code from the activ list
+			// We also check if the rate level is -1, which means that the user has not rated the workshop yet
+			for (int i = 0; i < resvUser.getnElem(); i++) {
+				for (int j = 0; j < wshopUser.getnElem(); j++) {
+					if ((resvUser.getListRes()[i].getIdWorkShop() == wshopUser.getListActv()[j].getActivityCode())
+						 && (resvUser.getListRes()[i].getRateLvl() == -1))
+						wkBookedNoVotation.addActivity(wshopUser.getListActv()[j]);
+					
+				}
+			} // With all that we get an activity list fitered with the activity code
+			  // and if the user rated or not
+
+			String wkCode;
+			do { // Loop to check if the workshop code is valid or not
+				System.out.println("\n\nWhich workshop does the user want to rate?\n  " 
+																+wkBookedNoVotation.showNamesAndCode());			
+				System.out.print("  Write its code: ");
+				wkCode = keyboard.next();
+			} while (wkBookedNoVotation.checkActivCode(wkCode) == false);
+
+			byte rate;
+			do { // Loop to ask for the rate
+				System.out.println("\n\nIndicate the rate you want to give to the workshop: ");
+				rate = keyboard.nextByte();
+			} while (rate < 0 && rate > 10);
+
+			lResv.registerPunctuation(wkCode, rate);
+			lActiv.registerPunctuationInWorkShop(rate);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void Calculate_AverageWorkshop(ListOfActivities lActiv) {
@@ -337,6 +378,7 @@ public class consoleApp {
 	public static void Show_VisitListFromEntity() {
 		System.out.println("\n\n----- Show visit's list offered by an entity -----\n");
 	}
+
 	public static void Show_TalkData(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Show the talk data that the person will do -----\n");
 
@@ -390,11 +432,11 @@ public class consoleApp {
 				VisitListHeader = f.nextLine(); // Visit header
 				WorkShopListHeader = f.nextLine(); // Workshop header
 				int nActivities = Integer.parseInt(f.nextLine()); // Number of activities
-				System.out.println("There's " +nActivities+ " activities.\n\n"  
-										 +" Activity file format: \n  " +ActivityListHeader+ "\n"
-										 +" Talk format: \n  " +TalkListHeader+ "\n"
-										 +" Visit format: \n  " +VisitListHeader+ "\n"
-										 +" WorkShop format: \n  " +WorkShopListHeader+ "\n"); // Show data
+				//System.out.println("There's " +nActivities+ " activities.\n\n"  
+				//						 +" Activity file format: \n  " +ActivityListHeader+ "\n"
+				//						 +" Talk format: \n  " +TalkListHeader+ "\n"
+				//						 +" Visit format: \n  " +VisitListHeader+ "\n"
+				//						 +" WorkShop format: \n  " +WorkShopListHeader+ "\n"); // Show data
 	
 				ListOfActivities lActiv = new ListOfActivities(nActivities); // New list of activities
 	
@@ -443,7 +485,7 @@ public class consoleApp {
 			f = new Scanner(new File(pathFile)); // File reader
 			String header = f.nextLine(); // Header of the user text file
 			int nUsers = Integer.parseInt(f.nextLine()); // Number of users in the file
-			System.out.println("There's " +nUsers+ " users.\n  User file format: " +header);
+			//System.out.println("There's " +nUsers+ " users.\n  User file format: " +header);
 			ListUsers lUser = new ListUsers(nUsers); // Setting a new list
 
 			// Iterate over the lines of the text file
@@ -482,9 +524,10 @@ public class consoleApp {
 		Scanner f = null;
 		try {
 			f = new Scanner(new File(pathFile));
-			String header = f.nextLine();
+			//String header = f.nextLine();
+			f.nextLine();
 			int nEntities = Integer.parseInt(f.nextLine());
-			System.out.println("\n\nThere's " +nEntities+ " entities.\n  User file format: " +header);
+			//System.out.println("\n\nThere's " +nEntities+ " entities.\n  User file format: " +header);
 			ListEntities lEntity = new ListEntities(nEntities);
 
 			for (int i=0; i < nEntities; i++) {
@@ -500,7 +543,7 @@ public class consoleApp {
 
 				lEntity.addEntity2List(entity);
 			}
-			System.out.println(" ------- Entity's list loaded -------\n\n");
+			System.out.println("\n------- Entity's list loaded -------\n\n");
 			return lEntity;
 		} catch (FileNotFoundException e) {
 			System.err.println("<<<<< Entity.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
@@ -610,6 +653,7 @@ public class consoleApp {
 				return lResvData;
 			} else { // If not we create an empty list
 				ListReservations lResvEmpty = new ListReservations();
+				System.out.println(" ------- Reservation list loaded -------\n\n");
 				return lResvEmpty;
 			}
 	  	} catch (IOException e) {
@@ -637,6 +681,8 @@ public class consoleApp {
 
 				System.out.println(" ------- Reservation list stored -------\n\n");
 				oFile.close();
+			} else {
+				System.out.println(" ------- Nothing to store from the reservation list -------\n\n");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -644,5 +690,4 @@ public class consoleApp {
 			e.printStackTrace();
 		}
 	}
-	
 }
