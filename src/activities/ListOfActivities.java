@@ -348,9 +348,19 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
       }
    }
 
+   /** Method to register punctuation into the workshop
+    * 
+    * @param wkCode workshop code (activity code)
+    * @param rate user's given rate
+    */
    public void registerPunctuationInWorkShop(String wkCode, byte rate) {
+      // Iterate over the list of activities
       for (Activities activ : listActv) {
-         if ()
+         if (activ.getActivityCode().equalsIgnoreCase(wkCode)) {
+            Workshop wshop = (Workshop)activ;
+            wshop.setSumRates(wshop.getSumRates()+rate);
+            wshop.setnPeople(wshop.getnPeople()+1);
+         }
       }
    }
 }

@@ -311,8 +311,11 @@ public class consoleApp {
 				rate = keyboard.nextByte();
 			} while (rate < 0 && rate > 10);
 
+			// register punctuation in the reservation
 			lResv.registerPunctuation(wkCode, rate);
-			lActiv.registerPunctuationInWorkShop(rate);
+			
+			// register total punctuation into the workshop activity
+			lActiv.registerPunctuationInWorkShop(wkCode, rate);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -500,7 +503,8 @@ public class consoleApp {
 		Scanner f = null;
 		try {
 			f = new Scanner(new File(pathFile)); // File reader
-			String header = f.nextLine(); // Header of the user text file
+			//String header = f.nextLine(); // Header of the user text file
+			f.nextLine();
 			int nUsers = Integer.parseInt(f.nextLine()); // Number of users in the file
 			//System.out.println("There's " +nUsers+ " users.\n  User file format: " +header);
 			ListUsers lUser = new ListUsers(nUsers); // Setting a new list
