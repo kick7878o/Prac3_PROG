@@ -162,7 +162,6 @@ public class consoleApp {
 	 * @param lActv list activities
 	 * @param lResv list reservations
 	 * 
-	 * NOTE: I consider the user WILL NOT try to book twice the same activity
 	 */
 	public static void Register_UserReservation(ListUsers lUser, ListOfActivities lActv,
 																ListReservations lResv) {
@@ -178,9 +177,26 @@ public class consoleApp {
 
 			Users user = lUser.getUserDataByName(userName);
 
+			// Filter reservation list by user / activities list by workshop
+			ListReservations resvUser = lResv.filterByUserName(userName);
+			ListOfActivities activUser = lActv.filterByWorkShop();
+			// List with activities without the user being already subscribed to
+			ListOfActivities userWSNotReserved = new ListOfActivities(activUser.getnElem());
+
+			// Iteration over the two lists to compare if the code in the reservation list
+			// is (not) the same as the activity list
+			// With this we filter the activities the user already booked in (we don't consider which activity is)
+			for (int i=0; i < resvUser.getnElem(); i++) {
+				for (int j = 0; j < activUser.getnElem(); j++) {
+					if (resvUser.getListRes()[i].getIdWorkShop() != activUser.getListActv()[j].getActivityCode()) {
+						userWSNotReserved.addActivity(activUser.getListActv()[j]);
+					}
+				}
+			}
+
 			do { // Loop to check if the workshop code is valid or not
 				System.out.println("\n\nWhich workshop does the user want to book?\n  " 
-																+lActv.showNamesSpotsLeftAndCode());			
+																+userWSNotReserved.showNamesSpotsLeftAndCode());			
 				System.out.print("  Write its code: ");
 				wkCode = br.readLine();
 			} while (lActv.checkActivCode(wkCode) == false);

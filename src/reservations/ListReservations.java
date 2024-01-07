@@ -118,4 +118,18 @@ public class ListReservations implements Serializable {
             listRes[i].setRateLvl(rate);
       }
    }
+
+   /** Method to filter by the user name
+    * 
+    * @param userName
+    * @return
+    */
+   public ListReservations filterByUserName(String userName) {
+      ListReservations aux = new ListReservations(getnElem());
+      for (int i=0; i < nElem; i++) {
+         if (listRes[i].getUser().equalsIgnoreCase(userName))
+            aux.addReservation(listRes[i]);
+      }
+      return aux;
+   }
 }

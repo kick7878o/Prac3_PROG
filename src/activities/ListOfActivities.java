@@ -191,7 +191,7 @@ public class ListOfActivities {
       for (Activities activities : listActv) {
          if (activities.actType == ActivityType.WORKSHOP) {
             Workshop wshop = (Workshop)activities;
-            if (wshop.getSpotsLeft() != 0)
+            if (wshop.getSpotsLeft() > 0)
                aux += "Code: " +wshop.getActivityCode()+ " // Name: " 
                +wshop.getActivityName()+ " (" +wshop.getSpotsLeft()+ " spots left)\n  ";
          }
