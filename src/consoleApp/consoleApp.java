@@ -396,6 +396,8 @@ public class consoleApp {
 	public static void Cancel_Workshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Cancel a workshop -----\n");
 
+		String wCode;
+
 		System.out.println("Enter the workshop name");
 		String workshopName = keyboard.nextLine();
 		workshopName = keyboard.nextLine();
@@ -405,6 +407,21 @@ public class consoleApp {
     		workshopName = keyboard.nextLine();
 		}
 
+		for(int i = 0; i < lActiv.getnElem(); i++){
+			Activities currentActivity = lActiv.getActivity(i);
+			
+			if(currentActivity instanceof Workshop && currentActivity.getActivityName().equals(workshopName)){
+				Workshop workshop = (Workshop) currentActivity;
+
+				if(workshop.getSpotsLeft() == workshop.getCapacity()){
+					wCode = workshop.getActivityCode();
+					lActiv.deleteActivity(wCode);
+					System.out.println("Workshop cancelled");
+				} else {
+					System.out.println("Workshop not cancelled(spots left: "+workshop.getSpotsLeft()+")");
+				}
+			}
+		}
 		
 	}
 	
