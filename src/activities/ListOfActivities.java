@@ -206,12 +206,13 @@ public class ListOfActivities {
    public String showNamesAndCode() {
       String aux = "";
 
-      for (Activities activities : listActv) {
-         if (activities.actType == ActivityType.WORKSHOP) {
-            Workshop wshop = (Workshop)activities;
-            if (wshop.getSpotsLeft() != 0)
+      for (int i=0; i < listActv.length-1; i++) {
+         if (listActv[i].getActType() == ActivityType.WORKSHOP) {
+            Workshop wshop = (Workshop) listActv[i];
+            if (wshop.getSpotsLeft() != 0) {
                aux += "Code: " +wshop.getActivityCode()+ " // Name: " 
                +wshop.getActivityName()+ "\n";
+            }
          }
       }
       return aux;
@@ -223,8 +224,8 @@ public class ListOfActivities {
     * @return
     */
    public boolean checkActivCode(String code) {
-      for (Activities activities : listActv) {
-         if (activities.getActivityCode().equalsIgnoreCase(code))
+      for (int i=0; i < nElem; i++) {
+         if (listActv[i].getActivityCode().equalsIgnoreCase(code))
             return true;
       }
       return false;
@@ -360,6 +361,20 @@ public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean 
             Workshop wshop = (Workshop)activ;
             wshop.setSumRates(wshop.getSumRates()+rate);
             wshop.setnPeople(wshop.getnPeople()+1);
+         }
+      }
+   }
+
+   /** Method to register a new spot used
+    * 
+    * @param wkCode code of the workshop
+    */
+   public void registerNewSpotReserved(String wkCode) {
+      for (Activities actv : listActv) {
+         if (actv.actType == ActivityType.WORKSHOP) {
+            Workshop wk = (Workshop) actv;
+            if (wk.getActivityCode().equalsIgnoreCase(wkCode))
+               wk.setSpotsLeft(wk.getSpotsLeft()-1);
          }
       }
    }

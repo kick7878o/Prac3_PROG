@@ -32,7 +32,7 @@ public class consoleApp {
 		// Data initialization phase
 		ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
 		ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
-		ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activity.txt"); // Initialize Activity Structure
+		ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activities.txt"); // Initialize Activity Structure
 		ListReservations reservationList = initReservationList("src\\dataFiles\\Reservation.ser"); // Init reservation list
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
@@ -161,6 +161,8 @@ public class consoleApp {
 	 * @param lUser list users
 	 * @param lActv list activities
 	 * @param lResv list reservations
+	 * 
+	 * NOTE: I consider the user WILL NOT try to book twice the same activity
 	 */
 	public static void Register_UserReservation(ListUsers lUser, ListOfActivities lActv,
 																ListReservations lResv) {
@@ -174,45 +176,32 @@ public class consoleApp {
 				userName = br.readLine();
 			} while (lUser.isThisUserName(userName) == false); 
 
-			// Filter reservation list by user / activities list by workshop
-			ListReservations resvUser = lResv.filterByUserName(userName);
-			ListOfActivities activUser = lActv.filterByWorkShop();
-			// List with activities without the user being already subscribed to
-			ListOfActivities userWSNotReserved = new ListOfActivities(activUser.getnElem());
-
-			// Iteration over the two lists to compare if the code in the reservation list
-			// is (not) the same as the activity list
-			// With this we filter the activities the user already booked in
-			for (int i=0; i < resvUser.getnElem(); i++) {
-				for (int j = 0; j < activUser.getnElem(); j++) {
-					if (resvUser.getListRes()[i].getIdWorkShop() != activUser.getListActv()[j].getActivityCode()) {
-						userWSNotReserved.addActivity(activUser.getListActv()[j]);
-					}
-				}
-			}
+			Users user = lUser.getUserDataByName(userName);
 
 			do { // Loop to check if the workshop code is valid or not
 				System.out.println("\n\nWhich workshop does the user want to book?\n  " 
-																+userWSNotReserved.showNamesSpotsLeftAndCode());			
+																+lActv.showNamesSpotsLeftAndCode());			
 				System.out.print("  Write its code: ");
 				wkCode = br.readLine();
-			} while (userWSNotReserved.checkActivCode(wkCode) == false);
+			} while (lActv.checkActivCode(wkCode) == false);
 
-			Workshop wshop = userWSNotReserved.getWorkShopByCode(wkCode); // Get workshop data
-
+			Workshop wshop = lActv.getWorkShopByCode(wkCode);
+			
 			do { // Loop to generate random code
 				code = randomReservationCode();
 			} while (lResv.checkReservationCode(code) == true);
 
 			// Creation of new reservation instance
-			Reservation resv = new Reservation(code, userName, wshop.getActivityCode(), -1);
-			wshop.setSpotsLeft(wshop.getSpotsLeft()-1); // Update spots left
-
+			Reservation resv = new Reservation(code, user.getName(), wshop.getActivityCode(), -1);
 			lResv.addReservation(resv); // Add it to the list
+
+			lActv.registerNewSpotReserved(wkCode); // Update spots left
+
+			System.out.println("\n  Reservation data:\n" +resv);
+
+			System.out.println("\n\n----- The reservation has been made successfully -----\n");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (NullPointerException e) {
-			// No need to show anything because the list is empty
 		}
 	}
 
@@ -277,21 +266,17 @@ public class consoleApp {
 				uName = br.readLine();
 			} while (lUser.isThisUserName(uName) == false);
 
-			// Filter the list of reservations by the user name
-			ListReservations resvUser = lResv.filterByUserName(uName);
-			// Filter the list of activities by the workshop
-			ListOfActivities wshopUser = lActiv.filterByWorkShop();
 			// Auxiliar list for filtering a workshop that has been booked and has not been rated yet
-			ListOfActivities wkBookedNoVotation = new ListOfActivities(wshopUser.getnElem());
+			ListOfActivities wkBookedNoVotation = new ListOfActivities(lActiv.getNumberWorkShops());
 
-			// We iterate from each reservation instance over the activity instance
+			// We iterate from each reservation instance over the activity instance (both lists)
 			// We check if the reservation workshop id is the same as the activity code from the activ list
 			// We also check if the rate level is -1, which means that the user has not rated the workshop yet
-			for (int i = 0; i < resvUser.getnElem(); i++) {
-				for (int j = 0; j < wshopUser.getnElem(); j++) {
-					if ((resvUser.getListRes()[i].getIdWorkShop() == wshopUser.getListActv()[j].getActivityCode())
-						 && (resvUser.getListRes()[i].getRateLvl() == -1))
-						wkBookedNoVotation.addActivity(wshopUser.getListActv()[j]);
+			for (int i = 0; i < lResv.getnElem(); i++) {
+				for (int j = 0; j < lActiv.getnElem(); j++) {
+					if ((lResv.getListRes()[i].getIdWorkShop() == lActiv.getListActv()[j].getActivityCode())
+						 && (lResv.getListRes()[i].getRateLvl() == -1))
+						wkBookedNoVotation.addActivity(lActiv.getListActv()[j]);
 					
 				}
 			} // With all that we get an activity list fitered with the activity code
@@ -307,7 +292,7 @@ public class consoleApp {
 
 			byte rate;
 			do { // Loop to ask for the rate
-				System.out.println("\n\nIndicate the rate you want to give to the workshop: ");
+				System.out.print("\n\nIndicate the rate you want to give to the workshop: ");
 				rate = keyboard.nextByte();
 			} while (rate < 0 && rate > 10);
 
@@ -316,9 +301,16 @@ public class consoleApp {
 			
 			// register total punctuation into the workshop activity
 			lActiv.registerPunctuationInWorkShop(wkCode, rate);
+			System.out.println("\n\n----- The rating was registered successfully -----\n");
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			System.out.println("No bookings found.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		
 		}
 	}
 	
@@ -589,7 +581,7 @@ public class consoleApp {
 			System.out.println(" Do you want to store everything you've done?");
 			System.out.println("   1. Yes");
 			System.out.println("   2. No (Will loose al modification data)");
-			System.out.print("\tOption:");
+			System.out.print("\tOption: ");
 			try {
 				byte opt = Byte.parseByte(keyboard.next());
 				switch (opt) {
@@ -635,7 +627,7 @@ public class consoleApp {
 					f.write(array[i].toTextFormat());
 					f.write("\n");
 				}
-				System.out.println(" ------- Activity list stored -------\n\n");
+				System.out.println(" ------- Activity list stored -------\n");
 			} else {
 				throw new ActivityListEmpty();
 			}
@@ -693,14 +685,13 @@ public class consoleApp {
 	private static void storeReservations(ListReservations lResv) {
 		try {
 			if (lResv.getnElem() != 0) { // If there's something in the list, we store it
-				var oFile = new ObjectOutputStream(new FileOutputStream("src\\dataFiles\\ListReservations.ser"));
-				var resvArray = lResv.getListRes();
-				oFile.writeInt(resvArray.length);
+				var oFile = new ObjectOutputStream(new FileOutputStream("src\\dataFiles\\Reservation.ser"));
+				oFile.writeInt(lResv.getnElem());
 	
-				for (Reservation resv : resvArray)
-					oFile.writeObject(resv);
+				for (int i=0; i < lResv.getnElem(); i++)
+					oFile.writeObject(lResv.getListRes()[i]);
 
-				System.out.println(" ------- Reservation list stored -------\n\n");
+				System.out.println("\n\n ------- Reservation list stored -------\n");
 				oFile.close();
 			} else {
 				System.out.println(" ------- Nothing to store from the reservation list -------\n\n");

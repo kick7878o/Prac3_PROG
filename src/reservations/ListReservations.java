@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class ListReservations implements Serializable {
    private Reservation[] listRes; // List of reservations
    private int nElem; // Number of elements from the list
-   private static final short INIT_CAPACITY = 5; // Initial array capacity
+   private static final short INIT_CAPACITY = 3; // Initial array capacity
 
    /** Constructor to make the list
     * NOTE: we make an initial size then we resize if necessary
@@ -116,7 +116,7 @@ public class ListReservations implements Serializable {
    public ListReservations filterByUserName(String name) {
       ListReservations aux = new ListReservations(userNumberCounter(name));
       for (Reservation reservation : listRes) {
-         if (reservation.getUser() == name)
+         if (reservation.getUser().equalsIgnoreCase(name))
             aux.addReservation(reservation);
       }
       return aux;
@@ -131,9 +131,9 @@ public class ListReservations implements Serializable {
     * @return 
     */
    public Reservation getReservationByCode(String wkCode) {
-      for (Reservation reservation : listRes) {
-         if(reservation.getIdWorkShop() == wkCode)
-            return reservation;
+      for (int i=0; i < nElem; i++) {
+         if(listRes[i].getIdWorkShop().equalsIgnoreCase(wkCode))
+            return listRes[i];
       }
       return null;
    }
@@ -144,9 +144,9 @@ public class ListReservations implements Serializable {
     * @param rate
     */
    public void registerPunctuation(String wkCode, byte rate) {
-      for (Reservation resv : listRes) {
-         if (resv.getIdWorkShop().equals(wkCode))
-            resv.setRateLvl(rate);
+      for (int i=0; i < nElem; i++) {
+         if (listRes[i].getIdWorkShop().equalsIgnoreCase(wkCode))
+            listRes[i].setRateLvl(rate);
       }
    }
 }
