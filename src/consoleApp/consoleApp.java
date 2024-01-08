@@ -186,7 +186,9 @@ public class consoleApp {
 			if (resvUser.getnElem() > 0) {
 				// Iterate over the filtered activity list
 				for (int i=0; i < activUser.getnElem(); i++) {
+					// Iterate over the reservation list
 					for (int j = 0; j < resvUser.getnElem(); j++) {
+						// If the activity code doesn't exist in the reservation list, we add it to the auxiliar list
 						if (resvUser.checkWorkShopCode(activUser.getListActv()[i].getActivityCode()) == false)
 							userWSNotReserved.addActivity(activUser.getListActv()[i]);
 					}
