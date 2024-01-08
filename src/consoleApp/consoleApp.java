@@ -161,7 +161,6 @@ public class consoleApp {
 	 * @param lUser list users
 	 * @param lActv list activities
 	 * @param lResv list reservations
-	 * 
 	 */
 	public static void Register_UserReservation(ListUsers lUser, ListOfActivities lActv,
 																ListReservations lResv) {
@@ -175,7 +174,7 @@ public class consoleApp {
 				userName = br.readLine();
 			} while (lUser.isThisUserName(userName) == false); 
 
-			Users user = lUser.getUserDataByName(userName);
+			Users user = lUser.getUserDataByName(userName); // Get user data
 
 			// Filter reservation list by user / activities list by workshop
 			ListReservations resvUser = lResv.filterByUserName(userName);
@@ -185,37 +184,45 @@ public class consoleApp {
 
 			// If the reservation list is not empty, there's some reservation made
 			if (resvUser.getnElem() > 0) {
-				// Explicar esto
-				for (int i=0; i < resvUser.getnElem(); i++) {
-					if(activUser.checkActivCode(resvUser.getListRes()[i].getIdWorkShop()) == false)
-						userWSNotReserved.addActivity(lActv.getWorkShopByCode(resvUser.getListRes()[i].getIdWorkShop()));
+				// Iterate over the filtered activity list
+				for (int i=0; i < activUser.getnElem(); i++) {
+					// Iterate over the reservation list
+					for (int j = 0; j < resvUser.getnElem(); j++) {
+						// If the activity code doesn't exist in the reservation list, we add it to the auxiliar list
+						if (resvUser.checkWorkShopCode(activUser.getListActv()[i].getActivityCode()) == false)
+							userWSNotReserved.addActivity(activUser.getListActv()[i]);
+					}
 				}
 			} else {
 				userWSNotReserved = lActv.filterByWorkShop();
 			}
 
-			do { // Loop to check if the workshop code is valid or not
-				System.out.println("\n\nWhich workshop does the user want to book?\n  " 
-																+userWSNotReserved.showNamesSpotsLeftAndCode());			
-				System.out.print("  Write its code: ");
-				wkCode = br.readLine();
-			} while (lActv.checkActivCode(wkCode) == false);
-
-			Workshop wshop = lActv.getWorkShopByCode(wkCode);
-			
-			do { // Loop to generate random code
-				code = randomReservationCode();
-			} while (lResv.checkReservationCode(code) == true);
-
-			// Creation of new reservation instance
-			Reservation resv = new Reservation(code, user.getName(), wshop.getActivityCode(), -1);
-			lResv.addReservation(resv); // Add it to the list
-
-			lActv.registerNewSpotReserved(wkCode); // Update spots left
-
-			System.out.println("\n  Reservation data:\n" +resv);
-
-			System.out.println("\n\n----- The reservation has been made successfully -----\n");
+			if (userWSNotReserved.getnElem() != 0) {
+				do { // Loop to check if the workshop code is valid or not
+					System.out.println("\n\nWhich workshop does the user want to book?\n  " 
+																	+userWSNotReserved.showNamesSpotsLeftAndCode());			
+					System.out.print("  Write its code: ");
+					wkCode = br.readLine();
+				} while (lActv.checkActivCode(wkCode) == false);
+	
+				Workshop wshop = lActv.getWorkShopByCode(wkCode);
+				
+				do { // Loop to generate random code
+					code = randomReservationCode();
+				} while (lResv.checkReservationCode(code) == true);
+	
+				// Creation of new reservation instance
+				Reservation resv = new Reservation(code, user.getName(), wshop.getActivityCode(), -1);
+				lResv.addReservation(resv); // Add it to the list
+	
+				lActv.registerNewSpotReserved(wkCode); // Update spots left
+	
+				System.out.println("\n  Reservation data:\n" +resv);
+	
+				System.out.println("\n\n----- The reservation has been made successfully -----\n");
+			} else {
+				System.out.println("\n\n----- The user " +user.getName()+ " has already booked all the workshops -----\n");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -229,9 +236,8 @@ public class consoleApp {
 	public static void Show_UsersFromWorkshop(ListReservations lResv) {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 		
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter the workshop code");
-		String workshopCode = scanner.nextLine();
+		String workshopCode = keyboard.nextLine();
 		boolean userFound = false;
 		
 		try{
@@ -322,25 +328,30 @@ public class consoleApp {
 			  // and if the user rated or not
 
 			String wkCode;
-			do { // Loop to check if the workshop code is valid or not
-				System.out.println("\n\nWhich workshop does the user want to rate?\n  " 
-																+wkBookedNoVotation.showNamesAndCode());			
-				System.out.print("  Write its code: ");
-				wkCode = keyboard.next();
-			} while (wkBookedNoVotation.checkActivCode(wkCode) == false);
 
-			byte rate;
-			do { // Loop to ask for the rate
-				System.out.print("\n\nIndicate the rate you want to give to the workshop: ");
-				rate = keyboard.nextByte();
-			} while (rate < 0 && rate > 10);
-
-			// register punctuation in the reservation
-			lResv.registerPunctuation(wkCode, rate);
-			
-			// register total punctuation into the workshop activity
-			lActiv.registerPunctuationInWorkShop(wkCode, rate);
-			System.out.println("\n\n----- The rating was registered successfully -----\n");
+			if (wkBookedNoVotation.getnElem() != 0) {
+				do { // Loop to check if the workshop code is valid or not
+					System.out.println("\n\nWhich workshop does the user want to rate?\n  " 
+																	+wkBookedNoVotation.showNamesAndCode());			
+					System.out.print("  Write its code: ");
+					wkCode = keyboard.next();
+				} while (wkBookedNoVotation.checkActivCode(wkCode) == false);
+	
+				byte rate;
+				do { // Loop to ask for the rate
+					System.out.print("\n\nIndicate the rate you want to give to the workshop: ");
+					rate = keyboard.nextByte();
+				} while (rate < 0 && rate > 10);
+	
+				// register punctuation in the reservation
+				lResv.registerPunctuation(wkCode, rate);
+				
+				// register total punctuation into the workshop activity
+				lActiv.registerPunctuationInWorkShop(wkCode, rate);
+				System.out.println("\n\n----- The rating was registered successfully -----\n");
+			} else {
+				System.out.println("\n\n----- The user " +uName+ " has not booked yet or rated every booking -----\n");
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
