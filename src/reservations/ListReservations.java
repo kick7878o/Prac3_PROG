@@ -93,6 +93,19 @@ public class ListReservations implements Serializable {
       return false;
    }
 
+   /** Method to check the workshop code in the list
+    * 
+    * @param code activity code
+    * @return true exists, false otherwise
+    */
+   public boolean checkWorkShopCode(String code){
+      for (int i=0; i < nElem; i++) {
+         if (listRes[i].getIdWorkShop().equalsIgnoreCase(code))
+            return true;
+      }
+      return false;
+   }
+
    /** Method to filter the reservations made from a user
     * with the workshop code
     * 
@@ -132,13 +145,18 @@ public class ListReservations implements Serializable {
       }
       return aux;
    }
-
+   
+   /** Method that gets the instance of the reservation with its position
+    * 
+    * @param i position
+    * @return reservation instance
+    */
    public Reservation getReservation(int i) {
-      if(i >= 0 && i < nElem){
+      if(i >= 0 && i < nElem)
          return listRes[i];
-      } else{
-         return null;
-      }
 
+      return null;
    }
+
+
 }
