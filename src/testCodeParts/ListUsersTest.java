@@ -15,7 +15,7 @@ public class ListUsersTest {
 
         //Check constructor
         Users u1 = new Users("Sergi", "sergi@gmail.com", 43530);
-        System.out.println(u1);
+        System.out.println(u1); //Correct
 
         Users u2 = new Users("Marti", "marti12@gmail.com", 43500);
         Users u3 = new Users("Marc", "marccc@gmail.com", 43520);
@@ -30,7 +30,7 @@ public class ListUsersTest {
         list.addUser2List(u4);
         list.addUser2List(u5);
 
-        System.out.println(list);
+        System.out.println(list); //Correct
 
         //Check getters
         System.out.println("Getter name u1: " +u1.getName());
@@ -47,7 +47,7 @@ public class ListUsersTest {
         System.out.println("Getter postalCode u4: "+u4.getPostalCode());
         System.out.println("Getter name u5: " +u5.getName());
         System.out.println("Getter email u5: "+u5.getEmail());
-        System.out.println("Getter postalCode u5: "+u5.getPostalCode());
+        System.out.println("Getter postalCode u5: "+u5.getPostalCode()); //Correct
 
         //Check setters
         u1.setEmail("sergi111@gmail.com");
@@ -57,7 +57,7 @@ public class ListUsersTest {
         u5.setPostalCode(43555);
         u5.setName("Paula");
 
-        System.out.println(list);
+        System.out.println(list);  //Correct
 
 
 

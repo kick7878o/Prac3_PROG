@@ -225,7 +225,7 @@ public class consoleApp {
 	 * @return random number
 	 */
 	private static int randomReservationCode() { return new Random().nextInt(200); }
-
+	
 	public static void Show_UsersFromWorkshop(ListReservations lResv) {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 		
@@ -416,6 +416,7 @@ public class consoleApp {
 	public static void Show_TalkData(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Show the talk data that the person will do -----\n");
 
+		try{
 		System.out.println("Enter the speaker name");
 		String speakerName = keyboard.nextLine();
 		speakerName = keyboard.nextLine();
@@ -426,8 +427,12 @@ public class consoleApp {
 			if (currentActivity instanceof Talk && ((Talk) currentActivity).getSpeakerName().equals(speakerName)) {
 				System.out.println(currentActivity.toString());
 			}
-		}	
+		}
+	} catch(InputMismatchException e){
+		System.out.println("Enter a correct speaker name");
 	}
+
+}
 	public static void Cancel_Workshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Cancel a workshop -----\n");
 
