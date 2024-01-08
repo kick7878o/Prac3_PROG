@@ -59,6 +59,9 @@ public class ListUsersTest {
 
         System.out.println(list);  //Correct
 
+        System.out.println(list.showUserName());
+        System.out.println(list.getUserDataByName("Sergi"));
+        System.out.println(list.isThisUserName("Martina"));
 
 
                 
