@@ -50,7 +50,7 @@ public class consoleApp {
 						case  4 -> Show_WorkshopListWSpots(activityList); 
 						case  5 -> Add_Activity(); 
 						case  6 -> Register_UserReservation(userList, activityList, reservationList); 
-						case  7 -> Show_UsersFromWorkshop(); 
+						case  7 -> Show_UsersFromWorkshop(reservationList); 
 						case  8 -> Highest_UserReservation(reservationList, userList); 
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList, reservationList, activityList); 
 						case 10 -> Calculate_AverageWorkshop(activityList); 
@@ -226,10 +226,33 @@ public class consoleApp {
 	 */
 	private static int randomReservationCode() { return new Random().nextInt(200); }
 
-	public static void Show_UsersFromWorkshop() {
+	public static void Show_UsersFromWorkshop(ListReservations lResv) {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter the workshop code");
+		String workshopCode = scanner.nextLine();
+		boolean userFound = false;
+		
+		try{
+		for(int i = 0; i < lResv.getnElem(); i++){
+			Reservation currentReservation = lResv.getReservation(i);
+
+			if(currentReservation.getIdWorkShop().equals(workshopCode)){
+				System.out.println("User: " +currentReservation.getUser());
+				userFound = true;
+			}	
+		}
+		if(!userFound){
+			throw new NoReservationFound("No reservations found for workshop with code: " +workshopCode);
+		}
+	}catch(NoReservationFound e){
+		System.out.println(e.getMessage());
+		
 	}
+
+
+		}
 	public static void Highest_UserReservation(ListReservations lResv, ListUsers lUser) {
 		System.out.println("\n\n----- Show which user booked more workshops -----\n");
 		

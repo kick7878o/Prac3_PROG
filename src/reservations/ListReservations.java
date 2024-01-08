@@ -132,4 +132,13 @@ public class ListReservations implements Serializable {
       }
       return aux;
    }
+
+   public Reservation getReservation(int i) {
+      if(i >= 0 && i < nElem){
+         return listRes[i];
+      } else{
+         return null;
+      }
+
+   }
 }
