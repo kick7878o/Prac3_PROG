@@ -37,7 +37,7 @@ public class userInterfaceApp extends JFrame{
 
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 50));
 
-		JLabel label = new JLabel("Last 10 days");
+		JLabel label = new JLabel("The next 10 days(Number of activities per day)");
 		label.setFont(new Font("Arial", Font.BOLD, 20));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setBorder(new EmptyBorder(0, 600, 0, 600));
@@ -45,7 +45,7 @@ public class userInterfaceApp extends JFrame{
 
 		lastButtons = new JButton[10];
 		for(int i = 0; i < 10; i++) {
-			lastButtons[i] = new JButton(""+(i+1));
+			lastButtons[i] = new JButton(""+(i+1) + "\n (" + dayActivities(i+10) + ")");
 			//lastButtons[i].setBackground(Color.CYAN);
 			lastButtons[i].setPreferredSize(new Dimension(200, 50));
 			buttonsPanel.add(lastButtons[i]);
@@ -80,6 +80,18 @@ public class userInterfaceApp extends JFrame{
 
 		this.setVisible(true);
     }
+
+	private int dayActivities(int d) {
+		int acts = 0;
+		for(int i = 0; i < activityList.getnElem(); i++) {
+			if(activityList.getListActv()[i].getActivityDay() == d) {
+				acts++;
+			}
+		}
+		return acts;
+	}
+
+
 
     /** Method to initialize the activity list from 
 	 * text file
