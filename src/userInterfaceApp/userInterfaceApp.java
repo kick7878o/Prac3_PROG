@@ -27,6 +27,10 @@ public class userInterfaceApp extends JFrame{
 	ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activities.txt"); // Initialize Activity Structure
 	ListReservations reservationList = initReservationList("src\\dataFiles\\Reservation.ser"); // Init reservation list
 
+	private boolean filterWorkshop = false;
+	private boolean filterVisits = false;
+	private boolean filterTalks = false;
+
 	private JButton[] lastButtons;
 
     public userInterfaceApp() throws IOException{
@@ -70,6 +74,10 @@ public class userInterfaceApp extends JFrame{
 		type1.setPreferredSize(new Dimension(180, 50));
 		type2.setPreferredSize(new Dimension(180, 50));
 		type3.setPreferredSize(new Dimension(180, 50));
+
+		type1.addActionListener(e -> updateButtons("Workshop"));
+		type2.addActionListener(e -> updateButtons("Visits"));
+		type3.addActionListener(e -> updateButtons("Talks"));
 		typePanel.add(type1);
 		typePanel.add(type2);
 		typePanel.add(type3);
@@ -122,6 +130,23 @@ public class userInterfaceApp extends JFrame{
             JOptionPane.showMessageDialog(null, "Activities of the day " + day + ":\n" + activitiesInfo);
         }
     }
+	
+	private void updateButtons(String filterType) {
+		switch (filterType) {
+			case "Workshop":
+				
+				break;
+			case "Visits":
+				
+				break;
+			case "Talks":
+				
+				break;
+		
+			default:
+				break;
+		}
+	}
 
     /** Method to initialize the activity list from 
 	 * text file
