@@ -12,7 +12,10 @@ import java.io.ObjectOutputStream;
 import java.io.Writer;
 import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.*;
 
 import activities.Activities;
 import activities.ActivityType;
@@ -38,6 +41,16 @@ public class userInterfaceApp extends JFrame{
 	ListUsers userList = initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
 	ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activities.txt"); // Initialize Activity Structure
 	ListReservations reservationList = initReservationList("src\\dataFiles\\Reservation.ser"); // Init reservation list
+
+    public userInterfaceApp() {
+        super("Practica 3");
+        this.setLocation(100, 200);
+		this.setSize(600, 600);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
+		this.setLayout(null);
+
+    }
 
     /** Method to initialize the activity list from 
 	 * text file
@@ -317,4 +330,8 @@ public class userInterfaceApp extends JFrame{
 			e.printStackTrace();
 		}
 	}
+
+    public static void main(String[] args) throws IOException, ActivityListEmpty {
+        new userInterfaceApp();
+    }
 }
