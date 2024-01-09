@@ -37,6 +37,13 @@ public class userInterfaceApp extends JFrame{
 		this.setLayout(new BorderLayout());
 
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 50));
+
+		JLabel label = new JLabel("Last 10 days");
+		label.setFont(new Font("Arial", Font.BOLD, 20));
+		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setBorder(new EmptyBorder(0, 600, 0, 600));
+		buttonsPanel.add(label);
+
 		lastButtons = new JButton[10];
 		for(int i = 0; i < 10; i++) {
 			lastButtons[i] = new JButton(""+(i+1));
