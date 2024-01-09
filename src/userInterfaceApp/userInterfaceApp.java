@@ -52,19 +52,19 @@ public class userInterfaceApp extends JFrame{
 		}
 		
 		JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 200, 200));
-		//--
-		JLabel label2 = new JLabel("Type of activity");
-		label2.setFont(new Font("Arial", Font.BOLD, 20));
-		label2.setHorizontalAlignment(JLabel.CENTER);
-		label2.setBorder(new EmptyBorder(0, 0, 0, 0));
-		typePanel.add(label2);
+		//-- Ver si se puede poner esto encima de los type buttons
+		// JLabel label2 = new JLabel("Type of activity");
+		// label2.setFont(new Font("Arial", Font.BOLD, 20));
+		// label2.setHorizontalAlignment(JLabel.CENTER);
+		// label2.setBorder(new EmptyBorder(0, 0, 0, 0));
+		// typePanel.add(label2);
 		//--
 		JButton type1 = new JButton("Workshop");
 		JButton type2 = new JButton("Visits");
 		JButton type3 = new JButton("Talks");
-		type1.setPreferredSize(new Dimension(100, 50));
-		type2.setPreferredSize(new Dimension(100, 50));
-		type3.setPreferredSize(new Dimension(100, 50));
+		type1.setPreferredSize(new Dimension(180, 50));
+		type2.setPreferredSize(new Dimension(180, 50));
+		type3.setPreferredSize(new Dimension(180, 50));
 		typePanel.add(type1);
 		typePanel.add(type2);
 		typePanel.add(type3);
