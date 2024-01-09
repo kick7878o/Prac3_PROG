@@ -14,7 +14,12 @@ import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 
 import activities.Activities;
@@ -42,14 +47,47 @@ public class userInterfaceApp extends JFrame{
 	ListOfActivities activityList = initActivitiesList("src\\dataFiles\\Activities.txt"); // Initialize Activity Structure
 	ListReservations reservationList = initReservationList("src\\dataFiles\\Reservation.ser"); // Init reservation list
 
-    public userInterfaceApp() {
+	private JButton[] lastButtons;
+
+    public userInterfaceApp() throws IOException{
         super("Practica 3");
         this.setLocation(100, 200);
-		this.setSize(600, 600);
+		//this.setSize(600, 600);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
-		this.setLayout(null);
+		
+		this.setLayout(new BorderLayout());
 
+		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 50));
+		lastButtons = new JButton[10];
+		for(int i = 0; i < 10; i++) {
+			lastButtons[i] = new JButton(""+(i+1));
+			//lastButtons[i].setBackground(Color.CYAN);
+			lastButtons[i].setPreferredSize(new Dimension(200, 50));
+			buttonsPanel.add(lastButtons[i]);
+		}
+		
+		JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 200, 200));
+		JButton type1 = new JButton("Workshop");
+		JButton type2 = new JButton("Visits");
+		JButton type3 = new JButton("Talks");
+		type1.setPreferredSize(new Dimension(100, 50));
+		type2.setPreferredSize(new Dimension(100, 50));
+		type3.setPreferredSize(new Dimension(100, 50));
+		typePanel.add(type1);
+		typePanel.add(type2);
+		typePanel.add(type3);
+
+		JLabel titol = new JLabel("URV Science Week");
+		titol.setBorder(new EmptyBorder(30, 0, 0, 0));
+		titol.setFont(new Font("Arial", Font.BOLD, 40));
+		titol.setHorizontalAlignment(JLabel.CENTER);
+		
+		this.add(buttonsPanel, BorderLayout.CENTER);
+		this.add(typePanel, BorderLayout.SOUTH);
+		this.add(titol, BorderLayout.PAGE_START);
+
+		this.setVisible(true);
     }
 
     /** Method to initialize the activity list from 
