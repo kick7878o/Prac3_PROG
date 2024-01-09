@@ -30,7 +30,6 @@ public class userInterfaceApp extends JFrame{
     public userInterfaceApp() throws IOException{
         super("Practica 3");
         this.setLocation(100, 200);
-		//this.setSize(600, 600);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -53,6 +52,13 @@ public class userInterfaceApp extends JFrame{
 		}
 		
 		JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 200, 200));
+		//--
+		JLabel label2 = new JLabel("Type of activity");
+		label2.setFont(new Font("Arial", Font.BOLD, 20));
+		label2.setHorizontalAlignment(JLabel.CENTER);
+		label2.setBorder(new EmptyBorder(0, 0, 0, 0));
+		typePanel.add(label2);
+		//--
 		JButton type1 = new JButton("Workshop");
 		JButton type2 = new JButton("Visits");
 		JButton type3 = new JButton("Talks");
