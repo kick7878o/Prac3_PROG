@@ -1,40 +1,18 @@
 package userInterfaceApp;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Writer;
+import java.io.*;
 import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.Border;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 
-import activities.Activities;
-import activities.ActivityType;
-import activities.ListOfActivities;
-import activities.Talk;
-import activities.Visits;
-import activities.Workshop;
-import entities.Entity;
-import entities.ListEntities;
-import exceptions.ActivityListEmpty;
-import reservations.ListReservations;
-import reservations.Reservation;
-import users.ListUsers;
-import users.Users;
+import activities.*;
+import entities.*;
+import exceptions.*;
+import reservations.*;
+import users.*;
 
 public class userInterfaceApp extends JFrame{
     
