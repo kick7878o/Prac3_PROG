@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import activities.*;
 import entities.*;
@@ -44,10 +46,13 @@ public class userInterfaceApp extends JFrame{
 		buttonsPanel.add(label);
 
 		lastButtons = new JButton[10];
+		int day;
 		for(int i = 0; i < 10; i++) {
-			lastButtons[i] = new JButton(""+(i+1) + "\n (" + dayActivities(i+10) + ")");
+			day = i+10;
+			lastButtons[i] = new JButton(""+day+"/01/2024" + "\n (" + numDayActivities(day) + ")");
 			//lastButtons[i].setBackground(Color.CYAN);
 			lastButtons[i].setPreferredSize(new Dimension(200, 50));
+			lastButtons[i].addActionListener(new ButtonClickListener(day));
 			buttonsPanel.add(lastButtons[i]);
 		}
 		
@@ -79,9 +84,11 @@ public class userInterfaceApp extends JFrame{
 		this.add(titol, BorderLayout.PAGE_START);
 
 		this.setVisible(true);
+
+		
     }
 
-	private int dayActivities(int d) {
+	private int numDayActivities(int d) {
 		int acts = 0;
 		for(int i = 0; i < activityList.getnElem(); i++) {
 			if(activityList.getListActv()[i].getActivityDay() == d) {
@@ -91,7 +98,30 @@ public class userInterfaceApp extends JFrame{
 		return acts;
 	}
 
+	private ListOfActivities dayActivities(int d) {
+		ListOfActivities acts = new ListOfActivities();
+		for(int i = 0; i < activityList.getnElem(); i++) {
+			if(activityList.getListActv()[i].getActivityDay() == d) {
+				acts.addActivity(activityList.getListActv()[i]);
+			}
+		}
+		return acts;
+	}
 
+	private class ButtonClickListener implements ActionListener {
+        private int day;
+
+        public ButtonClickListener(int day) {
+            this.day = day;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Mostrar información de la lista de acciones del día
+            ListOfActivities activitiesInfo = dayActivities(day);
+            JOptionPane.showMessageDialog(null, "Activities of the day " + day + ":\n" + activitiesInfo);
+        }
+    }
 
     /** Method to initialize the activity list from 
 	 * text file
