@@ -33,7 +33,6 @@ public class userInterfaceApp extends JFrame{
         super("Practica 3");
         this.setLocation(100, 40);
 		this.setSize(1200, 800);
-		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		this.setLayout(new BorderLayout());
@@ -57,18 +56,11 @@ public class userInterfaceApp extends JFrame{
 			buttonsPanel.add(lastButtons[i]);
 		}
 		
-		JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 50));
-		//--
 		JLabel label2 = new JLabel("Type of activity");
-		label2.setFont(new Font("Arial", Font.BOLD, 15));
-		//label2.setHorizontalAlignment(JLabel.CENTER);
-		label2.setBorder(new EmptyBorder(0, 600, 0, 600));
+		label2.setFont(new Font("Arial", Font.BOLD, 20));
+		label2.setBorder(new EmptyBorder(60, 600, 0, 600));
 		buttonsPanel.add(label2);
-		// label2.setFont(new Font("Arial", Font.BOLD, 20));
-		// label2.setHorizontalAlignment(JLabel.CENTER);
-		// label2.setBorder(new EmptyBorder(0, 0, 0, 0));
-		//typePanel.add(label2);
-		//--
+
 		JButton type1 = new JButton("Workshop");
 		JButton type2 = new JButton("Visits");
 		JButton type3 = new JButton("Talks");
@@ -81,12 +73,11 @@ public class userInterfaceApp extends JFrame{
 		buttonsPanel.add(type3);
 
 		JLabel titol = new JLabel("URV Science Week");
-		titol.setBorder(new EmptyBorder(30, 0, 0, 0));
+		titol.setBorder(new EmptyBorder(40, 0, 30, 0));
 		titol.setFont(new Font("Arial", Font.BOLD, 40));
 		titol.setHorizontalAlignment(JLabel.CENTER);
 		
 		this.add(buttonsPanel, BorderLayout.CENTER);
-		this.add(typePanel, BorderLayout.SOUTH);
 		this.add(titol, BorderLayout.PAGE_START);
 
 		this.setVisible(true);
