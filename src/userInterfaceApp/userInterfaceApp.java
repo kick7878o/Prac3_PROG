@@ -62,8 +62,8 @@ public class userInterfaceApp extends JFrame{
 		JLabel label2 = new JLabel("Type of activity");
 		label2.setFont(new Font("Arial", Font.BOLD, 15));
 		//label2.setHorizontalAlignment(JLabel.CENTER);
-		//label2.setBorder(new EmptyBorder(0, 600, 0, 600));
-		typePanel.add(label2);
+		label2.setBorder(new EmptyBorder(0, 600, 0, 600));
+		buttonsPanel.add(label2);
 		// label2.setFont(new Font("Arial", Font.BOLD, 20));
 		// label2.setHorizontalAlignment(JLabel.CENTER);
 		// label2.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -76,9 +76,9 @@ public class userInterfaceApp extends JFrame{
 		type2.setPreferredSize(new Dimension(130, 35));
 		type3.setPreferredSize(new Dimension(130, 35));
 
-		typePanel.add(type1);
-		typePanel.add(type2);
-		typePanel.add(type3);
+		buttonsPanel.add(type1);
+		buttonsPanel.add(type2);
+		buttonsPanel.add(type3);
 
 		JLabel titol = new JLabel("URV Science Week");
 		titol.setBorder(new EmptyBorder(30, 0, 0, 0));
