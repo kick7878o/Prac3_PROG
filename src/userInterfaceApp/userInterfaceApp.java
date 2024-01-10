@@ -268,7 +268,7 @@ public class userInterfaceApp extends JFrame{
 	 * @param lResv list of reservations to store
 	 * @throws ActivityListEmpty
 	 */
-	private static void storeDataStructures(ListOfActivities lActv, ListReservations lResv) throws ActivityListEmpty {
+	//private static void storeDataStructures(ListOfActivities lActv, ListReservations lResv) throws ActivityListEmpty {
 		// boolean exit = false;
 		// do {
 		// 	System.out.println("\n\n----- Storage phase of data structures -----\n");
@@ -292,51 +292,51 @@ public class userInterfaceApp extends JFrame{
 		// 	}
 		// } while (!exit);
 
-        storeActivities(lActv); storeReservations(lResv);
+        //storeActivities(lActv); storeReservations(lResv);
 
-	}
+	//}
 
-	/** Method that stores into a text file the list of Activities
-	 * 
-	 * @param lActv list of activities
-	 * @throws ActivityListEmpty
-	 */
-	private static void storeActivities(ListOfActivities lActv) throws ActivityListEmpty {
-		Writer f = null;
-		try {
-			if (lActv.getnElem() != 0) {
-				f = new BufferedWriter(new FileWriter("src\\dataFiles\\Activities.txt"));
-				var array = lActv.getListActv(); // We get the activity list
-				f.write(ActivityListHeader+ "\n");
-				f.write(TalkListHeader+ "\n");
-				f.write(VisitListHeader+ "\n");
-				f.write(WorkShopListHeader+ "\n"); // Write headers of the activity list
-				f.write(Integer.toString(lActv.getnElem())+ "\n"); // Write nElements of the list
+	// /** Method that stores into a text file the list of Activities
+	//  * 
+	//  * @param lActv list of activities
+	//  * @throws ActivityListEmpty
+	//  */
+	// private static void storeActivities(ListOfActivities lActv) throws ActivityListEmpty {
+	// 	Writer f = null;
+	// 	try {
+	// 		if (lActv.getnElem() != 0) {
+	// 			f = new BufferedWriter(new FileWriter("src\\dataFiles\\Activities.txt"));
+	// 			var array = lActv.getListActv(); // We get the activity list
+	// 			f.write(ActivityListHeader+ "\n");
+	// 			f.write(TalkListHeader+ "\n");
+	// 			f.write(VisitListHeader+ "\n");
+	// 			f.write(WorkShopListHeader+ "\n"); // Write headers of the activity list
+	// 			f.write(Integer.toString(lActv.getnElem())+ "\n"); // Write nElements of the list
 	
-				// Iterate over the elements of the list and write it into the file
-				for (int i = 0; i < lActv.getnElem(); i++) {
-					// Activity Type, to know which type of activity it is
-					f.write(array[i].getActType().name());
-					f.write(";");
+	// 			// Iterate over the elements of the list and write it into the file
+	// 			for (int i = 0; i < lActv.getnElem(); i++) {
+	// 				// Activity Type, to know which type of activity it is
+	// 				f.write(array[i].getActType().name());
+	// 				f.write(";");
 	
-					// Now the activity data
-					f.write(array[i].toTextFormat());
-					f.write("\n");
-				}
-				System.out.println(" ------- Activity list stored -------\n");
-			} else {
-				throw new ActivityListEmpty();
-			}
-		} catch (IOException e) {
-			System.err.println("\t<<<<< Error writing the file >>>>>");
-		} finally {
-			try {
-				f.close();
-			} catch (IOException e) {
-				System.err.println("\t<<<<< Error closing the file >>>>>");
-			}
-		}
-	}
+	// 				// Now the activity data
+	// 				f.write(array[i].toTextFormat());
+	// 				f.write("\n");
+	// 			}
+	// 			System.out.println(" ------- Activity list stored -------\n");
+	// 		} else {
+	// 			throw new ActivityListEmpty();
+	// 		}
+	// 	} catch (IOException e) {
+	// 		System.err.println("\t<<<<< Error writing the file >>>>>");
+	// 	} finally {
+	// 		try {
+	// 			f.close();
+	// 		} catch (IOException e) {
+	// 			System.err.println("\t<<<<< Error closing the file >>>>>");
+	// 		}
+	// 	}
+	// }
 
 	/** Method to initialize the reservation list from 
 	 * serialized file
@@ -378,26 +378,26 @@ public class userInterfaceApp extends JFrame{
 	 * 
 	 * @param lResv list of reservations
 	 */
-	private static void storeReservations(ListReservations lResv) {
-		try {
-			if (lResv.getnElem() != 0) { // If there's something in the list, we store it
-				var oFile = new ObjectOutputStream(new FileOutputStream("src\\dataFiles\\Reservation.ser"));
-				oFile.writeInt(lResv.getnElem());
+	// private static void storeReservations(ListReservations lResv) {
+	// 	try {
+	// 		if (lResv.getnElem() != 0) { // If there's something in the list, we store it
+	// 			var oFile = new ObjectOutputStream(new FileOutputStream("src\\dataFiles\\Reservation.ser"));
+	// 			oFile.writeInt(lResv.getnElem());
 	
-				for (int i=0; i < lResv.getnElem(); i++)
-					oFile.writeObject(lResv.getListRes()[i]);
+	// 			for (int i=0; i < lResv.getnElem(); i++)
+	// 				oFile.writeObject(lResv.getListRes()[i]);
 
-				System.out.println("\n\n ------- Reservation list stored -------\n");
-				oFile.close();
-			} else {
-				System.out.println(" ------- Nothing to store from the reservation list -------\n\n");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	// 			System.out.println("\n\n ------- Reservation list stored -------\n");
+	// 			oFile.close();
+	// 		} else {
+	// 			System.out.println(" ------- Nothing to store from the reservation list -------\n\n");
+	// 		}
+	// 	} catch (IOException e) {
+	// 		e.printStackTrace();
+	// 	} catch (Exception e) {
+	// 		e.printStackTrace();
+	// 	}
+	// }
 
     public static void main(String[] args) throws IOException, ActivityListEmpty {
         new userInterfaceApp();
