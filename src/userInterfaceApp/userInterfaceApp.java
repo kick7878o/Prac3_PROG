@@ -35,8 +35,9 @@ public class userInterfaceApp extends JFrame{
 
     public userInterfaceApp() throws IOException{
         super("Practica 3");
-        this.setLocation(100, 200);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setLocation(100, 40);
+		this.setSize(1200, 800);
+		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		this.setLayout(new BorderLayout());
@@ -54,26 +55,30 @@ public class userInterfaceApp extends JFrame{
 		for(int i = 0; i < 10; i++) {
 			day = i+10;
 			lastButtons[i] = new JButton(""+day+"/01/2024" + "\n (" + numDayActivities(day) + ")");
-			//lastButtons[i].setBackground(Color.CYAN);
-			lastButtons[i].setPreferredSize(new Dimension(200, 50));
+			lastButtons[i].setMargin(new Insets(20, 10, 20, 10));
+			lastButtons[i].setBorder(new EmptyBorder(5, 40, 5, 40));
 			lastButtons[i].addActionListener(new ButtonClickListener(day));
 			buttonsPanel.add(lastButtons[i]);
 		}
 		
-		JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 200, 200));
-		//-- Ver si se puede poner esto encima de los type buttons
-		// JLabel label2 = new JLabel("Type of activity");
+		JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 50));
+		//--
+		JLabel label2 = new JLabel("Type of activity");
+		label2.setFont(new Font("Arial", Font.BOLD, 20));
+		//label2.setHorizontalAlignment(JLabel.CENTER);
+		//label2.setBorder(new EmptyBorder(0, 600, 0, 600));
+		typePanel.add(label2);
 		// label2.setFont(new Font("Arial", Font.BOLD, 20));
 		// label2.setHorizontalAlignment(JLabel.CENTER);
 		// label2.setBorder(new EmptyBorder(0, 0, 0, 0));
-		// typePanel.add(label2);
+		//typePanel.add(label2);
 		//--
 		JButton type1 = new JButton("Workshop");
 		JButton type2 = new JButton("Visits");
 		JButton type3 = new JButton("Talks");
-		type1.setPreferredSize(new Dimension(180, 50));
-		type2.setPreferredSize(new Dimension(180, 50));
-		type3.setPreferredSize(new Dimension(180, 50));
+		type1.setPreferredSize(new Dimension(130, 35));
+		type2.setPreferredSize(new Dimension(130, 35));
+		type3.setPreferredSize(new Dimension(130, 35));
 
 		type1.addActionListener(e -> updateButtons("Workshop"));
 		type2.addActionListener(e -> updateButtons("Visits"));
