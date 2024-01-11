@@ -68,8 +68,11 @@ public class userInterfaceApp extends JFrame{
 		JButton type2 = new JButton("Visits");
 		JButton type3 = new JButton("Talks");
 		type1.setPreferredSize(new Dimension(130, 35));
+		type1.addActionListener(new ButtonClickListener2());
 		type2.setPreferredSize(new Dimension(130, 35));
+		type2.addActionListener(new ButtonClickListener3());
 		type3.setPreferredSize(new Dimension(130, 35));
+		type3.addActionListener(new ButtonClickListener4());
 
 		buttonsPanel.add(type1);
 		buttonsPanel.add(type2);
@@ -108,6 +111,21 @@ public class userInterfaceApp extends JFrame{
 		return acts;
 	}
 
+	private ListOfActivities filterByWorkshop(){
+		activityList.filterByWorkShop();
+		return activityList;
+	}
+
+	private ListOfActivities filterByTalk(){
+		activityList.filterByTalk();
+		return activityList;
+	}
+
+	private ListOfActivities filterByVisits(){
+		activityList.filterByVisits();
+		return activityList;
+	}
+
 	private class ButtonClickListener implements ActionListener {
         private int day;
 
@@ -122,6 +140,39 @@ public class userInterfaceApp extends JFrame{
             JOptionPane.showMessageDialog(null, "Activities of the day " + day + ":\n" + activitiesInfo);
         }
     }
+
+	private class ButtonClickListener2 implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Mostrar información de la lista de acciones del día
+            filterByWorkshop();
+            JOptionPane.showMessageDialog(null, "Activities filtered by Workshop " + ":\n" + activityList);
+		}
+		
+	}
+
+	private class ButtonClickListener3 implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Mostrar información de la lista de acciones del día
+            filterByVisits();
+            JOptionPane.showMessageDialog(null, "Activities filtered by Visits " + ":\n" + activityList);
+		}
+		
+	}
+
+	private class ButtonClickListener4 implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Mostrar información de la lista de acciones del día
+            filterByTalk();
+            JOptionPane.showMessageDialog(null, "Activities filtered by Talk " + ":\n" + activityList);
+		}
+		
+	}
 
     /** Method to initialize the activity list from 
 	 * text file
