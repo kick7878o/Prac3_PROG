@@ -19,7 +19,6 @@ import users.*;
 public class userInterfaceApp extends JFrame{
     
     private static final long serialVersionUID = 1L;
-    private static String ActivityListHeader, TalkListHeader, VisitListHeader, WorkShopListHeader;
     private static File fileCheck; // To chekc if the file exists
 
     ListEntities entityList = initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
@@ -133,10 +132,10 @@ public class userInterfaceApp extends JFrame{
 
 			if (fileCheck.exists()) {
 				f = new Scanner(new File(pathFile)); // File reader
-				ActivityListHeader = f.nextLine(); // Activity header
-				TalkListHeader = f.nextLine(); // Talk header
-				VisitListHeader = f.nextLine(); // Visit header
-				WorkShopListHeader = f.nextLine(); // Workshop header
+				f.nextLine(); // Activity header 
+				f.nextLine(); // Talk header
+				f.nextLine(); // Visit header
+				f.nextLine(); // Workshop header (no need to store them)
 				int nActivities = Integer.parseInt(f.nextLine()); // Number of activities
 				//System.out.println("There's " +nActivities+ " activities.\n\n"  
 				//						 +" Activity file format: \n  " +ActivityListHeader+ "\n"
