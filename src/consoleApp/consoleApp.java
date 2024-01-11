@@ -48,14 +48,14 @@ public class consoleApp {
 					 	case  2 -> Show_ActivitiesFromEntity(); 
 						case  3 -> Show_ActivitiesXDay(); 
 						case  4 -> Show_WorkshopListWSpots(activityList); 
-						case  5 -> Add_Activity(); 
+						case  5 -> Add_Activity(activityList); 
 						case  6 -> Register_UserReservation(userList, activityList, reservationList); 
 						case  7 -> Show_UsersFromWorkshop(reservationList); 
 						case  8 -> Highest_UserReservation(reservationList, userList); 
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList, reservationList, activityList); 
 						case 10 -> Calculate_AverageWorkshop(activityList); 
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
-						case 12 -> Show_VisitListFromEntity(); 
+						case 12 -> Show_VisitListFromEntity(activityList); 
 						case 13 -> Show_TalkData(activityList); 
 						case 14 -> Cancel_Workshop(activityList); 
 						case 15 -> exit = true; 
@@ -75,7 +75,6 @@ public class consoleApp {
 			// We close everything we used to free memory
 			keyboard.close();
 			br.close();
-			// ...
    }
 
 	/** Method that displays the menu */
@@ -99,6 +98,13 @@ public class consoleApp {
 		System.out.print("\n\tChoose option: ");
 	}
 
+	/** Method that displays all data for the week science
+	 * 
+	 * @param lUser list of users
+	 * @param lEntity list of entities
+	 * @param lActiv list of activities
+	 * @param lResv list of reservations
+	 */
 	public static void Show_DataList(ListUsers lUser, ListReservations lResv,
 	 										ListOfActivities lActiv, ListEntities lEntity) {
 		System.out.println("\n\n----- Show Data List -----\n");
@@ -106,14 +112,14 @@ public class consoleApp {
 		//Users List
 		System.out.println(lUser.toString());
 
-		//Reservations List
-		System.out.println(lResv.toString());
+		//Entities List
+		System.out.println(lEntity.toString());
 
 		//Activities List
 		System.out.println(lActiv.toString());
-
-		//Entities List
-		System.out.println(lEntity.toString());
+		
+		//Reservations List
+		System.out.println(lResv.toString());
 
 	}
 	public static void Show_ActivitiesFromEntity() {
@@ -152,7 +158,10 @@ public class consoleApp {
 		}
 	}
 	
-	public static void Add_Activity() {
+	/** Method to add an activity to the list
+	 * @param lActiv
+	 */
+	public static void Add_Activity(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Add new activity -----\n");
 	}
 
@@ -233,6 +242,9 @@ public class consoleApp {
 	 */
 	private static int randomReservationCode() { return new Random().nextInt(200); }
 	
+	/** Method to displays the user data from the workshop
+	 * @param lResv list of reservations
+	 */
 	public static void Show_UsersFromWorkshop(ListReservations lResv) {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 		
@@ -241,24 +253,26 @@ public class consoleApp {
 		boolean userFound = false;
 		
 		try{
-		for(int i = 0; i < lResv.getnElem(); i++){
-			Reservation currentReservation = lResv.getReservation(i);
+			for(int i = 0; i < lResv.getnElem(); i++){
+				Reservation currentReservation = lResv.getReservation(i);
 
-			if(currentReservation.getIdWorkShop().equals(workshopCode)){
-				System.out.println("User: " +currentReservation.getUser());
-				userFound = true;
-			}	
+				if(currentReservation.getIdWorkShop().equals(workshopCode)){
+					System.out.println("User: " +currentReservation.getUser());
+					userFound = true;
+				}	
+			}
+			if(!userFound)
+				throw new NoReservationFound("No reservations found for workshop with code: " +workshopCode);
+		} catch (NoReservationFound e){
+			System.out.println(e.getMessage());
 		}
-		if(!userFound){
-			throw new NoReservationFound("No reservations found for workshop with code: " +workshopCode);
-		}
-	}catch(NoReservationFound e){
-		System.out.println(e.getMessage());
-		
 	}
-
-
-		}
+	
+	/** Method to display the user with the most bookings
+	 * 
+	 * @param lResv reservation list
+	 * @param lUser user list
+	 */
 	public static void Highest_UserReservation(ListReservations lResv, ListUsers lUser) {
 		System.out.println("\n\n----- Show which user booked more workshops -----\n");
 		
@@ -267,6 +281,7 @@ public class consoleApp {
 
 		try {
 			ListReservations lResvCopy = lResv.copyListReserv();
+
 			for(int i = 0; i < lResv.getnElem(); i++){
 				Reservation reservation = lResvCopy.getListRes()[i];
 				String nameUser = reservation.getUser();
@@ -287,11 +302,11 @@ public class consoleApp {
 			}
 
 			Users usr = lUser.getUserDataByName(maxUser);
-			if (maxUser != null) {
+			if (maxUser != null) 
 				System.out.println("User with most workshop bookings: " + usr + ", Bookings: " + maxReservations);
-			} else {
+			else 
 				System.out.println("No bookings found.");
-			}
+			
 		} catch (NullPointerException e) {
 			System.out.println("No bookings found.");
 		} catch (Exception e) {
@@ -300,6 +315,13 @@ public class consoleApp {
 		
 	}
 
+	/** Method to register the satisfaction level from a user
+	 * after the workshop
+	 * 
+	 * @param lUser user list
+	 * @param lResv reservation list
+	 * @param lActiv activity list
+	 */
 	public static void Register_PunctuationFromUserAfterworkshop(ListUsers lUser, 
 													ListReservations lResv, ListOfActivities lActiv) {
 		System.out.println("\n\n----- Register punctuation from user after the WorkShop -----\n");
@@ -364,6 +386,9 @@ public class consoleApp {
 		}
 	}
 	
+	/** Method to calculate the average a workshop has recieved
+	 * @param lActiv
+	 */
 	public static void Calculate_AverageWorkshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Calculate the average that a workshop has recieved -----\n");
 		
@@ -383,7 +408,7 @@ public class consoleApp {
 			Activities activity = workshops[i];
 			Workshop workshop = (Workshop) activity;
 
-			if(workshop.getActivityName().equals(workshopName)){
+			if(workshop.getActivityName().equalsIgnoreCase(workshopName)){
 				double average = workshop.getScores();
 				System.out.println("Average score of the workshop => "+average);
 			}else if(i == lWorkshop.getnElem()-1){
@@ -394,7 +419,11 @@ public class consoleApp {
 
 	}
 
+	/** Method to get the most successful worksghop
+	 * @param lActiv activity list
+	 */
 	public static void Most_SuccessfulWorkshop(ListOfActivities lActiv) {
+
 		System.out.println("\n\n----- Get the most successful workshop -----\n");
 		double maxSuccessRate = -1;
 		Workshop mostSuccessfulWorkshop = null;
@@ -420,10 +449,17 @@ public class consoleApp {
 				System.out.println("No workshops found");
 			}
 		}
-	public static void Show_VisitListFromEntity() {
+	
+	/** Method to show the visit list from an entity
+	 * @param lActiv activity list
+	 */
+	public static void Show_VisitListFromEntity(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Show visit's list offered by an entity -----\n");
 	}
 
+	/** Method to show the data of a talk that the speaker will do
+	 * @param lActiv
+	 */
 	public static void Show_TalkData(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Show the talk data that the person will do -----\n");
 
@@ -444,6 +480,10 @@ public class consoleApp {
 	}
 
 }
+	
+	/** Method to cancel a workshop
+	 * @param lActiv activity list
+	 */
 	public static void Cancel_Workshop(ListOfActivities lActiv) {
 		System.out.println("\n\n----- Cancel a workshop -----\n");
 
@@ -461,7 +501,7 @@ public class consoleApp {
 		for(int i = 0; i < lActiv.getnElem(); i++){
 			Activities currentActivity = lActiv.getActivity(i);
 			
-			if(currentActivity instanceof Workshop && currentActivity.getActivityName().equals(workshopName)){
+			if(currentActivity instanceof Workshop && currentActivity.getActivityName().equalsIgnoreCase(workshopName)){
 				Workshop workshop = (Workshop) currentActivity;
 
 				if(workshop.getSpotsLeft() == workshop.getCapacity()){
