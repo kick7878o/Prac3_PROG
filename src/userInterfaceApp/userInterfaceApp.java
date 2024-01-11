@@ -48,7 +48,7 @@ public class userInterfaceApp extends JFrame{
 		int day;
 		for(int i = 0; i < 10; i++) {
 			day = i+10;
-			lastButtons[i] = new JButton(""+day+"/01/2024" + "\n (" + numDayActivities(day) + ")");
+			lastButtons[i] = new JButton(""+day+"/11/2023" + "\n (" + numDayActivities(day) + ")");
 			lastButtons[i].setMargin(new Insets(20, 10, 20, 10));
 			lastButtons[i].setBorder(new EmptyBorder(5, 40, 5, 40));
 			lastButtons[i].addActionListener(new ButtonClickListener(day));
