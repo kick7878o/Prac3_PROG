@@ -24,14 +24,14 @@ public class consoleApp {
    // Declaration of keyboard readers
    private static Scanner keyboard = new Scanner(System.in); // reads from keyboard
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	private static FileManager fMange = SharedApp.fManger;
+	private static FileManager fManage = SharedApp.fManager;
 
    public static void main(String[] args) throws IOException, ActivityListEmpty {
 		// Data initialization phase
-		ListEntities entityList = fMange.initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
-		ListUsers userList = fMange.initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
-		ListOfActivities activityList = fMange.initActivitiesList("src\\dataFiles\\Activities.txt"); // Initialize Activity Structure
-		ListReservations reservationList = fMange.initReservationList("src\\dataFiles\\Reservation.ser"); // Init reservation list
+		ListEntities entityList = fManage.getListEntities(); // Initialize entity list
+		ListUsers userList = fManage.getListUsers(); // Initialize usersList
+		ListOfActivities activityList = fManage.getListActivities(); // Initialize Activity Structure
+		ListReservations reservationList = fManage.getListReservations(); // Init reservation list
 
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
@@ -582,10 +582,10 @@ public class consoleApp {
 			if (lActv.getnElem() != 0) {
 				f = new BufferedWriter(new FileWriter("src\\dataFiles\\Activities.txt"));
 				var array = lActv.getListActv(); // We get the activity list
-				f.write(fMange.getActivHeader()+ "\n");
-				f.write(fMange.getTalkHeader()+ "\n");
-				f.write(fMange.getVisitHeader()+ "\n");
-				f.write(fMange.getWorkShopHeader()+ "\n"); // Write headers of the activity list
+				f.write(fManage.getActivHeader()+ "\n");
+				f.write(fManage.getTalkHeader()+ "\n");
+				f.write(fManage.getVisitHeader()+ "\n");
+				f.write(fManage.getWorkShopHeader()+ "\n"); // Write headers of the activity list
 				f.write(Integer.toString(lActv.getnElem())+ "\n"); // Write nElements of the list
 	
 				// Iterate over the elements of the list and write it into the file

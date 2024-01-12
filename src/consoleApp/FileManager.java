@@ -15,13 +15,13 @@ import reservations.*;
 import users.*;
 
 public class FileManager {
-   private ListOfActivities lActiv; 
-   private ListReservations lResv;
-   private ListEntities lEntity; 
-   private ListUsers lUser;
+   private ListOfActivities lActiv = initActivitiesList(); 
+   private ListReservations lResv = initReservationList(); 
+   private ListEntities lEntity = initEntityList(); 
+   private ListUsers lUser = initUserList();
 	// Global variables to catch the headers of each file 
 	private String ActivityListHeader, TalkListHeader, VisitListHeader, WorkShopListHeader;
-	private File fileCheck; // To chekc if the file exists
+	private File fileCheck; // To check if the file exists
 
    // Different Getters
    public ListOfActivities getListActivities() { return lActiv; }
@@ -39,13 +39,13 @@ public class FileManager {
 	 * @param pathFile ubication of the file to load
 	 * @return list of reservations
 	 */
-	public ListOfActivities initActivitiesList(String pathFile) {
+	public ListOfActivities initActivitiesList() {
 		Scanner f = null;
 		try {
-			fileCheck = new File(pathFile); // Check if the file exists
+			fileCheck = new File("src\\dataFiles\\Activities.txt"); // Check if the file exists
 
 			if (fileCheck.exists()) {
-				f = new Scanner(new File(pathFile)); // File reader
+				f = new Scanner(fileCheck); // File reader
 				ActivityListHeader = f.nextLine(); // Activity header
 				TalkListHeader = f.nextLine(); // Talk header
 				VisitListHeader = f.nextLine(); // Visit header
@@ -83,7 +83,7 @@ public class FileManager {
 				return lActiv;
 			}								 
 		} catch (FileNotFoundException e) {
-			System.err.println("<<<<< Activity.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
+			System.err.println("<<<<< Activity.txt file NOT FOUND in path >>>>>");
 			return null;
 		} catch (Exception e) {
 			e.printStackTrace(); return null;
@@ -98,10 +98,10 @@ public class FileManager {
 	 * @param pathFile ubication of the file to load
 	 * @return list of reservations
 	 */
-	public ListUsers initUserList(String pathFile) {
+	public ListUsers initUserList() {
 		Scanner f = null;
 		try {
-			f = new Scanner(new File(pathFile)); // File reader
+			f = new Scanner(new File("src\\dataFiles\\Users.txt")); // File reader
 			//String header = f.nextLine(); // Header of the user text file
 			f.nextLine();
 			int nUsers = Integer.parseInt(f.nextLine()); // Number of users in the file
@@ -125,7 +125,7 @@ public class FileManager {
 			System.out.println(" ------- User's list loaded -------\n\n");
 			return lUser;
 		} catch (FileNotFoundException e) {
-			System.err.println("<<<<< Users.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
+			System.err.println("<<<<< Users.txt file NOT FOUND in path >>>>>");
 			return null;
 		} catch (Exception e) {
 			e.printStackTrace(); return null;
@@ -140,10 +140,10 @@ public class FileManager {
 	 * @param pathFile ubication of the file to load
 	 * @return list of reservations
 	 */
-	public ListEntities initEntityList(String pathFile) {
+	public ListEntities initEntityList() {
 		Scanner f = null;
 		try {
-			f = new Scanner(new File(pathFile));
+			f = new Scanner(new File("src\\dataFiles\\Entity.txt"));
 			//String header = f.nextLine();
 			f.nextLine();
 			int nEntities = Integer.parseInt(f.nextLine());
@@ -166,7 +166,8 @@ public class FileManager {
 			System.out.println("\n------- Entity's list loaded -------\n\n");
 			return lEntity;
 		} catch (FileNotFoundException e) {
-			System.err.println("<<<<< Entity.txt file NOT FOUND in path: " +pathFile+ " >>>>>");
+			System.err.println("<<<<< Entity.txt file NOT FOUND in path >>>>>");
+			e.printStackTrace();
 			return null;
 		} catch (Exception e) {
 			e.printStackTrace(); return null;
@@ -180,12 +181,12 @@ public class FileManager {
 	 * 
 	 * @return list of reservations
 	 */
-	public ListReservations initReservationList(String pathFile) {
+	public ListReservations initReservationList() {
 		try {
-			File check = new File(pathFile);
+			File check = new File("src\\dataFiles\\Reservation.ser");
 
 			if (check.exists()) { // If the file in that path exists
-				var iFile = new ObjectInputStream(new FileInputStream(pathFile));
+				var iFile = new ObjectInputStream(new FileInputStream("src\\dataFiles\\Reservation.ser"));
 				
 				var length = iFile.readInt(); // Length of the list
 				lResv = new ListReservations(length); // New reserv list

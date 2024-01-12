@@ -7,5 +7,5 @@ package consoleApp;
  * @author Joan David Frent Frent (joandavid.frentf@estudiants.urv.cat)
  */
 public class SharedApp {
-    public static final FileManager fManger = new FileManager();
+    public static final FileManager fManager = new FileManager();
 }

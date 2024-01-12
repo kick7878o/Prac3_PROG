@@ -23,13 +23,13 @@ public class userInterfaceApp extends JFrame{
     }
    
    private static final long serialVersionUID = 1L;
-	private static FileManager fMange = SharedApp.fManger;
+	private static FileManager fManage = SharedApp.fManager;
 
 	// Data initialization phase
-	ListEntities entityList = fMange.initEntityList("src\\dataFiles\\Entity.txt"); // Initialize entity list
-	ListUsers userList = fMange.initUserList("src\\dataFiles\\Users.txt"); // Initialize usersList
-	ListOfActivities activityList = fMange.initActivitiesList("src\\dataFiles\\Activities.txt"); // Initialize Activity Structure
-	ListReservations reservationList = fMange.initReservationList("src\\dataFiles\\Reservation.ser"); // Init reservation list
+	ListEntities entityList = fManage.getListEntities(); // Initialize entity list
+	ListUsers userList = fManage.getListUsers(); // Initialize usersList
+	ListOfActivities activityList = fManage.getListActivities(); // Initialize Activity Structure
+	ListReservations reservationList = fManage.getListReservations(); // Init reservation list
 
 	private JButton[] lastButtons;
 
