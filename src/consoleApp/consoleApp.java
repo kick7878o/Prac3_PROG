@@ -375,6 +375,8 @@ public class consoleApp {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			System.out.println("\n\n  ____ ERRROR: You have to write a number ____\n");
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			System.out.println("No bookings found.");
@@ -526,7 +528,7 @@ public class consoleApp {
 			System.out.println("\n\n----- Storage phase of data structures -----\n");
 			System.out.println(" Do you want to store everything you've done?");
 			System.out.println("   1. Yes");
-			System.out.println("   2. No (Will loose al modification data)");
+			System.out.println("   2. No (Will loose all modification data)");
 			System.out.print("\tOption: ");
 			try {
 				byte opt = Byte.parseByte(keyboard.next());
