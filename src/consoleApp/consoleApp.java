@@ -247,22 +247,16 @@ public class consoleApp {
 		System.out.println("\n\n----- Show user's list from a workshop -----\n");
 		
 		System.out.println("Enter the workshop code");
+
+		Scanner keyboard = new Scanner(System.in);
 		String workshopCode = keyboard.nextLine();
-		boolean userFound = false;
 		
-		try{
 			for(int i = 0; i < lResv.getnElem(); i++){
 				Reservation currentReservation = lResv.getReservation(i);
 
 				if(currentReservation.getIdWorkShop().equals(workshopCode)){
 					System.out.println("User: " +currentReservation.getUser());
-					userFound = true;
 				}	
-			}
-			if(!userFound)
-				throw new NoReservationFound("No reservations found for workshop with code: " +workshopCode);
-		} catch (NoReservationFound e){
-			System.out.println(e.getMessage());
 		}
 	}
 	
