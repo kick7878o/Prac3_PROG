@@ -92,17 +92,17 @@ public abstract class Activities {
     public abstract void fromTextFormat(String txt);
 
 
-    /** Method that calls a Visits function to use in Activities
+     /** Method that calls a Visits function to use in Activities
      * @return boolean with data
      */
     public boolean isAudioGuided() { 
-        Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityDay, activityName, activityLocation, activityCode, postalCode, activityCode, entityCreator);
+        Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityCode, activityName, activityLocation, postalCode, activityDay, entityCreator);
         return a.isAudioGuided(); }
 
     /** Method that calls a Visits function to use in Activities
      * @return boolean with data
      */
     public boolean isBlindFriendly() { 
-    Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityDay, activityName, activityLocation, activityCode, postalCode, activityCode, entityCreator);
+    Activities a = new Visits(isAudioGuided(), isAudioGuided(), activityCode, activityName, activityLocation, postalCode, activityDay, entityCreator);
     return a.isBlindFriendly(); }
 }

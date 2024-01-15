@@ -11,37 +11,90 @@ import activities.*;
    }
 
    public void testAddActivity(){
-      // Si generamos el codigo de esta forma con el String code, no puede llamar a la funcion ya que está dentro de una clase y tendriamos que crear una variable con una Actividad ya sea talk o lo q sea
-      // Y ademas llamar tipo algo.generateActvityCode()
-      String code;
-      code =generateActvityCode();
 
-      //Si lo hacemos de esta forma generando con un null en lugar de act_code, podemos crear la actividad sino no se puede llamando a la funcion para generarlo directamente
-          Talk activ= new Talk("Yo,",null, "TALK", "Swim", 43001, 15, "Swimmers");
-      // una vez generamos la actividad, le creamos el activity code ya que ahora si podemos llamarlo
-          activ.generateActivityCode();
+         // Create the entity Names
+         String entityName = "SDTT";
+         String entityName2 = "ADET";
+         String entityName3 = "TFTT";
+         String entityName4 = "NOPQ";
+         String entityName5 = "UFDT";
 
-      
-      // SOLUCION PROPUESTA
-
-         // Por ejemplo pones algun nombre de entidad (como son constantes le enseñas la lista con entidades disponibles y ya)
-         String entityName;
-
-         // Generas el codigo segun el nombre de la entidad
+         // Generate the code depending on the entity name for each entity
+         // First one
+         String code;
+         do { // Make the do while to see if it exists in the actual list
+            code = generateActivityCodes(entityName);
+         } while (listOfActivities.checkActivCode(code) == true); 
+        // Second one
          String code2;
-         do { // Haces un bucle para ver si existe o no el codigo en la lista actual
+         do { // Make the do while to see if it exists in the actual list
             code2 = generateActivityCodes(entityName);
          } while (listOfActivities.checkActivCode(code2) == true); 
+         // Third one
+         String code3;
+         do { // Make the do while to see if it exists in the actual list
+            code3 = generateActivityCodes(entityName);
+         } while (listOfActivities.checkActivCode(code3) == true); 
+         // Fourth one
+         String code4;
+         do { // Make the do while to see if it exists in the actual list
+            code4 = generateActivityCodes(entityName);
+         } while (listOfActivities.checkActivCode(code4) == true); 
+         // Fifth one
+         String code5;
+         do { // Make the do while to see if it exists in the actual list
+            code5 = generateActivityCodes(entityName);
+         } while (listOfActivities.checkActivCode(code5) == true); 
 
-         // Creas la actividad con el codigo generado y entidad seleccionada + datos que sean
-         Talk activ2 = new Talk("Pepito", code2, "Cafeina", "ESPAÑA",
+
+
+         // Generate the activity with each corresponent dadas.
+         Talk activ = new Talk("Sergi", code, "Historia guide", "Tarragona",
           43098, 15, entityName);
+          
+         Visits activ2 = new Visits(true, true, code2, "Historia guide", "Tarragona", 
+         43098, 16, entityName2);
+
+         Talk activ3 = new Talk("Marcos", code, "Science talk", "Madrid", 28040 , 18, entityName3);
+
+         Visits activ4 = new Visits(false, false, code2, "Visit route", "Lleida", 
+         25003, 17, entityName4);
+
+         Talk activ5 = new Talk("Paula", code, "Tecnologic Talk", "Malaga",
+          29001, 19, entityName5);
 
          // Añades la actividad a la lista
+         listOfActivities.addActivity(activ);
          listOfActivities.addActivity(activ2);
+         listOfActivities.addActivity(activ3);
+         listOfActivities.addActivity(activ4);
+         listOfActivities.addActivity(activ5);
 
-      // Y fin
+         System.out.println("We will have the activities:"+ listOfActivities.toString());
+      
+         // Start with the tests
 
+         // First: see how many TALK we have
+
+        System.out.println("We will have"+listOfActivities.getNumberTalks()+"TALK's");
+
+        // Followed by see how many Visits do we have
+
+        System.out.println("We will have"+listOfActivities.getNumberVisits()+"Visits");
+
+        // And finally how many Workshops we have 
+
+        System.out.println("We will have"+listOfActivities.getNumberWorkShops()+"Workshops");
+
+        // Now we will try to filter by Visits
+
+        listOfActivities.filterByVisits();
+
+        System.out.println("We will have the activities filtered by Visits:"+ listOfActivities.toString());
+
+        // Test if we have an activity in the day 17
+
+        System.out.println("We have the activity"+ listOfActivities.getActivityByDay(17)+"In the day 17");
 
    }
    private static String generateActivityCodes(String entityName) {
