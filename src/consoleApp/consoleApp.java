@@ -251,11 +251,11 @@ public class consoleApp {
 		Scanner keyboard = new Scanner(System.in);
 		String workshopCode = keyboard.nextLine();
 		
-			for(int i = 0; i < lResv.getnElem(); i++){
+			for(int i = 0; i < lResv.getnElem(); i++){ //Iterate over the resrvation list
 				Reservation currentReservation = lResv.getReservation(i);
 
 				if(currentReservation.getIdWorkShop().equals(workshopCode)){
-					System.out.println("User: " +currentReservation.getUser());
+					System.out.println("User: " +currentReservation.getUser()); //Show the users with the same workshopCode
 				}	
 		}
 	}
