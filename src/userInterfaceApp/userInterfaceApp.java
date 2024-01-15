@@ -180,6 +180,7 @@ public class userInterfaceApp extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// Mostrar información de la lista de acciones del día
             filterByWorkshop();
+			JOptionPane.showMessageDialog(null, "See the console to see the filtered activities");
 		}
 		
 	}
@@ -194,6 +195,7 @@ public class userInterfaceApp extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// Mostrar información de la lista de acciones del día
             filterByVisits();
+			JOptionPane.showMessageDialog(null, "See the console to see the filtered activities");
 		}
 		
 	}
@@ -208,6 +210,7 @@ public class userInterfaceApp extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// Mostrar información de la lista de acciones del día
             filterByTalk();
+			JOptionPane.showMessageDialog(null, "See the console to see the filtered activities");
 		}
 		
 	}
