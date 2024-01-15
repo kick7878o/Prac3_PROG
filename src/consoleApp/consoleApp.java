@@ -248,7 +248,6 @@ public class consoleApp {
 		
 		System.out.println("Enter the workshop code");
 
-		Scanner keyboard = new Scanner(System.in);
 		String workshopCode = keyboard.nextLine();
 		
 			for(int i = 0; i < lResv.getnElem(); i++){
