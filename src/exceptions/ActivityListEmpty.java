@@ -8,6 +8,6 @@ package exceptions;
  */
 public class ActivityListEmpty extends Exception {
    public ActivityListEmpty() {
-      super("\n\n\t<<<<<<The list of activities is empty >>>>>>\n\n\n");
+      super("\n\n\t<<<<<< The list of activities is empty >>>>>>\n\n\n");
    }
 }
