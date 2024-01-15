@@ -557,7 +557,7 @@ public class consoleApp {
 				System.out.println("\n\n ------- Reservation list stored -------\n");
 				oFile.close();
 			} else {
-				System.out.println("\n\n ------- Nothing to store from the reservation list -------\n\n");
+				throw new ReservationListEmpty();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
