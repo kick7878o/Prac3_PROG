@@ -58,4 +58,19 @@ public class ListEntities {
 
         return aux;
     }
+
+    /** Method that gets an entity by its name
+     * 
+     * @return entity
+     */
+    public Entity entityPerName(String name){
+        // we initzialize it with the first value of the string
+        Entity aux=listEnt[0];
+        for(int i=0; i<listEnt.length; i++){
+            if(listEnt[i].getName()==name){
+                aux= listEnt[i];
+            }
+        }
+        return aux;
+    }
 }

@@ -320,11 +320,24 @@ private ListOfActivities blindFiltered(Entity entit, boolean blind){
    }
    return aux;
 }
+public ListOfActivities getVisitsPerEntity(Entity entit){
+   ListOfActivities aux = new ListOfActivities(nElem);
+   int j=0;
+      for(int i=0;i<nElem;i++){
+         // Checks if the entitiy creator is the same as the name of the entity and if its blind guided
+         if(listActv[i].entityCreator == entit.getName()){
+            aux.addActivity(listActv[j]);
+            j++;
+         }
+      }
+   return aux;
+}
+
  /** Method that creates a new auxiliar table to save the audio & blind guided activities
     * 
     * @return a new list with the audio & blind guied activities
     */
-public ListOfActivities getVisitsPerEntity(Entity entit, boolean audio, boolean blind){
+public ListOfActivities getVisitsPerEntityFiltered(Entity entit, boolean audio, boolean blind){
 
    ListOfActivities aux = new ListOfActivities(nElem);
    

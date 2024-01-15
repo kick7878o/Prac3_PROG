@@ -33,6 +33,7 @@ public class consoleApp {
 		ListOfActivities activityList = fManage.getListActivities(); // Initialize Activity Structure
 		ListReservations reservationList = fManage.getListReservations(); // Init reservation list
 
+		
 		boolean exit = false; // Boolean to handle if the user wants to end the program
 			// Main loop
 			do {
@@ -43,8 +44,8 @@ public class consoleApp {
 						// We use '->' to remove the need of adding a 'break;' after each case
 						// Important note: can't add more than 1 instruction to each case
 						case  1 -> Show_DataList(userList, reservationList, activityList, entityList);
-					 	case  2 -> Show_ActivitiesFromEntity(); 
-						case  3 -> Show_ActivitiesXDay(); 
+					 	case  2 -> Show_ActivitiesFromEntity(activityList, entityList); 
+						case  3 -> Show_ActivitiesXDay(activityList); 
 						case  4 -> Show_WorkshopListWSpots(activityList); 
 						case  5 -> Add_Activity(activityList); 
 						case  6 -> Register_UserReservation(userList, activityList, reservationList); 
@@ -53,7 +54,7 @@ public class consoleApp {
 						case  9 -> Register_PunctuationFromUserAfterworkshop(userList, reservationList, activityList); 
 						case 10 -> Calculate_AverageWorkshop(activityList); 
 						case 11 -> Most_SuccessfulWorkshop(activityList); 
-						case 12 -> Show_VisitListFromEntity(activityList); 
+						case 12 -> Show_VisitListFromEntity(activityList, entityList); 
 						case 13 -> Show_TalkData(activityList); 
 						case 14 -> Cancel_Workshop(activityList); 
 						case 15 -> exit = true; 
@@ -120,11 +121,15 @@ public class consoleApp {
 		System.out.println(lResv.toString());
 
 	}
-	public static void Show_ActivitiesFromEntity() {
-		System.out.println("\n\n----- Show the activity list from a specific entity -----\n");
+	public static void Show_ActivitiesFromEntity(ListOfActivities lActv, ListEntities lEntity) {
+		String nomentit = keyboard.nextLine(); // Name of the entity
+		Entity entit = lEntity.entityPerName(nomentit);
+		ListOfActivities lEntit = lActv.getVisitsPerEntity(entit);
+		System.out.println("\n\n----- Show the activity list from a specific entity called: "+entit.getName()+"-----\n"+lEntit);
 	}
-	public static void Show_ActivitiesXDay() {
-		System.out.println("\n\n----- Show the activity list from a given day -----\n");
+	public static void Show_ActivitiesXDay(ListOfActivities lActv) {
+		int day = keyboard.nextInt(); // Get an specific day
+		System.out.println("\n\n----- Show the activity list from the day: "+day+" -----\n"+lActv.getActivityByDay(day));
 	}
 	
 	/** Method that shows a list of workshops with available spots
@@ -155,12 +160,66 @@ public class consoleApp {
 
 		}
 	}
+
+	private static String generateActivityCodes(String entityName) {
+		// New substring with their first 3 letters: URVASB -> aux = URV
+		String aux = entityName.substring(0,2).toUpperCase();
+		// Generate random number between 100 & 900
+		int num = 100 + (int) (Math.random() * 900);
+  
+		return aux + num;
+	}
 	
 	/** Method to add an activity to the list
 	 * @param lActiv
 	 */
 	public static void Add_Activity(ListOfActivities lActiv) {
-		System.out.println("\n\n----- Add new activity -----\n");
+		System.out.println("\n\n----- Add the new activity of the type:-----\n");
+		System.out.println("Type the name of the entity");
+		String nomentit = keyboard.nextLine(); // Name of the entity
+		System.out.println("Type the day");
+		int day = keyboard.nextInt(); // Day of the activity
+		String actCode = generateActivityCodes(nomentit);
+		System.out.println("Type the location of the activity");
+		String location = keyboard.nextLine(); // Location of the activity
+		System.out.println("Type the activity name of the activity ");
+		String activityName = keyboard.nextLine(); // Name of the activity
+		System.out.println("Type the postal code of the activity");
+		int postalCode = keyboard.nextInt(); // Postal code of the activity
+		System.out.println("Type 1 for Talk, Type 2 for Visits, Type 3 for Workshop");
+		int op = keyboard.nextInt();
+		switch(op){
+			case 1: 
+			System.out.println("Type the name of the speaker of the activity");
+				String sName = keyboard.nextLine();
+				Talk activ = new Talk(sName, actCode, activityName, location, postalCode, day, nomentit);
+				lActiv.addActivity(activ);
+				break;
+			case 2:
+			System.out.println("Type if the activity is audio guided ");
+				boolean aguide = keyboard.hasNextBoolean();
+				System.out.println("Type if the activity is bliend friendly");
+				boolean bfriend = keyboard.hasNextBoolean();
+				Visits activ2 = new Visits(aguide, bfriend, actCode, activityName, location, 
+				postalCode, day, nomentit);
+				lActiv.addActivity(activ2);
+				break;
+			case 3:
+			 System.out.println("Type the starting hour of the workshop (format hh:mm)");
+			 String startingHour = keyboard.nextLine(); // Starting hour of the workshop (format hh:mm)
+			 System.out.println("Type the duration of the workshop (in minutes)");
+     		 int duration= keyboard.nextInt(); // Duration of the workshop (in minutes)
+			 System.out.println("Type the capacity of the Workshop");
+    		 int capacity = keyboard.nextInt(), spotsLeft=capacity; // Max capacity & spots left to the workshop
+			 System.out.println("Type the sumRates of punctuation");
+    		 int sumRates= keyboard.nextInt(); // Total sum of punctuation
+			 System.out.println("Type the number of people who rated the workshop");
+    		 int nPeople= keyboard.nextInt(); // number of pepole who rated the workshop
+			 Workshop activ3 = new Workshop(startingHour, duration, capacity, spotsLeft, sumRates, nPeople, actCode, activityName, location, postalCode, day, nomentit);
+			 lActiv.addActivity(activ3);
+			break;
+		}
+
 	}
 
 	/** Method to register a user reservation
@@ -446,8 +505,13 @@ public class consoleApp {
 	/** Method to show the visit list from an entity
 	 * @param lActiv activity list
 	 */
-	public static void Show_VisitListFromEntity(ListOfActivities lActiv) {
-		System.out.println("\n\n----- Show visit's list offered by an entity -----\n");
+	public static void Show_VisitListFromEntity(ListOfActivities lActiv, ListEntities lEntity) {
+		String nomentit = keyboard.nextLine(); // Name of the entity
+		Entity entit = lEntity.entityPerName(nomentit);
+		boolean audio = keyboard.hasNextBoolean();
+		boolean blind = keyboard.hasNextBoolean();
+		ListOfActivities lEntit = lActiv.getVisitsPerEntityFiltered(entit, audio, blind);
+		System.out.println("\n\n----- Show the activity list from a specific entity called: "+entit.getName()+"-----\n"+lEntit);
 	}
 
 	/** Method to show the data of a talk that the speaker will do
