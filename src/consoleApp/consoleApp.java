@@ -411,9 +411,9 @@ public class consoleApp {
 	
 				byte rate;
 				do { // Loop to ask for the rate
-					System.out.print("\n\nIndicate the rate you want to give to the workshop: ");
+					System.out.print("\n\nIndicate the rate you want to give to the workshop [0-10]: ");
 					rate = keyboard.nextByte();
-				} while (rate < 0 && rate > 10);
+				} while (checkRateLevel(rate) == false);
 	
 				// register punctuation in the reservation
 				lResv.registerPunctuation(wkCode, rate);
@@ -436,6 +436,15 @@ public class consoleApp {
 			e.printStackTrace();
 		
 		}
+	}
+
+	/** Method to check if the rate is in its range
+	 * 
+	 * @param rate number
+	 * @return true in range, false otherwise
+	 */
+	private static boolean checkRateLevel(byte rate) {
+		return rate >= 0 && rate <= 10;
 	}
 	
 	/** Method to calculate the average a workshop has recieved
